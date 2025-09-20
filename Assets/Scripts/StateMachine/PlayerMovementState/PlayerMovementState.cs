@@ -9,11 +9,6 @@ public abstract class PlayerMovementState
         
     }
 
-	public  virtual void ChangePlayerMovementDelayed()
-	{
-
-	}
-
 	public virtual void PlayerMovementSpeed()
 	{
 

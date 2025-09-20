@@ -40,11 +40,11 @@ public class PlayerCamera : MonoBehaviour
 		//playerMovementController = GetComponent<PlayerMovementController>();
 
 		PlayerCameraDistanceX = -0.85f;
-		PlayerCameraDistanceY = -1;
-		PlayerCameraDistanceZ = 1.8f;
+		PlayerCameraDistanceY = -2;
+		//PlayerCameraDistanceZ = 1.8f;
 
+		PlayerCameraDistanceZ = 4f;
 
-		
 	}
 
 	void Update()

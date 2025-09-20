@@ -1,11 +1,11 @@
-using System;
+
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using System.Collections;
 using System.Threading.Tasks;	
-using System.Diagnostics;
+
 using Unity.Mathematics;
 
 
@@ -14,7 +14,8 @@ public class PlayerMovementController : MonoBehaviour
 	public PlayerInputsList playerInputsList;
 	PlayerBehaviour playerBehaviour;
 	PlayerCamera playerCamera;
-
+	private Animator playerAnimator;
+	private string currentPlayerAnimation = "";
 	public float PlayerCurrentHeight { get; private set; }
 	public float PlayerCrouchingHeight { get; private set; }
 	public float PlayerStandingHeight { get; private set; }
@@ -25,6 +26,8 @@ public class PlayerMovementController : MonoBehaviour
 
 	public Vector3 PlayerWorldMovement;
 
+	public CapsuleCollider playerCapsuleCollider;
+	//public CapsuleCollider PlayerColliderCapsuleObject;
 	public float PlayerRotationSpeed { get; private set; }
 	public float PlayerDownRayYPosition { get; private set; }
 	public float PlayerUpRayYPosition { get; private set; }
@@ -38,6 +41,8 @@ public class PlayerMovementController : MonoBehaviour
 	public bool IsPlayerAbleToStandUp { get; private set; }
 	public bool IsPlayerFalling { get; private set; }
 	public bool IsPlayerCrouching { get; private set; }
+
+	public bool IsPlayerAbleToSlide { get; private set; }
 
 	public PlayerMovementStateType playerMovementStateType;
 	public PlayerMovementState playerMovementState;
@@ -56,12 +61,27 @@ public class PlayerMovementController : MonoBehaviour
 
 	void Start()
 	{
+		//PlayerTransform = GetComponent<Transform>();
 		
-		PlayerCrouchingHeight = 0.5f;
-		PlayerStandingHeight = 1;
+		
+		//playerCapsuleCollider.center = new Vector3(0, 1, 0);
 
+		playerAnimator = GetComponent<Animator>();
 
-	SetPlayerMovementState(playerMovementStateType);
+		IsPlayerAbleToSlide = true;
+
+		//PlayerTransform
+
+		//PlayerCrouchingHeight = 0.5f;
+		//PlayerStandingHeight = 1;
+
+		PlayerCurrentHeight = 2;
+		PlayerCrouchingHeight = 1;
+		PlayerStandingHeight = 2;
+
+		ChangePlayerAnimation("Idle");
+
+		SetPlayerMovementState(playerMovementStateType);
 
 
 		_playerPreviousFramePosition = transform.position;
@@ -69,13 +89,16 @@ public class PlayerMovementController : MonoBehaviour
 		playerInputsList = GetComponent<PlayerInputsList>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
+		
 
 		PlayerMovementSpeed = 3f;
 		PlayerWalkingSpeed = 3f;
 		PlayerRunningSpeed = 6f;
 		PlayerCrouchingSpeed = 1.8f;
-		PlayerSlidingSpeed = 10;
 
+		///////////////
+		PlayerSlidingSpeed = 7.5f;
+		///////////////
 	}
 
 
@@ -89,6 +112,8 @@ public class PlayerMovementController : MonoBehaviour
 	}
 	void Update()
 	{
+		//playerCapsuleCollider.center = new Vector3(0, 1, 0);
+		//Debug.Log(PlayerColliderCapsuleObject.height);
 		//Debug.Log(_playerMovementChange);
 		//Debug.Log(IsPlayerGrounded);
 		//Debug.Log(IsPlayerFalling);
@@ -96,31 +121,53 @@ public class PlayerMovementController : MonoBehaviour
 
 		//UnityEngine.Debug.Log(IsPlayerAbleToMove);
 
-		
+
 		//PlayerRigidBody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-		 transform.localScale = new Vector3(transform.localScale.x, PlayerCurrentHeight, transform.localScale.z);
+
+		// transform.localScale = new Vector3(transform.localScale.x, PlayerCurrentHeight, transform.localScale.z);
 
 		//Debug.Log(IsPlayerCrouching);
 
 		IsPlayerMoving = (Mathf.Abs(_playerPreviousFramePositionChange.x) > 0.001f || Mathf.Abs(_playerPreviousFramePositionChange.z) > 0.001f);
 
 		
+		
 		RaycastHit hitInfo;
+
+		//PlayerCurrentHeight = PlayerTransform.position.y;
 
 		if (IsPlayerCrouching == false)
 		{
-			PlayerDownRayYPosition = -0.9f;
-			PlayerUpRayYPosition = 0.9f;
-			
-			PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
+			PlayerDownRayYPosition = 0;
+			PlayerUpRayYPosition = 0;
+
+			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
+			//PlayerColliderCapsuleObject.height = 2;
+			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y - 0.5f, playerCapsuleCollider.center.z);
+			playerCapsuleCollider.height = 2;
+			playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y, playerCapsuleCollider.center.z);
+			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
+			//PlayerColliderCapsuleObject.height = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
 		}
 		else if (IsPlayerCrouching == true)
 		{
-			PlayerDownRayYPosition = -0.4f;
-			PlayerUpRayYPosition = 0.4f;
-			PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
-			
+			PlayerDownRayYPosition = 0;
+			PlayerUpRayYPosition = 1f;
+
+			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
+			//PlayerColliderCapsuleObject.height = 1;
+
+			//playerCapsuleCollider.height = transform.position.y + (0.5f);
+			playerCapsuleCollider.height = 1;
+			playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y-0.5f, playerCapsuleCollider.center.z);
+			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
+			//PlayerColliderCapsuleObject.height = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
+
 		}
+		
+
+		
+
 		//UnityEngine.Debug.Log(PlayerCurrentHeight);
 		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.2f);
 
@@ -157,7 +204,9 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		else PlayerWorldMovement.z = 0;
 
-
+		/////////////////////////////
+		/////////////////////////////
+		//Debug.Log(IsPlayerAbleToSlide);
 
 		playerMovementState.ChangePlayerMovement();
 		playerMovementState.PlayerMovementSpeed();
@@ -198,16 +247,19 @@ public class PlayerMovementController : MonoBehaviour
 			IsPlayerAbleToMove = true;
 			IsPlayerCrouching = false;
 			PlayerRotationSpeed = 300f;
+			ChangePlayerAnimation("Idle");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerWalking)
 		{
 			newState = new WalkingPlayerMovementState(this);
 			IsPlayerCrouching = false;
+			ChangePlayerAnimation("Walking");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerRunning)
 		{
 			newState = new RunningPlayerMovementState(this);
 			IsPlayerCrouching = false;
+			ChangePlayerAnimation("Running");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerJumping)
 		{
@@ -225,11 +277,13 @@ public class PlayerMovementController : MonoBehaviour
 			IsPlayerCrouching = true;
 			IsPlayerAbleToMove = true;
 			PlayerRotationSpeed = 300f;
+			ChangePlayerAnimation("CrouchingIdle");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingWalking)
 		{
 			newState = new CrouchingWalkingPlayerMovementState(this);
 			IsPlayerCrouching = true;
+			ChangePlayerAnimation("CrouchingWalking");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerSliding)
 		{
@@ -237,7 +291,7 @@ public class PlayerMovementController : MonoBehaviour
 			IsPlayerCrouching = true;
 			IsPlayerAbleToMove = false;
 			PlayerRotationSpeed = 0;
-			newState.ChangePlayerMovementDelayed();
+			ChangePlayerAnimation("Sliding");
 		}
 		else
 		{
@@ -250,5 +304,47 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		PlayerMovementSpeed = SetSpeed;
 		return PlayerMovementSpeed;
+	}
+
+	IEnumerator PlayerSlidingCourutine()
+	{
+		IsPlayerAbleToSlide = false;
+		// Ускоряем игрока
+		PlayerRigidBody.AddForce(transform.forward * PlayerSlidingSpeed, ForceMode.Impulse);
+		
+		// Запрещаем игроку поворачиваться во время скольжения
+		PlayerRigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+		
+		yield return new WaitForSeconds(1f);
+
+		// В сконце скольжения резко останавливаем игрока
+		PlayerRigidBody.AddForce(Vector3.zero, ForceMode.Acceleration);
+		PlayerRigidBody.linearVelocity = Vector3.zero;
+		PlayerRigidBody.angularVelocity = Vector3.zero;
+		PlayerRigidBody.MovePosition(PlayerRigidBody.transform.position);
+
+		
+		// StateMachine меняется на CrouchingIdle
+		SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
+
+
+
+		IsPlayerAbleToSlide = true;
+	}
+
+
+	// а вот эту функцию с корутиной вызывает StateMachine которая НЕ monobehaviour
+	public void StartPlayerSliding()
+	{
+		StartCoroutine(PlayerSlidingCourutine());
+	}
+
+	private void ChangePlayerAnimation(string animation, float crossfade = 0.2f)
+	{
+		if(currentPlayerAnimation != animation)
+		{
+			currentPlayerAnimation = animation;
+			playerAnimator.CrossFade(animation, crossfade);
+		}
 	}
 }
