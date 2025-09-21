@@ -1,13 +1,5 @@
-
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using System.Collections;
-using System.Threading.Tasks;	
-
-using Unity.Mathematics;
-
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -17,8 +9,12 @@ public class PlayerMovementController : MonoBehaviour
 	private Animator playerAnimator;
 	private string currentPlayerAnimation = "";
 	public float PlayerCurrentHeight { get; private set; }
+	public bool IsPLayerSliding { get; private set; }
 	public float PlayerCrouchingHeight { get; private set; }
 	public float PlayerStandingHeight { get; private set; }
+	private float angle;
+	private float moveFactor;
+	public bool IsPlayerOnSlope { get; private set; }
 
 	public GameObject PlayerCameraObject;
 	public Transform PlayerTransform;
@@ -28,7 +24,7 @@ public class PlayerMovementController : MonoBehaviour
 
 	public CapsuleCollider playerCapsuleCollider;
 	public Transform playerCapsuleColliderMesh;
-	//public CapsuleCollider PlayerColliderCapsuleObject;
+	
 	public float PlayerRotationSpeed { get; private set; }
 	public float PlayerDownRayYPosition { get; private set; }
 	public float PlayerUpRayYPosition { get; private set; }
@@ -36,6 +32,11 @@ public class PlayerMovementController : MonoBehaviour
 	private Vector3 _playerPreviousFramePositionChange;
 	private Vector3 _playerPreviousFramePosition;
 
+	//private Vector3 PlayerSlopeMovementDirection;
+
+	private Vector3 PlayerMovementDirectionWithCamera;
+	private Vector3 PlayerMovement;
+	private RaycastHit hitInfo;
 	public bool IsPlayerMoving { get; private set; }
 	public bool IsPlayerAbleToMove { get; private set; }
 	public bool IsPlayerGrounded { get; private set; }
@@ -58,23 +59,11 @@ public class PlayerMovementController : MonoBehaviour
 		playerMovementStateType = PlayerMovementStateType.PlayerIdle;
 	}
 
-
-
 	void Start()
 	{
-		//PlayerTransform = GetComponent<Transform>();
-		
-		
-		//playerCapsuleCollider.center = new Vector3(0, 1, 0);
-
 		playerAnimator = GetComponent<Animator>();
 
 		IsPlayerAbleToSlide = true;
-
-		//PlayerTransform
-
-		//PlayerCrouchingHeight = 0.5f;
-		//PlayerStandingHeight = 1;
 
 		PlayerCurrentHeight = 2;
 		PlayerCrouchingHeight = 1;
@@ -84,28 +73,25 @@ public class PlayerMovementController : MonoBehaviour
 
 		SetPlayerMovementState(playerMovementStateType);
 
-
 		_playerPreviousFramePosition = transform.position;
 
 		playerInputsList = GetComponent<PlayerInputsList>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
-		
+
 
 		PlayerMovementSpeed = 3f;
+		//PlayerMovementSpeed = 5f;
 		PlayerWalkingSpeed = 3f;
 		PlayerRunningSpeed = 6f;
 		PlayerCrouchingSpeed = 1.8f;
 
-		///////////////
 		PlayerSlidingSpeed = 7.5f;
-		///////////////
 	}
 
 
 	void OnDrawGizmosSelected()
 	{
-		// Визуализируем луч в редакторе Unity
 		Gizmos.color = Color.red;
 
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.2f);
@@ -113,83 +99,41 @@ public class PlayerMovementController : MonoBehaviour
 	}
 	void Update()
 	{
-		//playerCapsuleCollider.center = new Vector3(0, 1, 0);
-		//Debug.Log(PlayerColliderCapsuleObject.height);
-		//Debug.Log(_playerMovementChange);
-		//Debug.Log(IsPlayerGrounded);
-		//Debug.Log(IsPlayerFalling);
-
-		//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y, playerCapsuleCollider.center.z);
-
-		//UnityEngine.Debug.Log(IsPlayerAbleToMove);
-
-
-		//PlayerRigidBody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
-		// transform.localScale = new Vector3(transform.localScale.x, PlayerCurrentHeight, transform.localScale.z);
-
-		//Debug.Log(IsPlayerCrouching);
-
 		IsPlayerMoving = (Mathf.Abs(_playerPreviousFramePositionChange.x) > 0.001f || Mathf.Abs(_playerPreviousFramePositionChange.z) > 0.001f);
-
-		
-		
-		RaycastHit hitInfo;
-
-		//PlayerCurrentHeight = PlayerTransform.position.y;
 
 		if (IsPlayerCrouching == false)
 		{
 			PlayerDownRayYPosition = 0.1f;
 			PlayerUpRayYPosition = 1.9f;
-
-			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
-			//PlayerColliderCapsuleObject.height = 2;
-			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y - 0.5f, playerCapsuleCollider.center.z);
-
-			//playerCapsuleCollider.height = 2;
-
-			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, playerCapsuleCollider.center.y, playerCapsuleCollider.center.z);
-
-			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y, playerCapsuleCollider.center.z);
-			
-			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
-			//PlayerColliderCapsuleObject.height = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
 		}
 		else if (IsPlayerCrouching == true)
 		{
 			PlayerDownRayYPosition = 0.1f;
 			PlayerUpRayYPosition = 0.9f;
-
-
-			
-			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
-			//PlayerColliderCapsuleObject.height = 1;
-
-			//playerCapsuleCollider.height = transform.position.y + (0.5f);
-
-			//playerCapsuleCollider.height = 1;
-
-			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y - 0.5f, playerCapsuleCollider.center.z);
-
-			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
-			//PlayerColliderCapsuleObject.height = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
-
 		}
 		
-
-		
-
-		//UnityEngine.Debug.Log(PlayerCurrentHeight);
-		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.2f);
+		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f);
 
 		IsPlayerAbleToStandUp = !Physics.Raycast(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up, out hitInfo, 0.3f);
-		//Debug.Log(IsPlayerAbleToStandUp);
 
 		IsPlayerFalling = (_playerPreviousFramePositionChange.y < -0.01f && IsPlayerGrounded == false);
 
+		if( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
+		{
+			if (hitInfo.normal != Vector3.up)
+			{
+				
+				IsPlayerOnSlope = true;
+			}
+			else
+			{
+				
+				IsPlayerOnSlope = false;
+			}
+		}
 
-		
+		//Debug.Log(IsPlayerOnSlope);
+
 
 		if (playerInputsList.GetKeyJump())
 		{
@@ -216,19 +160,96 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		else PlayerWorldMovement.z = 0;
 
-		/////////////////////////////
-		/////////////////////////////
-		//Debug.Log(IsPlayerAbleToSlide);
-
 		playerMovementState.ChangePlayerMovement();
 		playerMovementState.PlayerMovementSpeed();
 
-		Vector3 PlayerMovementDirectionWithCamera = (PlayerWorldMovement.z * playerCamera.CameraForward + PlayerWorldMovement.x * playerCamera.CameraRight);
 
-		Vector3 PlayerMovement = new Vector3(PlayerMovementDirectionWithCamera.x, 0, PlayerMovementDirectionWithCamera.z);
+
+
+		//PlayerSlopeMovementDirection =  Vector3.ProjectOnPlane(PlayerWorldMovement, hitInfo.normal);
+
+		/*
+		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
+		{
+			PlayerMovementDirectionWithCamera = (PlayerSlopeMovementDirection.z * playerCamera.CameraForward + PlayerSlopeMovementDirection.x * playerCamera.CameraRight);
+		}
+		else
+		{
+			PlayerMovementDirectionWithCamera = (PlayerWorldMovement.z * playerCamera.CameraForward + PlayerWorldMovement.x * playerCamera.CameraRight);
+
+		}
+		*/
+		PlayerMovementDirectionWithCamera = (PlayerWorldMovement.z * playerCamera.CameraForward + PlayerWorldMovement.x * playerCamera.CameraRight);
+
+
+
+
+
+
+
+
+
+		//Debug.Log(IsPlayerGrounded);
+
+
+		//PlayerMovement = new Vector3(PlayerSlopeMovementDirection.x, 0, PlayerSlopeMovementDirection.z);
+
+		
+
+
+		PlayerMovement = new Vector3(PlayerMovementDirectionWithCamera.x, 0, PlayerMovementDirectionWithCamera.z);
+
 		PlayerMovement.Normalize();
 
-		PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
+
+		angle = Vector3.Angle(hitInfo.normal, Vector3.up);
+		//Debug.Log(angle);
+
+		moveFactor = 1 / Mathf.Cos(Mathf.Deg2Rad * angle);
+		//Debug.Log(moveFactor);
+
+		/*
+		Vector3 correction = Vector3.Project(PlayerWorldMovement, hitInfo.normal);
+		if (IsPlayerOnSlope == true)
+		{
+			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerWorldMovement * PlayerMovementSpeed * Time.deltaTime - correction * Time.deltaTime);
+		}
+		else
+		{
+			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
+		}
+		*/
+
+		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
+		{
+			
+			PlayerRigidBody.useGravity = false;
+			/////////////!!!!!!!!!!!!!!!!!!!
+			////////////////!!!!!!!!!!!!!!!!!!!
+			////////////////!!!!!!!!!!!!!!!!!!!
+			if (IsPLayerSliding == false)
+			{
+				PlayerRigidBody.linearVelocity = Vector3.zero;
+			}
+		}
+        else
+        {
+			PlayerRigidBody.useGravity = true;
+		}
+		//Debug.Log(PlayerRigidBody.linearVelocity);
+
+        if (IsPlayerOnSlope == true)
+		{
+			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * moveFactor * PlayerMovementSpeed * Time.deltaTime);
+		}
+		else
+		{
+			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
+		}
+		
+
+		//PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
+
 
 
 		if ((playerBehaviour.GetPlayerBehaviour() == 0) && (PlayerMovement != Vector3.zero) && (playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.ThirdPerson.ToString()))
@@ -323,6 +344,8 @@ public class PlayerMovementController : MonoBehaviour
 	IEnumerator PlayerSlidingCourutine()
 	{
 		IsPlayerAbleToSlide = false;
+		IsPLayerSliding = true;
+
 		// Ускоряем игрока
 		PlayerRigidBody.AddForce(transform.forward * PlayerSlidingSpeed, ForceMode.Impulse);
 		
@@ -344,8 +367,8 @@ public class PlayerMovementController : MonoBehaviour
 
 
 		IsPlayerAbleToSlide = true;
+		IsPLayerSliding = false;
 	}
-
 
 	// а вот эту функцию с корутиной вызывает StateMachine которая НЕ monobehaviour
 	public void StartPlayerSliding()
