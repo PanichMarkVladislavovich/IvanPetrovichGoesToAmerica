@@ -138,8 +138,8 @@ public class PlayerMovementController : MonoBehaviour
 
 		if (IsPlayerCrouching == false)
 		{
-			PlayerDownRayYPosition = 0;
-			PlayerUpRayYPosition = 0;
+			PlayerDownRayYPosition = 0.1f;
+			PlayerUpRayYPosition = 1.9f;
 
 			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
 			//PlayerColliderCapsuleObject.height = 2;
@@ -151,8 +151,8 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		else if (IsPlayerCrouching == true)
 		{
-			PlayerDownRayYPosition = 0;
-			PlayerUpRayYPosition = 1f;
+			PlayerDownRayYPosition = 0.1f;
+			PlayerUpRayYPosition = 0.9f;
 
 			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
 			//PlayerColliderCapsuleObject.height = 1;
@@ -265,11 +265,13 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			newState = new JumpingPlayerMovementState(this);
 			IsPlayerCrouching = false;
+			ChangePlayerAnimation("Jumping");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerFalling)
 		{
 			newState = new FallingPlayerMovementState(this);
 			IsPlayerCrouching = false;
+			ChangePlayerAnimation("Falling");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingIdle)
 		{

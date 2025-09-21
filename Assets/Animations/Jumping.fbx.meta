@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9e80ba420cc7e0845a95d15970a4952e
+guid: 20f2b7638abde944e8a61c384c3ec280
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -29,7 +29,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Jumping
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -497,33 +526,33 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Character_UnityTest_Rigged(Clone)
+    - name: Character_UnityTest_RiggedNEW(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Head
-      parentName: Character_UnityTest_Rigged(Clone)
+      parentName: Character_UnityTest_RiggedNEW(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 100, y: 100, z: 100}
     - name: Hands
-      parentName: Character_UnityTest_Rigged(Clone)
+      parentName: Character_UnityTest_RiggedNEW(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 100, y: 100, z: 100}
     - name: Eye_Human
-      parentName: Character_UnityTest_Rigged(Clone)
+      parentName: Character_UnityTest_RiggedNEW(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 100, y: 100, z: 100}
     - name: GunSmith
-      parentName: Character_UnityTest_Rigged(Clone)
+      parentName: Character_UnityTest_RiggedNEW(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 100, y: 100, z: 100}
     - name: mixamorig:Hips
-      parentName: Character_UnityTest_Rigged(Clone)
+      parentName: Character_UnityTest_RiggedNEW(Clone)
       position: {x: -9.921466e-17, y: 0.922595, z: -0.031008732}
       rotation: {x: -6.101589e-17, y: -0.0035287305, z: -6.144804e-17, w: 0.9999938}
       scale: {x: 1, y: 1, z: 1}
@@ -859,11 +888,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 763185b832a2c7944800210eeec7d141, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
