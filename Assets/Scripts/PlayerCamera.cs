@@ -32,13 +32,8 @@ public class PlayerCamera : MonoBehaviour
 	public Vector3 CameraForward;
 	public Vector3 CameraRight;
 
-
-
-	private bool lastHitResult = false;              // Результат предыдущего Linecast
-	private bool currentHitResult = false;           // Результат текущего Linecast
-
-
-
+	
+	public bool IsPlayerCameraFirstPerson { get; private set; }
 
 	private bool canReturn = false;     // Возможность возврата камеры
 	private float startTransitionTime; // Время начала перехода
@@ -46,17 +41,13 @@ public class PlayerCamera : MonoBehaviour
 
 	private float targetDistance;
 
-
-	// Переменная для текущей скорости изменения расстояния
-	private float smoothVelocity = 0f;
-
 		private void Awake()
 	{
 		playerCameraStateType = PlayerCameraStateType.ThirdPerson;
 	}
 	void Start()
 	{
-		currentHitResult = lastHitResult;
+		
 		
 
 		SetPlayerCameraState(playerCameraStateType);
@@ -111,7 +102,7 @@ public class PlayerCamera : MonoBehaviour
 			 targetDistance = hit.distance;
 		}
 
-		Debug.Log(targetDistance);
+		//Debug.Log(targetDistance);
 
 
 		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
@@ -132,7 +123,7 @@ public class PlayerCamera : MonoBehaviour
 					{
 						// Потеря контакта с игроком, идём на минимальное расстояние
 						PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, hit.distance, Time.deltaTime * 4f);
-						//PlayerCameraDistanceZ = Mathf.SmoothDamp(PlayerCameraDistanceZ, targetDistance - 2.5f, ref smoothVelocity, 0.1f);
+						
 					}
 				}
 			}
@@ -144,149 +135,12 @@ public class PlayerCamera : MonoBehaviour
 
 				// Начинаем постепенное удаление камеры
 				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 2.5f, Time.deltaTime * 4f);
-				//PlayerCameraDistanceZ = Mathf.SmoothDamp(PlayerCameraDistanceZ, 2.5f, ref smoothVelocity, 0.1f);
+				
 			}
 
 			canReturn = false; // Отменяем возвращение
 		}
 		
-
-
-
-
-		/*
-		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
-		{
-			// Камера снова видит игрока
-			if (!canReturn)
-			{
-				// Запускаем обратный отсчёт
-				canReturn = true;
-				startTransitionTime = Time.time;
-			}
-			else
-			{
-				// Проверяем, прошёл ли период ожидания
-				if (Time.time - startTransitionTime >= transitionDelay)
-				{
-					if (PlayerCameraDistanceZ >= 0.75f)
-					{
-						// Потеря контакта с игроком, идём на минимальное расстояние
-						PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, PlayerCameraDistanceZ - 0.1f, Time.deltaTime * 200f);
-					}
-				}
-			}
-		}
-		else
-		{
-			if (PlayerCameraDistanceZ <= 2.5f)
-			{
-				// Начинаем постепенное удаление камеры
-				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, PlayerCameraDistanceZ + 0.1f, Time.deltaTime * 200f);
-			}
-
-			canReturn = false; // Отменяем возвращение
-		}
-		*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		/*
-			if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
-			{
-
-				currentHitResult = false;
-
-				if (PlayerCameraDistanceZ >= 0.75f)
-				{
-
-
-						//Debug.Log("NO");
-						PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, PlayerCameraDistanceZ - 0.1f, Time.deltaTime * 200f);
-
-				}
-
-			}
-			else
-			{
-				currentHitResult = true;
-
-			
-				if (PlayerCameraDistanceZ <= 2.5f)
-				{
-
-
-						//Debug.Log("HIT");
-						PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, PlayerCameraDistanceZ + 0.1f, Time.deltaTime * 200f);
-
-				}
-
-			}
-
-		Debug.Log("Before Updated frame");
-
-		Debug.Log("LastHit " + lastHitResult);
-		Debug.Log("CurrentHit " + currentHitResult);
-
-
-
-		if (currentHitResult != lastHitResult)
-		{
-			//Debug.Log("Bruh");
-		}
-			*/
-
-			/*
-		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
-		{
-
-			//currentHitResult = false;
-			if (currentHitResult == lastHitResult && PlayerCameraDistanceZ >= 0.75f)
-			{
-
-
-				//Debug.Log("NO");
-				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 0.75f, Time.deltaTime * 4f);
-
-			}
-		}
-		else
-		{
-			//currentHitResult = true;
-			if (currentHitResult == lastHitResult && PlayerCameraDistanceZ <= 2.5f  )
-			{
-
-
-				//Debug.Log("HIT");
-				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 2.5f, Time.deltaTime * 4f);
-
-			}
-		}
-
-		//lastHitResult = currentHitResult;
-
-		Debug.Log("After Updated frame");
-
-		Debug.Log("LastHit " + lastHitResult);
-		Debug.Log("CurrentHit " + currentHitResult);
-		
-		*/
-		// Сохраняем текущее состояние для следующего кадра
-
 
 
 		CameraForward = transform.forward;
@@ -304,14 +158,17 @@ public class PlayerCamera : MonoBehaviour
 		if (playerCameraStateType == PlayerCameraStateType.FirstPerson)
 		{
 			newState = new FirstPersonPlayerCameraState(this);
+			IsPlayerCameraFirstPerson = true;
 		}
 		else if (playerCameraStateType == PlayerCameraStateType.ThirdPerson)
 		{
 			newState = new ThirdPersonPlayerCameraState(this);
+			IsPlayerCameraFirstPerson = false;
 		}
 		else if (playerCameraStateType == PlayerCameraStateType.Cutscene)
 		{
 			newState = new CutscenePlayerCameraState(this);
+			IsPlayerCameraFirstPerson = false;
 		}
 		else
 		{
