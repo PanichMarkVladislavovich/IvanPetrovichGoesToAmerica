@@ -27,6 +27,7 @@ public class PlayerMovementController : MonoBehaviour
 	public Vector3 PlayerWorldMovement;
 
 	public CapsuleCollider playerCapsuleCollider;
+	public Transform playerCapsuleColliderMesh;
 	//public CapsuleCollider PlayerColliderCapsuleObject;
 	public float PlayerRotationSpeed { get; private set; }
 	public float PlayerDownRayYPosition { get; private set; }
@@ -118,6 +119,7 @@ public class PlayerMovementController : MonoBehaviour
 		//Debug.Log(IsPlayerGrounded);
 		//Debug.Log(IsPlayerFalling);
 
+		//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y, playerCapsuleCollider.center.z);
 
 		//UnityEngine.Debug.Log(IsPlayerAbleToMove);
 
@@ -144,8 +146,13 @@ public class PlayerMovementController : MonoBehaviour
 			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
 			//PlayerColliderCapsuleObject.height = 2;
 			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y - 0.5f, playerCapsuleCollider.center.z);
-			playerCapsuleCollider.height = 2;
-			playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y, playerCapsuleCollider.center.z);
+
+			//playerCapsuleCollider.height = 2;
+
+			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, playerCapsuleCollider.center.y, playerCapsuleCollider.center.z);
+
+			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y, playerCapsuleCollider.center.z);
+			
 			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
 			//PlayerColliderCapsuleObject.height = Mathf.Lerp(PlayerCurrentHeight, PlayerStandingHeight, Time.deltaTime * 15f);
 		}
@@ -154,12 +161,17 @@ public class PlayerMovementController : MonoBehaviour
 			PlayerDownRayYPosition = 0.1f;
 			PlayerUpRayYPosition = 0.9f;
 
+
+			
 			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
 			//PlayerColliderCapsuleObject.height = 1;
 
 			//playerCapsuleCollider.height = transform.position.y + (0.5f);
-			playerCapsuleCollider.height = 1;
-			playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y-0.5f, playerCapsuleCollider.center.z);
+
+			//playerCapsuleCollider.height = 1;
+
+			//playerCapsuleCollider.center = new Vector3(playerCapsuleCollider.center.x, transform.position.y - 0.5f, playerCapsuleCollider.center.z);
+
 			//PlayerCurrentHeight = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
 			//PlayerColliderCapsuleObject.height = Mathf.Lerp(PlayerCurrentHeight, PlayerCrouchingHeight, Time.deltaTime * 15f);
 

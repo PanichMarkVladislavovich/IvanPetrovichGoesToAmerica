@@ -62,7 +62,7 @@ public class PlayerCamera : MonoBehaviour
 
 		PlayerCameraDistanceX = -0.85f;
 		PlayerCameraDistanceY = -2;
-		PlayerCameraDistanceZ = 2.5f;
+		PlayerCameraDistanceZ = 5f;
 	}
 
 	void Update()
@@ -130,11 +130,11 @@ public class PlayerCamera : MonoBehaviour
 		}
 		else
 		{
-			if (PlayerCameraDistanceZ <= 2.5f )
+			if (PlayerCameraDistanceZ <= 5f )
 			{
 
 				// Ќачинаем постепенное удаление камеры
-				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 2.5f, Time.deltaTime * 4f);
+				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
 				
 			}
 
@@ -214,8 +214,8 @@ public class PlayerCamera : MonoBehaviour
 		*/
 		_previousPlayerCameraType = _currentPlayerCameraType;
         _currentPlayerCameraType = newCameraType.ToString();
-		Debug.Log("Previous Cam: " + _previousPlayerCameraType);
-		Debug.Log("Current Cam: " + _currentPlayerCameraType);
+		//Debug.Log("Previous Cam: " + _previousPlayerCameraType);
+		//Debug.Log("Current Cam: " + _currentPlayerCameraType);
 		
 	}
 	public string GetCurrentPlayerCameraType()
