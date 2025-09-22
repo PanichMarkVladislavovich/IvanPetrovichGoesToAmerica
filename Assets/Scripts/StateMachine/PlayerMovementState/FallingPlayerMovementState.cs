@@ -32,6 +32,6 @@ public class FallingPlayerMovementState : PlayerMovementState
 
 	public override void PlayerMovementSpeed()
 	{
-
+		playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);
 	}
 }

@@ -52,6 +52,7 @@ public class PlayerMovementController : MonoBehaviour
 	public float PlayerMovementSpeed { get; private set; }
 	public float PlayerWalkingSpeed { get; private set; }
 	public float PlayerRunningSpeed { get; private set; }
+
 	public float PlayerSlidingSpeed { get; private set; }
 	public float PlayerCrouchingSpeed { get; private set; }
 	private void Awake()
@@ -116,7 +117,12 @@ public class PlayerMovementController : MonoBehaviour
 
 		IsPlayerAbleToStandUp = !Physics.Raycast(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up, out hitInfo, 0.3f);
 
+
+		/////////////
 		IsPlayerFalling = (_playerPreviousFramePositionChange.y < -0.01f && IsPlayerGrounded == false);
+		////////////
+
+
 
 		if( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
 		{
@@ -133,6 +139,11 @@ public class PlayerMovementController : MonoBehaviour
 		}
 
 		//Debug.Log(IsPlayerOnSlope);
+
+		if (_playerPreviousFramePositionChange.y < -0.01f)
+		{
+			//Debug.Log("Falling");
+		}
 
 
 		if (playerInputsList.GetKeyJump())
@@ -238,6 +249,23 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		//Debug.Log(PlayerRigidBody.linearVelocity);
 
+
+
+		if (IsPlayerOnSlope == true)
+		{
+			// Просто перемещаем персонажа параллельно поверхности
+			Vector3 correctedMovement = PlayerMovement * PlayerMovementSpeed * Time.deltaTime;
+			Vector3 projection = Vector3.Project(correctedMovement, hitInfo.normal);
+
+			PlayerRigidBody.MovePosition(PlayerRigidBody.position + correctedMovement - projection);
+		}
+		else
+		{
+			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
+		}
+
+
+		/*
         if (IsPlayerOnSlope == true)
 		{
 			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * moveFactor * PlayerMovementSpeed * Time.deltaTime);
@@ -246,7 +274,8 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
 		}
-		
+		*/
+
 
 		//PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
 

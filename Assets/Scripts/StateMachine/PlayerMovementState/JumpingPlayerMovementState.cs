@@ -19,6 +19,6 @@ public class JumpingPlayerMovementState : PlayerMovementState
 
 	public override void PlayerMovementSpeed()
 	{
-
+		playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);
 	}
 }
