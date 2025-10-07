@@ -97,7 +97,7 @@ public class PlayerMovementController : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-
+		/*
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.2f);
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up * 0.3f);
 
@@ -107,6 +107,9 @@ public class PlayerMovementController : MonoBehaviour
 		Gizmos.DrawCube(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f));
 
 		Gizmos.DrawCube(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f));
+
+		Gizmos.DrawCube(transform.position + transform.forward * 1.1f + new Vector3(0, 2.5f, 0), new Vector3(1.25f, 1.25f, 1.25f));
+		*/
 	}
 	void Update()
 	{
@@ -120,7 +123,7 @@ public class PlayerMovementController : MonoBehaviour
 		else if (IsPlayerCrouching == true)
 		{
 			PlayerDownRayYPosition = 0.1f;
-			PlayerUpRayYPosition = 0.9f;
+			PlayerUpRayYPosition = 1.2f;
 		}
 		
 		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f);
@@ -136,8 +139,9 @@ public class PlayerMovementController : MonoBehaviour
 		///////////////////////////////
 		///////////////////////////////
 
-		bool isAllBoxesColliding = true;
-		bool isBigRectangleClear = true; // Изначально считаем, что большой прямоугольник чистый
+		bool isAllBoxesColliding;
+		bool isBigRectangleClear;
+		bool isSmallRectangleClear;
 
 		// Проверка четырёх маленьких коробок
 		if (
@@ -149,15 +153,24 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			isAllBoxesColliding = false;
 		}
+		else isAllBoxesColliding = true;
 
 		// Проверка пятого большого прямоугольника (True, если не встретился ни с одним объектом)
 		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
 		{
 			isBigRectangleClear = false;
 		}
+		else isBigRectangleClear = true;
+
+		// Проверка пятого маленького прямоугольника (True, если не встретился ни с одним объектом)
+		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 2.5f, 0), new Vector3(1.25f, 1.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
+		{
+			isSmallRectangleClear = false;
+		}
+		else isSmallRectangleClear = true;
 
 		// Выводы
-		if (isAllBoxesColliding && isBigRectangleClear)
+		if (isAllBoxesColliding && (isBigRectangleClear || isSmallRectangleClear) && playerMovementStateType != PlayerMovementStateType.PlayerLedgeClimbing)
 		{
 			IsPlayerAbleToClimbLedge = true;
 		}
@@ -420,6 +433,8 @@ public class PlayerMovementController : MonoBehaviour
 			IsPlayerAbleToMove = false;
 			PlayerRotationSpeed = 0;
 
+
+
 			// ADD LedgeClimbing ANIMATION
 			//ChangePlayerAnimation("Sliding");
 		}
@@ -475,8 +490,17 @@ public class PlayerMovementController : MonoBehaviour
 
 	IEnumerator PlayerLedgeClimbingCourutine()
 	{
+		
+		bool Big;
 
-		PlayerRigidBody.AddForce(transform.up * 1.01f, ForceMode.Impulse);
+		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
+		{
+			Big = false;
+		}
+		else Big = true;
+
+		//Debug.Log(Big);
+			PlayerRigidBody.AddForce(transform.up * 1.01f, ForceMode.Impulse);
 
 
 		yield return new WaitForSeconds(0.25f);
@@ -495,9 +519,16 @@ public class PlayerMovementController : MonoBehaviour
 		PlayerRigidBody.angularVelocity = Vector3.zero;
 		PlayerRigidBody.MovePosition(PlayerRigidBody.transform.position);
 
-
+		//Debug.Log(Big);
 		// StateMachine меняется на Idle
-		SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
+		if (Big == true)
+		{
+			SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
+		}
+		else
+		{
+			SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
+		}
 	}
 	public void StartPlayerLedgeClimbing()
 	{
