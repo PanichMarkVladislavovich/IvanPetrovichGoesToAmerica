@@ -14,7 +14,12 @@ public class JumpingPlayerMovementState : PlayerMovementState
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerFalling);
 		}
-		
+
+		if (playerMovementController.IsPlayerAbleToClimbLedge == true && playerMovementController.playerInputsList.IsKeyJumpBeingHeld())
+		{
+			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerLedgeClimbing);
+		}
+
 	}
 
 	public override void PlayerMovementSpeed()

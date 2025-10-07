@@ -20,6 +20,8 @@ public class PlayerMovementController : MonoBehaviour
 	public Transform PlayerTransform;
 	public Rigidbody PlayerRigidBody;
 
+	public bool IsPlayerAbleToClimbLedge { get; private set; }
+
 	public Vector3 PlayerWorldMovement;
 
 	public CapsuleCollider playerCapsuleCollider;
@@ -37,6 +39,7 @@ public class PlayerMovementController : MonoBehaviour
 	private Vector3 PlayerMovementDirectionWithCamera;
 	private Vector3 PlayerMovement;
 	private RaycastHit hitInfo;
+
 	public bool IsPlayerMoving { get; private set; }
 	public bool IsPlayerAbleToMove { get; private set; }
 	public bool IsPlayerGrounded { get; private set; }
@@ -91,12 +94,19 @@ public class PlayerMovementController : MonoBehaviour
 	}
 
 
-	void OnDrawGizmosSelected()
+	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
 
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.2f);
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up * 0.3f);
+
+		Gizmos.DrawCube(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f));
+		Gizmos.DrawCube(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f));
+		Gizmos.DrawCube(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f));
+		Gizmos.DrawCube(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f));
+
+		Gizmos.DrawCube(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f));
 	}
 	void Update()
 	{
@@ -117,14 +127,58 @@ public class PlayerMovementController : MonoBehaviour
 
 		IsPlayerAbleToStandUp = !Physics.Raycast(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up, out hitInfo, 0.3f);
 
-
-		/////////////
 		IsPlayerFalling = (_playerPreviousFramePositionChange.y < -0.01f && IsPlayerGrounded == false);
-		////////////
 
 
 
-		if( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
+
+
+		///////////////////////////////
+		///////////////////////////////
+
+		bool isAllBoxesColliding = true;
+		bool isBigRectangleClear = true; // Изначально считаем, что большой прямоугольник чистый
+
+		// Проверка четырёх маленьких коробок
+		if (
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0
+		)
+		{
+			isAllBoxesColliding = false;
+		}
+
+		// Проверка пятого большого прямоугольника (True, если не встретился ни с одним объектом)
+		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
+		{
+			isBigRectangleClear = false;
+		}
+
+		// Выводы
+		if (isAllBoxesColliding && isBigRectangleClear)
+		{
+			IsPlayerAbleToClimbLedge = true;
+		}
+		else
+		{
+			IsPlayerAbleToClimbLedge = false;
+		}
+
+		//Debug.Log(IsPlayerAbleToClimbLedge);
+
+		////////////////////////////////////
+		///////////////////////////////////
+
+
+
+
+
+
+
+
+		if ( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
 		{
 			if (hitInfo.normal != Vector3.up)
 			{
@@ -357,6 +411,20 @@ public class PlayerMovementController : MonoBehaviour
 			PlayerRotationSpeed = 0;
 			ChangePlayerAnimation("Sliding");
 		}
+
+
+		else if (playerMovementStateType == PlayerMovementStateType.PlayerLedgeClimbing)
+		{
+			newState = new LedgeClimbingPlayerMovementState(this);
+			IsPlayerCrouching = false;
+			IsPlayerAbleToMove = false;
+			PlayerRotationSpeed = 0;
+
+			// ADD LedgeClimbing ANIMATION
+			//ChangePlayerAnimation("Sliding");
+		}
+
+
 		else
 		{
 			newState = null;
@@ -403,6 +471,37 @@ public class PlayerMovementController : MonoBehaviour
 	public void StartPlayerSliding()
 	{
 		StartCoroutine(PlayerSlidingCourutine());
+	}
+
+	IEnumerator PlayerLedgeClimbingCourutine()
+	{
+
+		PlayerRigidBody.AddForce(transform.up * 1.01f, ForceMode.Impulse);
+
+
+		yield return new WaitForSeconds(0.25f);
+
+		PlayerRigidBody.AddForce(Vector3.zero, ForceMode.Acceleration);
+		PlayerRigidBody.linearVelocity = Vector3.zero;
+		PlayerRigidBody.angularVelocity = Vector3.zero;
+		PlayerRigidBody.MovePosition(PlayerRigidBody.transform.position);
+
+		PlayerRigidBody.AddForce(transform.forward * 1.01f, ForceMode.Impulse);
+
+		yield return new WaitForSeconds(0.1f);
+		
+		PlayerRigidBody.AddForce(Vector3.zero, ForceMode.Acceleration);
+		PlayerRigidBody.linearVelocity = Vector3.zero;
+		PlayerRigidBody.angularVelocity = Vector3.zero;
+		PlayerRigidBody.MovePosition(PlayerRigidBody.transform.position);
+
+
+		// StateMachine меняется на Idle
+		SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
+	}
+	public void StartPlayerLedgeClimbing()
+	{
+		StartCoroutine(PlayerLedgeClimbingCourutine());
 	}
 
 	private void ChangePlayerAnimation(string animation, float crossfade = 0.2f)

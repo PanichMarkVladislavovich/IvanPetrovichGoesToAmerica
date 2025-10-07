@@ -9,4 +9,5 @@ public enum PlayerMovementStateType
     PlayerCrouchingIdle =5,
     PlayerCrouchingWalking =6,
     PlayerSliding = 7,
+    PlayerLedgeClimbing = 8,
 }

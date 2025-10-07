@@ -30,6 +30,8 @@ public class CrouchingWalkingPlayerMovementState : PlayerMovementState
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
+
+
 	}
 
 	public override void PlayerMovementSpeed()

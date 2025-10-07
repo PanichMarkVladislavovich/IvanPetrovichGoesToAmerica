@@ -18,6 +18,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	private KeyCode _keyRun;
 
+	
 	private KeyCode _keyJump;
 	private KeyCode _keyCrouch;
 	void Start()
@@ -137,6 +138,15 @@ public class PlayerInputsList : MonoBehaviour
 	public bool GetKeyJump()
 	{
 		if (Input.GetKeyDown(_keyJump) && playerMovementController.IsPlayerGrounded == true && playerMovementController.IsPlayerAbleToMove == true && playerMovementController.IsPlayerAbleToStandUp == true)
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool IsKeyJumpBeingHeld()
+	{
+		if (Input.GetKey(_keyJump))
 		{
 			return true;
 		}

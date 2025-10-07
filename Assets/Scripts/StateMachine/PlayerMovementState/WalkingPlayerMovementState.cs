@@ -39,6 +39,8 @@ public class WalkingPlayerMovementState: PlayerMovementState
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
 		}
+
+
 	}
 
 	public override void PlayerMovementSpeed()

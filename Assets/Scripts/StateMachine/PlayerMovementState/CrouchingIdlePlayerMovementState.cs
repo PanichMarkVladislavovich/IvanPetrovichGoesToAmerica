@@ -26,6 +26,8 @@ public class CrouchingIdlePlayerMovementState : PlayerMovementState
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
+
+
 	}
 
 	public override void PlayerMovementSpeed()
