@@ -6,9 +6,9 @@ public class RunningPlayerMovementState : PlayerMovementState
 	{
 		this.playerMovementController = playerMovementController;
 		Debug.Log("Player Running");
-
+		
 	}
-	public override void ChangePlayerMovement()
+	public override void ChangePlayerMovementState()
 	{
 		
 		if (playerMovementController.IsPlayerMoving == false)
@@ -35,7 +35,7 @@ public class RunningPlayerMovementState : PlayerMovementState
 
 	}
 
-	public override void PlayerMovementSpeed()
+	public override void ChangePlayerMovementSpeed()
 	{
 		playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerRunningSpeed);
 	}

@@ -6,9 +6,9 @@ public class CrouchingIdlePlayerMovementState : PlayerMovementState
 	{
 		this.playerMovementController = playerMovementController;
 		Debug.Log("Player Crouching Idle");
-
+		
 	}
-	public override void ChangePlayerMovement()
+	public override void ChangePlayerMovementState()
 	{
 		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyCrouch() == false)
 		{
@@ -30,8 +30,10 @@ public class CrouchingIdlePlayerMovementState : PlayerMovementState
 
 	}
 
-	public override void PlayerMovementSpeed()
+	public override void ChangePlayerMovementSpeed()
 	{
 		playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);
 	}
+
+	
 }

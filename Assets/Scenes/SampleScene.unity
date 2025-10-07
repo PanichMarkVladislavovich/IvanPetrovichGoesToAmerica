@@ -1187,6 +1187,7 @@ GameObject:
   - component: {fileID: 693704262}
   - component: {fileID: 693704266}
   - component: {fileID: 693704267}
+  - component: {fileID: 693704268}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1258,13 +1259,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputsList: {fileID: 0}
+  playerMovementStateType: 0
+  PlayerWorldMovement: {x: 0, y: 0, z: 0}
+  playerCamera: {fileID: 0}
   PlayerCameraObject: {fileID: 330585543}
+  playerBehaviour: {fileID: 0}
   PlayerTransform: {fileID: 693704261}
   PlayerRigidBody: {fileID: 693704266}
-  PlayerWorldMovement: {x: 0, y: 0, z: 0}
   playerCapsuleCollider: {fileID: 1656739191}
   playerCapsuleColliderMesh: {fileID: 1656739194}
-  playerMovementStateType: 0
 --- !u!114 &693704265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,6 +1323,23 @@ MonoBehaviour:
   PlayerCameraObject: {fileID: 330585543}
   PlayerHeadParent: {fileID: 8963399877106105095}
   PlayerHeadChildren: []
+--- !u!114 &693704268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693704260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5381ac9d5cca224186592e555c839e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementController: {fileID: 0}
+  playerInputsList: {fileID: 0}
+  playerBehaviour: {fileID: 0}
+  playerCamera: {fileID: 330585548}
+  PlayerCameraObject: {fileID: 330585543}
 --- !u!1 &719657484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,7 +1883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1372641094
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1892,7 +1912,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372641093}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

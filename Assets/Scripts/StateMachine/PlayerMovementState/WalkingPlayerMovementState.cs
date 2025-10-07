@@ -9,7 +9,7 @@ public class WalkingPlayerMovementState: PlayerMovementState
 		Debug.Log("Player Walking");
 		
 	}
-	public override void ChangePlayerMovement()
+	public override void ChangePlayerMovementState()
 	{
 		if (playerMovementController.IsPlayerMoving == false)
 		{
@@ -43,7 +43,7 @@ public class WalkingPlayerMovementState: PlayerMovementState
 
 	}
 
-	public override void PlayerMovementSpeed()
+	public override void ChangePlayerMovementSpeed()
 	{
 		
 			playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerWalkingSpeed);

@@ -6,15 +6,16 @@ public class LedgeClimbingPlayerMovementState : PlayerMovementState
 	{
 		this.playerMovementController = playerMovementController;
 		Debug.Log("Player LedgeClimbing");
+	
 	}
 
-	public override void ChangePlayerMovement()
+	public override void ChangePlayerMovementState()
 	{
 
 		playerMovementController.StartPlayerLedgeClimbing();
 	}
 
-	public override void PlayerMovementSpeed()
+	public override void ChangePlayerMovementSpeed()
 	{
 		// speed is 0
 		//playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);

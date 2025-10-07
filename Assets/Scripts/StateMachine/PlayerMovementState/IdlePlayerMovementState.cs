@@ -12,7 +12,7 @@ public class IdlePlayerMovementState : PlayerMovementState
 	}
 
 
-	public override void ChangePlayerMovement()
+	public override void ChangePlayerMovementState()
 	{
 		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyRun() == false)
 		{
@@ -42,10 +42,12 @@ public class IdlePlayerMovementState : PlayerMovementState
 		
 	}
 
-	public override void PlayerMovementSpeed()
+	public override void ChangePlayerMovementSpeed()
 	{
 		// just idle
 	}
+
+	
 }
 
 

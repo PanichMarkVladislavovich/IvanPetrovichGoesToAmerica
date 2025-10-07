@@ -4,60 +4,59 @@ using System.Collections;
 public class PlayerMovementController : MonoBehaviour
 {
 	public PlayerInputsList playerInputsList;
-	PlayerBehaviour playerBehaviour;
-	PlayerCamera playerCamera;
-	private Animator playerAnimator;
-	private string currentPlayerAnimation = "";
-	public float PlayerCurrentHeight { get; private set; }
-	public bool IsPLayerSliding { get; private set; }
-	public float PlayerCrouchingHeight { get; private set; }
-	public float PlayerStandingHeight { get; private set; }
-	private float angle;
-	private float moveFactor;
-	public bool IsPlayerOnSlope { get; private set; }
 
-	public GameObject PlayerCameraObject;
-	public Transform PlayerTransform;
-	public Rigidbody PlayerRigidBody;
-
-	public bool IsPlayerAbleToClimbLedge { get; private set; }
+	public PlayerMovementState playerMovementState;
+	public PlayerMovementStateType playerMovementStateType;
 
 	public Vector3 PlayerWorldMovement;
+	private Vector3 PlayerMovement;
+	private Vector3 PlayerMovementDirectionWithCamera;
 
+	public PlayerCamera playerCamera;
+	public GameObject PlayerCameraObject;
+
+	public PlayerBehaviour playerBehaviour;
+
+	public Transform PlayerTransform;
+	public Rigidbody PlayerRigidBody;
 	public CapsuleCollider playerCapsuleCollider;
 	public Transform playerCapsuleColliderMesh;
-	
-	public float PlayerRotationSpeed { get; private set; }
-	public float PlayerDownRayYPosition { get; private set; }
-	public float PlayerUpRayYPosition { get; private set; }
 
-	private Vector3 _playerPreviousFramePositionChange;
 	private Vector3 _playerPreviousFramePosition;
+	private Vector3 _playerPreviousFramePositionChange;
 
-	//private Vector3 PlayerSlopeMovementDirection;
-
-	private Vector3 PlayerMovementDirectionWithCamera;
-	private Vector3 PlayerMovement;
 	private RaycastHit hitInfo;
+
+	public string CurrentPlayerMovementStateType { get; private set; }
+
+	public float PlayerMovementSpeed { get; private set; }
+	public float PlayerRotationSpeed { get; private set; }
+	public float PlayerWalkingSpeed { get; private set; }
+	public float PlayerRunningSpeed { get; private set; }
+	public float PlayerCrouchingSpeed { get; private set; }
+	public float PlayerSlidingSpeed { get; private set; }
+
+	public float PlayerCurrentHeight { get; private set; }
+	public float PlayerStandingHeight { get; private set; }
+	public float PlayerCrouchingHeight { get; private set; }
 
 	public bool IsPlayerMoving { get; private set; }
 	public bool IsPlayerAbleToMove { get; private set; }
 	public bool IsPlayerGrounded { get; private set; }
+	public bool IsPlayerCrouching { get; private set; }
 	public bool IsPlayerAbleToStandUp { get; private set; }
 	public bool IsPlayerFalling { get; private set; }
-	public bool IsPlayerCrouching { get; private set; }
-
+	public bool IsPLayerSliding { get; private set; }
 	public bool IsPlayerAbleToSlide { get; private set; }
+	public bool IsPlayerAbleToClimbLedge { get; private set; }
+	public bool IsPlayerOnSlope { get; private set; }
 
-	public PlayerMovementStateType playerMovementStateType;
-	public PlayerMovementState playerMovementState;
+	public float PlayerUpRayYPosition { get; private set; }
+	public float PlayerDownRayYPosition { get; private set; }
+	
+	private float angle;
+	private float moveFactor;
 
-	public float PlayerMovementSpeed { get; private set; }
-	public float PlayerWalkingSpeed { get; private set; }
-	public float PlayerRunningSpeed { get; private set; }
-
-	public float PlayerSlidingSpeed { get; private set; }
-	public float PlayerCrouchingSpeed { get; private set; }
 	private void Awake()
 	{
 		playerMovementStateType = PlayerMovementStateType.PlayerIdle;
@@ -65,39 +64,32 @@ public class PlayerMovementController : MonoBehaviour
 
 	void Start()
 	{
-		playerAnimator = GetComponent<Animator>();
+		playerInputsList = GetComponent<PlayerInputsList>();
+		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
+		playerBehaviour = GetComponent<PlayerBehaviour>();
 
-		IsPlayerAbleToSlide = true;
+		_playerPreviousFramePosition = transform.position;
+
+		SetPlayerMovementState(playerMovementStateType);
+
+		PlayerMovementSpeed = 3f;
+		PlayerWalkingSpeed = 3f;
+		PlayerRunningSpeed = 6f;
+		PlayerCrouchingSpeed = 1.8f;
+		PlayerSlidingSpeed = 7.5f;
 
 		PlayerCurrentHeight = 2;
 		PlayerCrouchingHeight = 1;
 		PlayerStandingHeight = 2;
 
-		ChangePlayerAnimation("Idle");
-
-		SetPlayerMovementState(playerMovementStateType);
-
-		_playerPreviousFramePosition = transform.position;
-
-		playerInputsList = GetComponent<PlayerInputsList>();
-		playerBehaviour = GetComponent<PlayerBehaviour>();
-		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
-
-
-		PlayerMovementSpeed = 3f;
-		//PlayerMovementSpeed = 5f;
-		PlayerWalkingSpeed = 3f;
-		PlayerRunningSpeed = 6f;
-		PlayerCrouchingSpeed = 1.8f;
-
-		PlayerSlidingSpeed = 7.5f;
+		IsPlayerAbleToSlide = true;
 	}
-
 
 	void OnDrawGizmos()
 	{
-		Gizmos.color = Color.red;
 		/*
+		Gizmos.color = Color.red;
+		
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.2f);
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up * 0.3f);
 
@@ -113,111 +105,11 @@ public class PlayerMovementController : MonoBehaviour
 	}
 	void Update()
 	{
-		IsPlayerMoving = (Mathf.Abs(_playerPreviousFramePositionChange.x) > 0.001f || Mathf.Abs(_playerPreviousFramePositionChange.z) > 0.001f);
+		// Player movement State Machine methods
+		playerMovementState.ChangePlayerMovementState();
+		playerMovementState.ChangePlayerMovementSpeed();
 
-		if (IsPlayerCrouching == false)
-		{
-			PlayerDownRayYPosition = 0.1f;
-			PlayerUpRayYPosition = 1.9f;
-		}
-		else if (IsPlayerCrouching == true)
-		{
-			PlayerDownRayYPosition = 0.1f;
-			PlayerUpRayYPosition = 1.2f;
-		}
-		
-		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f);
-
-		IsPlayerAbleToStandUp = !Physics.Raycast(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up, out hitInfo, 0.3f);
-
-		IsPlayerFalling = (_playerPreviousFramePositionChange.y < -0.01f && IsPlayerGrounded == false);
-
-
-
-
-
-		///////////////////////////////
-		///////////////////////////////
-
-		bool isAllBoxesColliding;
-		bool isBigRectangleClear;
-		bool isSmallRectangleClear;
-
-		// Проверка четырёх маленьких коробок
-		if (
-			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
-			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
-			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
-			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0
-		)
-		{
-			isAllBoxesColliding = false;
-		}
-		else isAllBoxesColliding = true;
-
-		// Проверка пятого большого прямоугольника (True, если не встретился ни с одним объектом)
-		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
-		{
-			isBigRectangleClear = false;
-		}
-		else isBigRectangleClear = true;
-
-		// Проверка пятого маленького прямоугольника (True, если не встретился ни с одним объектом)
-		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 2.5f, 0), new Vector3(1.25f, 1.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
-		{
-			isSmallRectangleClear = false;
-		}
-		else isSmallRectangleClear = true;
-
-		// Выводы
-		if (isAllBoxesColliding && (isBigRectangleClear || isSmallRectangleClear) && playerMovementStateType != PlayerMovementStateType.PlayerLedgeClimbing)
-		{
-			IsPlayerAbleToClimbLedge = true;
-		}
-		else
-		{
-			IsPlayerAbleToClimbLedge = false;
-		}
-
-		//Debug.Log(IsPlayerAbleToClimbLedge);
-
-		////////////////////////////////////
-		///////////////////////////////////
-
-
-
-
-
-
-
-
-		if ( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
-		{
-			if (hitInfo.normal != Vector3.up)
-			{
-				
-				IsPlayerOnSlope = true;
-			}
-			else
-			{
-				
-				IsPlayerOnSlope = false;
-			}
-		}
-
-		//Debug.Log(IsPlayerOnSlope);
-
-		if (_playerPreviousFramePositionChange.y < -0.01f)
-		{
-			//Debug.Log("Falling");
-		}
-
-
-		if (playerInputsList.GetKeyJump())
-		{
-			PlayerRigidBody.AddForce(transform.up * 5, ForceMode.Impulse);
-		}
-
+		//
 		if (playerInputsList.GetKeyRight())
 		{
 			PlayerWorldMovement.x = 1;
@@ -238,73 +130,31 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		else PlayerWorldMovement.z = 0;
 
-		playerMovementState.ChangePlayerMovement();
-		playerMovementState.PlayerMovementSpeed();
-
-
-
-
-		//PlayerSlopeMovementDirection =  Vector3.ProjectOnPlane(PlayerWorldMovement, hitInfo.normal);
-
-		/*
-		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
+		if (playerInputsList.GetKeyJump())
 		{
-			PlayerMovementDirectionWithCamera = (PlayerSlopeMovementDirection.z * playerCamera.CameraForward + PlayerSlopeMovementDirection.x * playerCamera.CameraRight);
+			PlayerRigidBody.AddForce(transform.up * 5, ForceMode.Impulse);
 		}
-		else
-		{
-			PlayerMovementDirectionWithCamera = (PlayerWorldMovement.z * playerCamera.CameraForward + PlayerWorldMovement.x * playerCamera.CameraRight);
 
-		}
-		*/
-		PlayerMovementDirectionWithCamera = (PlayerWorldMovement.z * playerCamera.CameraForward + PlayerWorldMovement.x * playerCamera.CameraRight);
-
-
-
-
-
-
-
-
-
-		//Debug.Log(IsPlayerGrounded);
-
-
-		//PlayerMovement = new Vector3(PlayerSlopeMovementDirection.x, 0, PlayerSlopeMovementDirection.z);
-
+		//
+		IsPlayerMoving = (Mathf.Abs(_playerPreviousFramePositionChange.x) > 0.001f || Mathf.Abs(_playerPreviousFramePositionChange.z) > 0.001f);
+		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f);
+		IsPlayerAbleToStandUp = !Physics.Raycast(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up, out hitInfo, 0.3f);
+		IsPlayerFalling = (_playerPreviousFramePositionChange.y < -0.01f && IsPlayerGrounded == false);
 		
-
-
-		PlayerMovement = new Vector3(PlayerMovementDirectionWithCamera.x, 0, PlayerMovementDirectionWithCamera.z);
-
-		PlayerMovement.Normalize();
-
-
-		angle = Vector3.Angle(hitInfo.normal, Vector3.up);
-		//Debug.Log(angle);
-
-		moveFactor = 1 / Mathf.Cos(Mathf.Deg2Rad * angle);
-		//Debug.Log(moveFactor);
-
-		/*
-		Vector3 correction = Vector3.Project(PlayerWorldMovement, hitInfo.normal);
-		if (IsPlayerOnSlope == true)
+		if (IsPlayerCrouching == false)
 		{
-			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerWorldMovement * PlayerMovementSpeed * Time.deltaTime - correction * Time.deltaTime);
+			PlayerDownRayYPosition = 0.1f;
+			PlayerUpRayYPosition = 1.9f;
 		}
-		else
+		else if (IsPlayerCrouching == true)
 		{
-			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
+			PlayerDownRayYPosition = 0.1f;
+			PlayerUpRayYPosition = 1.2f;
 		}
-		*/
-
+		
 		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
 		{
-			
 			PlayerRigidBody.useGravity = false;
-			/////////////!!!!!!!!!!!!!!!!!!!
-			////////////////!!!!!!!!!!!!!!!!!!!
-			////////////////!!!!!!!!!!!!!!!!!!!
 			if (IsPLayerSliding == false)
 			{
 				PlayerRigidBody.linearVelocity = Vector3.zero;
@@ -314,16 +164,61 @@ public class PlayerMovementController : MonoBehaviour
         {
 			PlayerRigidBody.useGravity = true;
 		}
-		//Debug.Log(PlayerRigidBody.linearVelocity);
 
+		// Ledge Climbing BoxCast collision check
+		bool isAllBoxesColliding;
+		bool isBigRectangleClear;
+		bool isSmallRectangleClear;
 
+		if (
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0 ||
+			Physics.OverlapBox(transform.position + transform.up * 1.75f + transform.forward * 1.5f + transform.right * 0.4f, new Vector3(0.25f, 0.25f, 0.25f) * 0.5f, Quaternion.identity).Length == 0
+			)
+		{
+			isAllBoxesColliding = false;
+		}
+		else isAllBoxesColliding = true;
+
+		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
+		{
+			isBigRectangleClear = false;
+		}
+		else isBigRectangleClear = true;
+
+		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 2.5f, 0), new Vector3(1.25f, 1.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
+		{
+			isSmallRectangleClear = false;
+		}
+		else isSmallRectangleClear = true;
+
+		if (isAllBoxesColliding && (isBigRectangleClear || isSmallRectangleClear) && playerMovementStateType != PlayerMovementStateType.PlayerLedgeClimbing)
+		{
+			IsPlayerAbleToClimbLedge = true;
+		}
+		else
+		{
+			IsPlayerAbleToClimbLedge = false;
+		}
+
+		// Slope 
+		if ( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
+		{
+			if (hitInfo.normal != Vector3.up)
+			{
+				IsPlayerOnSlope = true;
+			}
+			else
+			{
+				IsPlayerOnSlope = false;
+			}
+		}
 
 		if (IsPlayerOnSlope == true)
 		{
-			// Просто перемещаем персонажа параллельно поверхности
 			Vector3 correctedMovement = PlayerMovement * PlayerMovementSpeed * Time.deltaTime;
 			Vector3 projection = Vector3.Project(correctedMovement, hitInfo.normal);
-
 			PlayerRigidBody.MovePosition(PlayerRigidBody.position + correctedMovement - projection);
 		}
 		else
@@ -331,23 +226,15 @@ public class PlayerMovementController : MonoBehaviour
 			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
 		}
 
+		//
+		PlayerMovementDirectionWithCamera = (PlayerWorldMovement.z * playerCamera.CameraForward + PlayerWorldMovement.x * playerCamera.CameraRight);
+		PlayerMovement = new Vector3(PlayerMovementDirectionWithCamera.x, 0, PlayerMovementDirectionWithCamera.z);
+		PlayerMovement.Normalize();
 
-		/*
-        if (IsPlayerOnSlope == true)
-		{
-			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * moveFactor * PlayerMovementSpeed * Time.deltaTime);
-		}
-		else
-		{
-			PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
-		}
-		*/
-
-
-		//PlayerRigidBody.MovePosition(PlayerRigidBody.position + PlayerMovement * PlayerMovementSpeed * Time.deltaTime);
-
-
-
+		angle = Vector3.Angle(hitInfo.normal, Vector3.up);
+		moveFactor = 1 / Mathf.Cos(Mathf.Deg2Rad * angle);
+	
+		//
 		if ((playerBehaviour.GetPlayerBehaviour() == 0) && (PlayerMovement != Vector3.zero) && (playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.ThirdPerson.ToString()))
 		{
 			Quaternion CharacterRotation = Quaternion.LookRotation(PlayerMovement, Vector3.up);
@@ -373,73 +260,65 @@ public class PlayerMovementController : MonoBehaviour
 		if (playerMovementStateType == PlayerMovementStateType.PlayerIdle)
 		{
 			newState = new IdlePlayerMovementState(this);
+			CurrentPlayerMovementStateType = "Idle";
 			IsPlayerAbleToMove = true;
 			IsPlayerCrouching = false;
 			PlayerRotationSpeed = 300f;
-			ChangePlayerAnimation("Idle");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerWalking)
 		{
 			newState = new WalkingPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "Walking";
 			IsPlayerCrouching = false;
-			ChangePlayerAnimation("Walking");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerRunning)
 		{
 			newState = new RunningPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "Running";
 			IsPlayerCrouching = false;
-			ChangePlayerAnimation("Running");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerJumping)
 		{
 			newState = new JumpingPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "Jumping";
 			IsPlayerCrouching = false;
-			ChangePlayerAnimation("Jumping");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerFalling)
 		{
 			newState = new FallingPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "Falling";
 			IsPlayerCrouching = false;
-			ChangePlayerAnimation("Falling");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingIdle)
 		{
 			newState = new CrouchingIdlePlayerMovementState(this);
+			CurrentPlayerMovementStateType = "CrouchingIdle";
 			IsPlayerCrouching = true;
 			IsPlayerAbleToMove = true;
 			PlayerRotationSpeed = 300f;
-			ChangePlayerAnimation("CrouchingIdle");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingWalking)
 		{
 			newState = new CrouchingWalkingPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "CrouchingWalking";
 			IsPlayerCrouching = true;
-			ChangePlayerAnimation("CrouchingWalking");
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerSliding)
 		{
 			newState = new SlidingPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "Sliding";
 			IsPlayerCrouching = true;
 			IsPlayerAbleToMove = false;
 			PlayerRotationSpeed = 0;
-			ChangePlayerAnimation("Sliding");
 		}
-
-
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerLedgeClimbing)
 		{
 			newState = new LedgeClimbingPlayerMovementState(this);
+			CurrentPlayerMovementStateType = "LedgeClimbing";
 			IsPlayerCrouching = false;
 			IsPlayerAbleToMove = false;
 			PlayerRotationSpeed = 0;
-
-
-
-			// ADD LedgeClimbing ANIMATION
-			//ChangePlayerAnimation("Sliding");
 		}
-
-
 		else
 		{
 			newState = null;
@@ -533,14 +412,5 @@ public class PlayerMovementController : MonoBehaviour
 	public void StartPlayerLedgeClimbing()
 	{
 		StartCoroutine(PlayerLedgeClimbingCourutine());
-	}
-
-	private void ChangePlayerAnimation(string animation, float crossfade = 0.2f)
-	{
-		if(currentPlayerAnimation != animation)
-		{
-			currentPlayerAnimation = animation;
-			playerAnimator.CrossFade(animation, crossfade);
-		}
 	}
 }

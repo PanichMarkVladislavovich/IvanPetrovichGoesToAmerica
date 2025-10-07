@@ -6,9 +6,10 @@ public class JumpingPlayerMovementState : PlayerMovementState
 	{
 		this.playerMovementController = playerMovementController;
 		Debug.Log("Player Jumping");
+		
 	}
 
-	public override void ChangePlayerMovement()
+	public override void ChangePlayerMovementState()
 	{
 		if (playerMovementController.IsPlayerFalling == true)
 		{
@@ -22,7 +23,7 @@ public class JumpingPlayerMovementState : PlayerMovementState
 
 	}
 
-	public override void PlayerMovementSpeed()
+	public override void ChangePlayerMovementSpeed()
 	{
 		playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);
 	}

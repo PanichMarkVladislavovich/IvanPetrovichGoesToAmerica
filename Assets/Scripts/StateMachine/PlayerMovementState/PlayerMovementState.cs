@@ -4,13 +4,16 @@ public abstract class PlayerMovementState
   
     protected PlayerMovementController playerMovementController;
 	
-	public virtual void ChangePlayerMovement()
+	
+	public virtual void ChangePlayerMovementState()
     {
         
     }
 
-	public virtual void PlayerMovementSpeed()
+	public virtual void ChangePlayerMovementSpeed()
 	{
 
 	}
+
+	
 }
