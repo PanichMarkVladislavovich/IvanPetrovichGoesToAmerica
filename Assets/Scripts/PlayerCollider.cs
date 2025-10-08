@@ -4,6 +4,9 @@ public class PlayerCollider : MonoBehaviour
 {
 	public CapsuleCollider PlayerColliderCapsuleObject;
 	PlayerMovementController playerMovementController;
+	// NEED TO REFACTOR THIS AS DIFFERENT SCRIPT
+
+
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()

@@ -1,64 +1,46 @@
-using System;
-using UnityEditor.PackageManager;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
-using static UnityEngine.GraphicsBuffer;
-
 public class PlayerCamera : MonoBehaviour
 {
 	PlayerInputsList playerInputsList;
 	public PlayerMovementController playerMovementController;
+	public CapsuleCollider PlayerCollider;
+	public Transform PlayerTransform;
+
+	public PlayerCameraState playerCameraState;
+	public PlayerCameraStateType playerCameraStateType;
+
 	public Vector2 MouseRotation;
-	private float MouseRotationLimit = 45f;
+
+	public Vector3 CameraForward;
+	public Vector3 CameraRight;
 
 	private RaycastHit hit;
-	
-	public Transform PlayerTransform;
-	private string _currentPlayerCameraType;
-	private string _previousPlayerCameraType;
-
-	public CapsuleCollider PlayerCollider;
-
-	public PlayerCameraStateType playerCameraStateType;
-	public PlayerCameraState playerCameraState;
 
 	public float PlayerCameraDistanceX;
 	public float PlayerCameraDistanceY;
 	public float PlayerCameraDistanceZ;
 
 	public float CameraRotationY;
-
-	public Vector3 CameraForward;
-	public Vector3 CameraRight;
-
-	
+	private float MouseRotationLimit = 45f;
 	public bool IsPlayerCameraFirstPerson { get; private set; }
+	private string _currentPlayerCameraType;
+	private string _previousPlayerCameraType;
 
-	private bool canReturn = false;     // Возможность возврата камеры
-	private float startTransitionTime; // Время начала перехода
-	public float transitionDelay = 0.5f;// Задержка перед возвратом на большую дистанцию
+	private bool canReturn = false;     
+	private float startTransitionTime; 
+	public float transitionDelay = 0.5f;
 
 	private float targetDistance;
 
-		private void Awake()
+	private void Awake()
 	{
 		playerCameraStateType = PlayerCameraStateType.ThirdPerson;
 	}
 	void Start()
 	{
-		
-		
-
 		SetPlayerCameraState(playerCameraStateType);
 
 		playerInputsList = GetComponent<PlayerInputsList>();
-		//playerMovementController = GetComponent<PlayerMovementController>();
-
-		//PlayerCameraDistanceX = -0.4f;
-		//PlayerCameraDistanceY = -1.5f;
-		//PlayerCameraDistanceZ = 0.75f;
-
 
 		PlayerCameraDistanceX = -0.85f;
 		PlayerCameraDistanceY = -2;
@@ -67,10 +49,6 @@ public class PlayerCamera : MonoBehaviour
 
 	void Update()
 	{
-
-
-
-
 		MouseRotation.y += Input.GetAxis("Mouse X");
 		MouseRotation.x += Input.GetAxis("Mouse Y");
 		MouseRotation.x = Mathf.Clamp(MouseRotation.x, MouseRotationLimit * -1, MouseRotationLimit);
@@ -94,16 +72,10 @@ public class PlayerCamera : MonoBehaviour
 			}
 		}
 
-
 		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
 		{
-
-
 			 targetDistance = hit.distance;
 		}
-
-		//Debug.Log(targetDistance);
-
 
 		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
 		{
@@ -132,24 +104,19 @@ public class PlayerCamera : MonoBehaviour
 		{
 			if (PlayerCameraDistanceZ <= 5f )
 			{
-
 				// Начинаем постепенное удаление камеры
 				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
-				
 			}
 
 			canReturn = false; // Отменяем возвращение
 		}
 		
-
-
 		CameraForward = transform.forward;
-			CameraRight = transform.right;
+		CameraRight = transform.right;
 
-			transform.rotation = Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0);
+		transform.rotation = Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0);
 
-			CameraRotationY = transform.eulerAngles.y;
-		
+		CameraRotationY = transform.eulerAngles.y;
 	}
 	public void SetPlayerCameraState(PlayerCameraStateType playerCameraStateType)
 	{
@@ -205,18 +172,8 @@ public class PlayerCamera : MonoBehaviour
 	}
 	public void SetPlayerCameraType(PlayerCameraStateType newCameraType)
 	{
-		/*
-		if (newCameraType < 0 || newCameraType > 3)
-		{
-			Debug.Log("Wrong PlayerCameraType set: " + newCameraType);
-			return;
-		}
-		*/
 		_previousPlayerCameraType = _currentPlayerCameraType;
         _currentPlayerCameraType = newCameraType.ToString();
-		//Debug.Log("Previous Cam: " + _previousPlayerCameraType);
-		//Debug.Log("Current Cam: " + _currentPlayerCameraType);
-		
 	}
 	public string GetCurrentPlayerCameraType()
 	{

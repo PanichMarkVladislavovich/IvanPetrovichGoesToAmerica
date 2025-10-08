@@ -2,24 +2,29 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-	private Animator playerAnimator;
-	private string currentPlayerAnimation = "";
-	public PlayerMovementController playerMovementController;
 	public PlayerInputsList playerInputsList;
-	public PlayerBehaviour playerBehaviour;
+	
+	public PlayerMovementController playerMovementController;
+
 	public PlayerCamera playerCamera;
 	public GameObject PlayerCameraObject;
 
+	private Animator playerAnimator;
+	private string currentPlayerAnimation = "";
+	
+	public PlayerBehaviour playerBehaviour;
 	void Start()
     {
-
-		
-		playerBehaviour = GetComponent<PlayerBehaviour>();
-		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
-		playerMovementController = GetComponent<PlayerMovementController>();
 		playerInputsList = GetComponent<PlayerInputsList>();
+
+		playerMovementController = GetComponent<PlayerMovementController>();
+
+		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
+
 		playerAnimator = GetComponent<Animator>();
 		ChangePlayerAnimation("Idle");
+
+		playerBehaviour = GetComponent<PlayerBehaviour>();
 	}
 
 	private void Update()
@@ -87,8 +92,6 @@ public class PlayerAnimationController : MonoBehaviour
 			ChangePlayerAnimation("Ledge Climbing");
 		}
 	}
-	
-
 		private void ChangePlayerAnimation(string animation, float crossfade = 0.2f)
 		{
 			if (currentPlayerAnimation != animation)

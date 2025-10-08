@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-
 public class PlayerMovementController : MonoBehaviour
 {
 	public PlayerInputsList playerInputsList;
@@ -61,7 +60,6 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		playerMovementStateType = PlayerMovementStateType.PlayerIdle;
 	}
-
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
@@ -253,6 +251,7 @@ public class PlayerMovementController : MonoBehaviour
 		_playerPreviousFramePosition = transform.position;
 	}
 
+	// Different player movement states scripts call this function
 	public void SetPlayerMovementState(PlayerMovementStateType playerMovementStateType)
 	{
 		PlayerMovementState newState;
@@ -326,6 +325,7 @@ public class PlayerMovementController : MonoBehaviour
 		playerMovementState = newState;
 	}
 
+	// Different player movement states scripts call this function
 	public float SetPlayerMovementSpeed(float SetSpeed)
 	{
 		PlayerMovementSpeed = SetSpeed;
@@ -337,31 +337,26 @@ public class PlayerMovementController : MonoBehaviour
 		IsPlayerAbleToSlide = false;
 		IsPLayerSliding = true;
 
-		// Ускоряем игрока
 		PlayerRigidBody.AddForce(transform.forward * PlayerSlidingSpeed, ForceMode.Impulse);
 		
-		// Запрещаем игроку поворачиваться во время скольжения
+		// Disable player controls during sliding
 		PlayerRigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 		
 		yield return new WaitForSeconds(1f);
 
-		// В сконце скольжения резко останавливаем игрока
+		// Stop player in the sliding end
 		PlayerRigidBody.AddForce(Vector3.zero, ForceMode.Acceleration);
 		PlayerRigidBody.linearVelocity = Vector3.zero;
 		PlayerRigidBody.angularVelocity = Vector3.zero;
 		PlayerRigidBody.MovePosition(PlayerRigidBody.transform.position);
 
-		
-		// StateMachine меняется на CrouchingIdle
 		SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
-
-
 
 		IsPlayerAbleToSlide = true;
 		IsPLayerSliding = false;
 	}
 
-	// а вот эту функцию с корутиной вызывает StateMachine которая НЕ monobehaviour
+	// State SlidingState calls this function with courutine as it itself is non Monobahaviour
 	public void StartPlayerSliding()
 	{
 		StartCoroutine(PlayerSlidingCourutine());
@@ -369,7 +364,7 @@ public class PlayerMovementController : MonoBehaviour
 
 	IEnumerator PlayerLedgeClimbingCourutine()
 	{
-		
+		// CHECK if player will end up in standing or crouching position after ledge climbing
 		bool Big;
 
 		if (Physics.OverlapBox(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f) * 0.5f, Quaternion.identity).Length > 0)
@@ -378,9 +373,7 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		else Big = true;
 
-		//Debug.Log(Big);
-			PlayerRigidBody.AddForce(transform.up * 1.01f, ForceMode.Impulse);
-
+		PlayerRigidBody.AddForce(transform.up * 1.01f, ForceMode.Impulse);
 
 		yield return new WaitForSeconds(0.25f);
 
@@ -398,8 +391,7 @@ public class PlayerMovementController : MonoBehaviour
 		PlayerRigidBody.angularVelocity = Vector3.zero;
 		PlayerRigidBody.MovePosition(PlayerRigidBody.transform.position);
 
-		//Debug.Log(Big);
-		// StateMachine меняется на Idle
+		// DECIDE if player will end up in standing or crouching position after ledge climbing
 		if (Big == true)
 		{
 			SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
@@ -409,6 +401,8 @@ public class PlayerMovementController : MonoBehaviour
 			SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
 		}
 	}
+
+	// State LedgeClimbingState calls this function with courutine as it itself is non Monobahaviour
 	public void StartPlayerLedgeClimbing()
 	{
 		StartCoroutine(PlayerLedgeClimbingCourutine());

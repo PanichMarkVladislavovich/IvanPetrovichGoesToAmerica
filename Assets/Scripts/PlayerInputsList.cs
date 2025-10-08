@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-
 public class PlayerInputsList : MonoBehaviour
 {
 	PlayerMovementController playerMovementController;
@@ -18,9 +16,10 @@ public class PlayerInputsList : MonoBehaviour
 
 	private KeyCode _keyRun;
 
-	
 	private KeyCode _keyJump;
 	private KeyCode _keyCrouch;
+
+	private KeyCode _keyLeftHandWeaponWheel;
 	void Start()
 	{
 		playerMovementController = GetComponent<PlayerMovementController>();
@@ -40,11 +39,8 @@ public class PlayerInputsList : MonoBehaviour
 
 		_keyJump = KeyCode.Space;
 		_keyCrouch = KeyCode.LeftControl;
-	}
-	void Update()
-	{
-		//Debug.Log(GetKeyShowWeapons());
-		//Debug.Log(GetKeyRun());
+
+		_keyLeftHandWeaponWheel = KeyCode.Tab;
 	}
 	public bool GetKeyUp()
 	{
@@ -95,12 +91,6 @@ public class PlayerInputsList : MonoBehaviour
 		else return false;
 	}
 
-
-
-
-
-
-
 	public bool GetKeyChangeCameraView()
 	{
 		if (Input.GetKeyDown(_keyChangeCameraView))
@@ -125,7 +115,6 @@ public class PlayerInputsList : MonoBehaviour
 		}
 		else return false;
 	}
-
 	public bool GetKeyRun()
 	{
 		if (Input.GetKey(_keyRun) && playerMovementController.IsPlayerAbleToMove == true)
@@ -143,7 +132,6 @@ public class PlayerInputsList : MonoBehaviour
 		}
 		else return false;
 	}
-
 	public bool IsKeyJumpBeingHeld()
 	{
 		if (Input.GetKey(_keyJump))
@@ -156,6 +144,14 @@ public class PlayerInputsList : MonoBehaviour
 	public bool GetKeyCrouch()
 	{
 		if (Input.GetKeyDown(_keyCrouch))
+		{
+			return true;
+		}
+		else return false;
+	}
+	public bool GetKeyLeftHandWeaponWheel()
+	{
+		if (Input.GetKey(_keyLeftHandWeaponWheel))
 		{
 			return true;
 		}

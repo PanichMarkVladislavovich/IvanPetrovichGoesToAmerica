@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PlayerCameraFirstPersonRender : MonoBehaviour
 {
 	PlayerCamera playerCamera;
