@@ -19,15 +19,38 @@ public class WeaponController : MonoBehaviour
 		EugenicGenieButon.onClick.AddListener(() => SelectWeapon(typeof(WeaponEugenicGenie)));
 	}
 
-
-	private void SelectWeapon(System.Type weaponType)
+	private void Update()
 	{
+		if (currentWeapon != null && currentWeapon.weaponModel != null)
+		{
+			// ќбновл€ем положение 3D модели оружи€, чтобы она следовала за игроком
+		//	currentWeapon.weaponModel.transform.position = transform.position ;
+			//currentWeapon.weaponModel.transform.rotation = transform.rotation;
+		}
+	}
+
+
+
+
+
+
+
+		private void SelectWeapon(System.Type weaponType)
+	{
+		
 		if (currentWeapon != null && currentWeapon.GetType() == weaponType)
 		{
+			/*
 			// ≈сли текущее оружие совпадает с выбранным, дезэкипируем его
 			currentWeapon.Unequip();
 			Destroy(currentWeapon);
 			currentWeapon = null;
+			*/
+
+
+
+			// ≈сли текущее оружие совпадает с выбранным, ничего не делаем
+			return;
 		}
 		else
 		{
@@ -42,7 +65,7 @@ public class WeaponController : MonoBehaviour
 			currentWeapon.Equip();
 		}
 	}
-
+	
 
 	public void UseCurrentWeapon()
 	{
