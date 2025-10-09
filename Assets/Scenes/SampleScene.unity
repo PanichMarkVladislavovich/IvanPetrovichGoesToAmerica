@@ -1126,6 +1126,7 @@ MonoBehaviour:
   playerMovementController: {fileID: 693704264}
   PlayerCollider: {fileID: 1656739191}
   PlayerTransform: {fileID: 693704261}
+  weaponWheelController: {fileID: 693704269}
   playerCameraStateType: 0
   MouseRotation: {x: 0, y: 0}
   CameraForward: {x: 0, y: 0, z: 0}

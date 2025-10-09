@@ -6,6 +6,8 @@ public class PlayerCamera : MonoBehaviour
 	public CapsuleCollider PlayerCollider;
 	public Transform PlayerTransform;
 
+	public WeaponWheelController weaponWheelController;
+
 	public PlayerCameraState playerCameraState;
 	public PlayerCameraStateType playerCameraStateType;
 
@@ -41,6 +43,7 @@ public class PlayerCamera : MonoBehaviour
 		SetPlayerCameraState(playerCameraStateType);
 
 		playerInputsList = GetComponent<PlayerInputsList>();
+		//weaponWheelController = GetComponent<WeaponWheelController>();
 
 		PlayerCameraDistanceX = -0.85f;
 		PlayerCameraDistanceY = -2;
@@ -49,9 +52,17 @@ public class PlayerCamera : MonoBehaviour
 
 	void Update()
 	{
-		MouseRotation.y += Input.GetAxis("Mouse X");
-		MouseRotation.x += Input.GetAxis("Mouse Y");
-		MouseRotation.x = Mathf.Clamp(MouseRotation.x, MouseRotationLimit * -1, MouseRotationLimit);
+        if (weaponWheelController.IsWeaponWheelActive == false)
+        {
+			MouseRotation.y += Input.GetAxis("Mouse X");
+			MouseRotation.x += Input.GetAxis("Mouse Y");
+			MouseRotation.x = Mathf.Clamp(MouseRotation.x, MouseRotationLimit * -1, MouseRotationLimit);
+        }
+		else
+		{
+
+		}
+       
 
 		playerCameraState.PlayerCameraPosition();
 
@@ -114,7 +125,9 @@ public class PlayerCamera : MonoBehaviour
 		CameraForward = transform.forward;
 		CameraRight = transform.right;
 
+		
 		transform.rotation = Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0);
+		
 
 		CameraRotationY = transform.eulerAngles.y;
 	}

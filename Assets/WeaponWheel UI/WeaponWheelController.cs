@@ -5,6 +5,7 @@ public class WeaponWheelController : MonoBehaviour
 {
     PlayerInputsList playerInputsList;
 	public Canvas canvas; // Привяжите ваш Canvas сюда
+	public bool IsWeaponWheelActive {  get; private set; }
 	void Start()
     {
         playerInputsList = GetComponent<PlayerInputsList>();
@@ -17,12 +18,14 @@ public class WeaponWheelController : MonoBehaviour
 			EnableCanvas();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
+			IsWeaponWheelActive = true;
 		}
 		else
 		{
 			DisableCanvas();
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
+			IsWeaponWheelActive = false;
 		}
 	}
 

@@ -31,7 +31,7 @@ public class WeaponClass : MonoBehaviour
 			currentModelInstance = Instantiate(weaponModel);
 			currentModelInstance.transform.parent = transform;
 			currentModelInstance.transform.localPosition = new Vector3(0, 1.75f, 0.5f); // Локальная позиция относительно персонажа
-			currentModelInstance.transform.localRotation = Quaternion.Euler(0, 90, 0); // Локальное вращение
+			currentModelInstance.transform.localRotation = Quaternion.Euler(0, 0, 0); // Локальное вращение
 		}
 	}
 

@@ -6,5 +6,12 @@ public class WeaponEugenicGenie : WeaponClass
     {
         WeaponName = "EugenicGenie";
     }
-   
+
+
+	public void Awake()
+	{
+		weaponModel = Resources.Load<GameObject>("WeaponEugenicsGenie"); // Загружаем префаб револьвера
+		Debug.Log("Загружен префаб: " + weaponModel);
+	}
+
 }

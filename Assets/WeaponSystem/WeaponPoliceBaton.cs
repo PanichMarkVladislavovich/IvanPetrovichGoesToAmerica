@@ -8,6 +8,11 @@ public class WeaponPoliceBaton : WeaponClass
 		//weaponModel = Resources.Load<GameObject>("Prefabs/PoliceBaton"); // Загружаем префаб дубинки
 	}
 
-	
+	public void Awake()
+	{
+		weaponModel = Resources.Load<GameObject>("WeaponPoliceBaton"); // Загружаем префаб револьвера
+		Debug.Log("Загружен префаб: " + weaponModel);
+	}
+
 
 }
