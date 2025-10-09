@@ -521,7 +521,7 @@ MonoBehaviour:
   PoliceBatonButton: {fileID: 319870582}
   HarmonicaRevolverButton: {fileID: 1951153787}
   PlungerCrossbowButton: {fileID: 1200027710}
-  EugenicGenieButon: {fileID: 1415595842}
+  EugenicGenieButton: {fileID: 0}
 --- !u!4 &279834159
 Transform:
   m_ObjectHideFlags: 0
@@ -1941,7 +1941,7 @@ MonoBehaviour:
   PoliceBatonButton: {fileID: 319870582}
   HarmonicaRevolverButton: {fileID: 1951153787}
   PlungerCrossbowButton: {fileID: 1200027710}
-  EugenicGenieButon: {fileID: 1415595842}
+  EugenicGenieButton: {fileID: 1415595842}
 --- !u!1 &719657484
 GameObject:
   m_ObjectHideFlags: 0

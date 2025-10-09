@@ -1,21 +1,21 @@
 using UnityEngine;
 
-public class WeaponClass : MonoBehaviour
+public abstract class WeaponClass : MonoBehaviour
 {
-    public string WeaponName;
-    public float WeaponDamage;
+	public string WeaponName;
+	public float WeaponDamage;
 	public GameObject weaponModel; // Ссылка на 3D модель оружия
 	private GameObject currentModelInstance; // Ссылка на инстанцированную модель
 
 	public virtual void WeaponAttack()
-    {
+	{
 
-    }
+	}
 
-	public virtual void Equip()
+	public virtual void Equip(bool isLeftHand)
 	{
 		Debug.Log(WeaponName + " Equiped");
-		InstantiateWeaponModel();
+		InstantiateWeaponModel(isLeftHand);
 	}
 
 	public virtual void Unequip()
@@ -24,20 +24,27 @@ public class WeaponClass : MonoBehaviour
 		DestroyWeaponModel();
 	}
 
-	protected void InstantiateWeaponModel()
+	protected void InstantiateWeaponModel(bool isLeftHand)
 	{
 		if (weaponModel != null)
 		{
 			currentModelInstance = Instantiate(weaponModel);
 			currentModelInstance.transform.parent = transform;
-			currentModelInstance.transform.localPosition = new Vector3(0, 1.75f, 0.5f); // Локальная позиция относительно персонажа
+			if (isLeftHand)
+			{
+				currentModelInstance.transform.localPosition = new Vector3(-0.25f, 1.75f, 0.5f); // Локальная позиция для левой руки
+			}
+			else
+			{
+				currentModelInstance.transform.localPosition = new Vector3(0.25f, 1.75f, 0.5f); // Локальная позиция для правой руки
+			}
 			currentModelInstance.transform.localRotation = Quaternion.Euler(0, 0, 0); // Локальное вращение
 		}
 	}
 
 	protected void DestroyWeaponModel()
 	{
-		if (weaponModel != null)
+		if (currentModelInstance != null)
 		{
 			Destroy(currentModelInstance);
 			currentModelInstance = null;

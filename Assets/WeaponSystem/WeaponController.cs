@@ -6,72 +6,132 @@ public class WeaponController : MonoBehaviour
 	public Button PoliceBatonButton;
 	public Button HarmonicaRevolverButton;
 	public Button PlungerCrossbowButton;
-	public Button EugenicGenieButon;
+	public Button EugenicGenieButton;
 
-	private WeaponClass currentWeapon;
+	private WeaponClass leftHandWeapon;
+	private WeaponClass rightHandWeapon;
+
+	WeaponWheelController weaponWheelController;
 
 	private void Start()
 	{
+		//leftHandWeapon = GetComponent<WeaponClass>();
+		//rightHandWeapon = GetComponent<WeaponClass>();
+
+		weaponWheelController = GetComponent<WeaponWheelController>();
+
 		// Назначаем обработчики событий для кнопок
 		PoliceBatonButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponPoliceBaton)));
 		HarmonicaRevolverButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponHarmonicaRevolver)));
 		PlungerCrossbowButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponPlungerCrossbow)));
-		EugenicGenieButon.onClick.AddListener(() => SelectWeapon(typeof(WeaponEugenicGenie)));
+		EugenicGenieButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponEugenicGenie)));
 	}
 
 	private void Update()
 	{
-		if (currentWeapon != null && currentWeapon.weaponModel != null)
+		if (leftHandWeapon != null && rightHandWeapon != null && rightHandWeapon.WeaponName == leftHandWeapon.WeaponName)
 		{
-			// Обновляем положение 3D модели оружия, чтобы она следовала за игроком
-		//	currentWeapon.weaponModel.transform.position = transform.position ;
-			//currentWeapon.weaponModel.transform.rotation = transform.rotation;
+			Debug.Log("Одинакого");
 		}
+		
 	}
 
-
-
-
-
-
-
-		private void SelectWeapon(System.Type weaponType)
+	private void SelectWeapon(System.Type weaponType)
 	{
-		
-		if (currentWeapon != null && currentWeapon.GetType() == weaponType)
+		bool isLeftHand = weaponWheelController.IsWeaponLeftHand;
+
+		// Проверяем, есть ли оружие в левой руке
+		if (weaponWheelController.IsWeaponLeftHand && leftHandWeapon != null && leftHandWeapon.GetType() == weaponType)
 		{
-			/*
-			// Если текущее оружие совпадает с выбранным, дезэкипируем его
-			currentWeapon.Unequip();
-			Destroy(currentWeapon);
-			currentWeapon = null;
-			*/
-
-
-
+			// Если текущее оружие совпадает с выбранным, ничего не делаем
+			return;
+		}
+		// Проверяем, есть ли оружие в правой руке
+		else if (!isLeftHand && rightHandWeapon != null && rightHandWeapon.GetType() == weaponType)
+		{
 			// Если текущее оружие совпадает с выбранным, ничего не делаем
 			return;
 		}
 		else
 		{
-			if (currentWeapon != null)
+			
+
+			// Если оружие не найдено ни в одной руке, создаем новый экземпляр оружия
+			if (isLeftHand)
 			{
-				currentWeapon.Unequip(); // Добавляем вызов Unequip()
-				Destroy(currentWeapon); // Уничтожаем предыдущее оружие
+			
+
+				if (leftHandWeapon != null)
+				{
+					leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
+					Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
+				}
+				else if (rightHandWeapon != null && rightHandWeapon.GetType() == weaponType)
+				{
+					rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
+					Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
+				}
+
+				
+
+					// Создаем новый экземпляр оружия
+					leftHandWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
+				leftHandWeapon.Equip(true); // Передаем флаг isLeftHand
+			}
+			else
+			{
+				if (rightHandWeapon != null)
+				{
+					rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
+					Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
+				}
+				else if (leftHandWeapon != null && leftHandWeapon.GetType() == weaponType)
+				{
+					leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
+					Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
+				}
+
+				
+
+				// Создаем новый экземпляр оружия
+				rightHandWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
+				rightHandWeapon.Equip(false); // Передаем флаг isLeftHand
+
+
+
+
+				
+
+				
 			}
 
-			// Создаем новый экземпляр оружия
-			currentWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
-			currentWeapon.Equip();
+				 if ( leftHandWeapon != null && rightHandWeapon != null && rightHandWeapon.WeaponName == leftHandWeapon.WeaponName)
+				{
+					if (isLeftHand == true)
+					{
+						rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
+						Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
+					}
+					else if (isLeftHand == false)
+					{
+						leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
+						Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
+					}
+				}
+
 		}
 	}
-	
+
 
 	public void UseCurrentWeapon()
 	{
-		if (currentWeapon != null)
+		if (leftHandWeapon != null)
 		{
-			currentWeapon.WeaponAttack();
+			leftHandWeapon.WeaponAttack();
+		}
+		else if (rightHandWeapon != null)
+		{
+			rightHandWeapon.WeaponAttack();
 		}
 	}
 }

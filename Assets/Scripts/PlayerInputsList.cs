@@ -19,6 +19,7 @@ public class PlayerInputsList : MonoBehaviour
 	private KeyCode _keyJump;
 	private KeyCode _keyCrouch;
 
+	private KeyCode _keyRightHandWeaponWheel;
 	private KeyCode _keyLeftHandWeaponWheel;
 	void Start()
 	{
@@ -40,6 +41,7 @@ public class PlayerInputsList : MonoBehaviour
 		_keyJump = KeyCode.Space;
 		_keyCrouch = KeyCode.LeftControl;
 
+		_keyRightHandWeaponWheel = KeyCode.Q;
 		_keyLeftHandWeaponWheel = KeyCode.Tab;
 	}
 	public bool GetKeyUp()
@@ -144,6 +146,15 @@ public class PlayerInputsList : MonoBehaviour
 	public bool GetKeyCrouch()
 	{
 		if (Input.GetKeyDown(_keyCrouch))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyRightHandWeaponWheel()
+	{
+		if (Input.GetKey(_keyRightHandWeaponWheel))
 		{
 			return true;
 		}

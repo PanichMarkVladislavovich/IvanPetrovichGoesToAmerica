@@ -1,24 +1,36 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponWheelController : MonoBehaviour
 {
-    PlayerInputsList playerInputsList;
+	PlayerInputsList playerInputsList;
 	public Canvas canvas; // Привяжите ваш Canvas сюда
-	public bool IsWeaponWheelActive {  get; private set; }
-	void Start()
-    {
-        playerInputsList = GetComponent<PlayerInputsList>();
-    }
+	public bool IsWeaponLeftHand {  get; private set; }
+	public bool IsWeaponWheelActive { get; private set; }
 
-    void Update()
-    {
+	void Start()
+	{
+		playerInputsList = GetComponent<PlayerInputsList>();
+	}
+
+	void Update()
+	{
 		if (playerInputsList.GetKeyLeftHandWeaponWheel() == true)
 		{
 			EnableCanvas();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 			IsWeaponWheelActive = true;
+			IsWeaponLeftHand = true;
+		}
+		else if (playerInputsList.GetKeyRightHandWeaponWheel() == true)
+		{
+			EnableCanvas();
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			IsWeaponWheelActive = true;
+			IsWeaponLeftHand = false;
 		}
 		else
 		{
@@ -29,20 +41,13 @@ public class WeaponWheelController : MonoBehaviour
 		}
 	}
 
-
 	private void EnableCanvas()
 	{
-		// Включаем взаимодействие с Canvas
-		//canvas.interactable = true;
-	//	canvas.blocksRaycasts = true;
 		canvas.gameObject.SetActive(true); // Делаем Canvas видимым
 	}
 
 	private void DisableCanvas()
 	{
-		// Отключаем взаимодействие с Canvas
-		//canvas.interactable = false;
-		//canvas.blocksRaycasts = false;
 		canvas.gameObject.SetActive(false); // Делаем Canvas невидимым
 	}
 }
