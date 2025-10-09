@@ -21,6 +21,9 @@ public class PlayerInputsList : MonoBehaviour
 
 	private KeyCode _keyRightHandWeaponWheel;
 	private KeyCode _keyLeftHandWeaponWheel;
+
+	private KeyCode _keyRightHandWeaponAttack;
+	private KeyCode _keyLeftHandWeaponAttack;
 	void Start()
 	{
 		playerMovementController = GetComponent<PlayerMovementController>();
@@ -43,6 +46,9 @@ public class PlayerInputsList : MonoBehaviour
 
 		_keyRightHandWeaponWheel = KeyCode.Q;
 		_keyLeftHandWeaponWheel = KeyCode.Tab;
+
+		_keyRightHandWeaponAttack = KeyCode.Mouse1;
+		_keyLeftHandWeaponAttack = KeyCode.Mouse0;
 	}
 	public bool GetKeyUp()
 	{
@@ -163,6 +169,24 @@ public class PlayerInputsList : MonoBehaviour
 	public bool GetKeyLeftHandWeaponWheel()
 	{
 		if (Input.GetKey(_keyLeftHandWeaponWheel))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyRightHandWeaponAttack()
+	{
+		if (Input.GetKeyDown(_keyRightHandWeaponAttack))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyLeftHandWeaponAttack()
+	{
+		if (Input.GetKeyDown(_keyLeftHandWeaponAttack))
 		{
 			return true;
 		}

@@ -6,7 +6,7 @@ public class WalkingPlayerMovementState: PlayerMovementState
 	public WalkingPlayerMovementState(PlayerMovementController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
-		Debug.Log("Player Walking");
+		//Debug.Log("Player Walking");
 		
 	}
 	public override void ChangePlayerMovementState()

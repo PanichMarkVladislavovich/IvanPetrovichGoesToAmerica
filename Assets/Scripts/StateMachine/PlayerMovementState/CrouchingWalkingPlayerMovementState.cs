@@ -5,7 +5,7 @@ public class CrouchingWalkingPlayerMovementState : PlayerMovementState
 	public CrouchingWalkingPlayerMovementState(PlayerMovementController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
-		Debug.Log("Player Crouching Walking");
+		//Debug.Log("Player Crouching Walking");
 		
 	}
 	public override void ChangePlayerMovementState()

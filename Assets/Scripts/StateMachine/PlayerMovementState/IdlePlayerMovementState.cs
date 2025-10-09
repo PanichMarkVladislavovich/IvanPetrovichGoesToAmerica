@@ -7,7 +7,7 @@ public class IdlePlayerMovementState : PlayerMovementState
 	{
 		this.playerMovementController = playerMovementController;
 		
-		Debug.Log("Player Idle");
+		//Debug.Log("Player Idle");
 		
 	}
 

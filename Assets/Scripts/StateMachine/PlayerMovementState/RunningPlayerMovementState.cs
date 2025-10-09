@@ -5,7 +5,7 @@ public class RunningPlayerMovementState : PlayerMovementState
 	public RunningPlayerMovementState(PlayerMovementController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
-		Debug.Log("Player Running");
+		//Debug.Log("Player Running");
 		
 	}
 	public override void ChangePlayerMovementState()

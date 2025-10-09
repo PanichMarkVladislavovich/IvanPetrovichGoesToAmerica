@@ -323,6 +323,8 @@ public class PlayerMovementController : MonoBehaviour
 			newState = null;
 		}
 		playerMovementState = newState;
+
+		Debug.Log("PlayerMovementState: " + playerMovementState);
 	}
 
 	// Different player movement states scripts call this function

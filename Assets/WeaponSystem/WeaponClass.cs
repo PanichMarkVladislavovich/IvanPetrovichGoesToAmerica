@@ -9,18 +9,19 @@ public abstract class WeaponClass : MonoBehaviour
 
 	public virtual void WeaponAttack()
 	{
-
+		// 4 weapon classes override this method
 	}
 
 	public virtual void Equip(bool isLeftHand)
 	{
-		Debug.Log(WeaponName + " Equiped");
+		string hand = isLeftHand ? "Left Hand" : "RightHand";
+		//Debug.Log(WeaponName + " Equiped in " + hand);
 		InstantiateWeaponModel(isLeftHand);
 	}
 
 	public virtual void Unequip()
 	{
-		Debug.Log(WeaponName + " Unequiped");
+		//Debug.Log(WeaponName + " Unequiped");
 		DestroyWeaponModel();
 	}
 

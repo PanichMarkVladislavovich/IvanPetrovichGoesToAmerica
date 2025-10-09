@@ -8,6 +8,8 @@ public class WeaponController : MonoBehaviour
 	public Button PlungerCrossbowButton;
 	public Button EugenicGenieButton;
 
+	PlayerInputsList playerInputsList;
+
 	private WeaponClass leftHandWeapon;
 	private WeaponClass rightHandWeapon;
 
@@ -17,6 +19,7 @@ public class WeaponController : MonoBehaviour
 	{
 		//leftHandWeapon = GetComponent<WeaponClass>();
 		//rightHandWeapon = GetComponent<WeaponClass>();
+		playerInputsList = GetComponent<PlayerInputsList>();
 
 		weaponWheelController = GetComponent<WeaponWheelController>();
 
@@ -29,11 +32,22 @@ public class WeaponController : MonoBehaviour
 
 	private void Update()
 	{
+		/*
 		if (leftHandWeapon != null && rightHandWeapon != null && rightHandWeapon.WeaponName == leftHandWeapon.WeaponName)
 		{
 			Debug.Log("Одинакого");
 		}
-		
+		*/
+
+		if (playerInputsList.GetKeyRightHandWeaponAttack())
+		{
+			RightWeaponAttack();
+		}
+
+		if (playerInputsList.GetKeyLeftHandWeaponAttack())
+		{
+			LeftWeaponAttack();
+		}
 	}
 
 	private void SelectWeapon(System.Type weaponType)
@@ -65,11 +79,13 @@ public class WeaponController : MonoBehaviour
 				{
 					leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
 					Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
+					leftHandWeapon = null;
 				}
 				else if (rightHandWeapon != null && rightHandWeapon.GetType() == weaponType)
 				{
 					rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
 					Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
+					rightHandWeapon = null;
 				}
 
 				
@@ -84,11 +100,13 @@ public class WeaponController : MonoBehaviour
 				{
 					rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
 					Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
+					rightHandWeapon= null;
 				}
 				else if (leftHandWeapon != null && leftHandWeapon.GetType() == weaponType)
 				{
 					leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
 					Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
+					leftHandWeapon= null;
 				}
 
 				
@@ -111,27 +129,35 @@ public class WeaponController : MonoBehaviour
 					{
 						rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
 						Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
+					rightHandWeapon = null;
 					}
 					else if (isLeftHand == false)
 					{
 						leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
 						Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
+					leftHandWeapon = null;
 					}
 				}
 
+			Debug.Log("LeftHand: " + (leftHandWeapon?.WeaponName ?? "null") + " | RightHand: " + (rightHandWeapon?.WeaponName ?? "null"));
 		}
 	}
 
 
-	public void UseCurrentWeapon()
+	public void RightWeaponAttack()
+	{
+		if (rightHandWeapon != null)
+		{
+			rightHandWeapon.WeaponAttack();
+		}
+	}
+
+	public void LeftWeaponAttack()
 	{
 		if (leftHandWeapon != null)
 		{
 			leftHandWeapon.WeaponAttack();
 		}
-		else if (rightHandWeapon != null)
-		{
-			rightHandWeapon.WeaponAttack();
-		}
 	}
+
 }

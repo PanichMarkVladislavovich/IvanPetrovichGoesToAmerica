@@ -5,7 +5,7 @@ public class JumpingPlayerMovementState : PlayerMovementState
 	public JumpingPlayerMovementState(PlayerMovementController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
-		Debug.Log("Player Jumping");
+		//Debug.Log("Player Jumping");
 		
 	}
 

@@ -11,7 +11,11 @@ public class WeaponEugenicGenie : WeaponClass
 	public void Awake()
 	{
 		weaponModel = Resources.Load<GameObject>("WeaponEugenicsGenie"); // Загружаем префаб револьвера
-		Debug.Log("Загружен префаб: " + weaponModel);
+		//Debug.Log("Загружен префаб: " + weaponModel);
 	}
 
+	public override void WeaponAttack()
+	{
+		Debug.Log("EugenicAttack");
+	}
 }

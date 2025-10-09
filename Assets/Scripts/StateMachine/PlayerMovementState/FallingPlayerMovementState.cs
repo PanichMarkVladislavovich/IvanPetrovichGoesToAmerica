@@ -5,7 +5,7 @@ public class FallingPlayerMovementState : PlayerMovementState
 	public FallingPlayerMovementState(PlayerMovementController playerMovementController)
 	{
 	this.playerMovementController = playerMovementController;
-	Debug.Log("Player Falling");
+	//Debug.Log("Player Falling");
 		
 	}
 

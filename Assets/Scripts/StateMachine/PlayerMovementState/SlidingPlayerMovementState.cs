@@ -12,7 +12,7 @@ public class SlidingPlayerMovementState : PlayerMovementState
 	{
 		this.playerMovementController = playerMovementController;
 
-		Debug.Log("Player Sliding");
+		//Debug.Log("Player Sliding");
 		
 	}
 	public override void ChangePlayerMovementState()
