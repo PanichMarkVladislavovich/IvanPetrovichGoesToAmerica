@@ -3,6 +3,7 @@ public class PlayerInputsList : MonoBehaviour
 {
 	PlayerMovementController playerMovementController;
 	
+	
 	private KeyCode _keyUp;
 	private KeyCode _keyDown;
 	private KeyCode _keyRight;
@@ -24,9 +25,12 @@ public class PlayerInputsList : MonoBehaviour
 
 	private KeyCode _keyRightHandWeaponAttack;
 	private KeyCode _keyLeftHandWeaponAttack;
+
+	private KeyCode _keyOpenMainMenu; 
 	void Start()
 	{
 		playerMovementController = GetComponent<PlayerMovementController>();
+		
 
 		_keyUp = KeyCode.W;
 		_keyDown = KeyCode.S;
@@ -49,14 +53,18 @@ public class PlayerInputsList : MonoBehaviour
 
 		_keyRightHandWeaponAttack = KeyCode.Mouse1;
 		_keyLeftHandWeaponAttack = KeyCode.Mouse0;
+
+		_keyOpenMainMenu = KeyCode.Alpha1; //for now its not ESC as Unity and stuff...
 	}
+
+	
 	public bool GetKeyUp()
 	{
-		if (Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
 		{
 			return false;
 		}
-		else if (Input.GetKey(_keyUp) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyUp) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -64,11 +72,11 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyDown()
 	{
-		if (Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
 		{
 			return false;
 		}
-		else if (Input.GetKey(_keyDown) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyDown) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -76,11 +84,11 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyRight()
 	{
-		if (Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
 		{
 			return false;
 		}
-		else if (Input.GetKey(_keyRight) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyRight) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -88,11 +96,11 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyLeft()
 	{
-		if (Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
 		{
 			return false;
 		}
-		else if (Input.GetKey(_keyLeft) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyLeft) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -101,7 +109,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyChangeCameraView()
 	{
-		if (Input.GetKeyDown(_keyChangeCameraView))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyChangeCameraView))
 		{
 			return true;
 		}
@@ -109,7 +117,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyEnterCutscene()
 	{
-		if (Input.GetKeyDown(_keyEnterCutscene))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyEnterCutscene))
 		{
 			return true;
 		}
@@ -117,7 +125,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyShowWeapons()
 	{
-		if (Input.GetKeyDown(_keyShowWeapons))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons))
 		{
 			return true;
 		}
@@ -125,7 +133,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyRun()
 	{
-		if (Input.GetKey(_keyRun) && playerMovementController.IsPlayerAbleToMove == true)
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRun) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -134,7 +142,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyJump()
 	{
-		if (Input.GetKeyDown(_keyJump) && playerMovementController.IsPlayerGrounded == true && playerMovementController.IsPlayerAbleToMove == true && playerMovementController.IsPlayerAbleToStandUp == true)
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyJump) && playerMovementController.IsPlayerGrounded == true && playerMovementController.IsPlayerAbleToMove == true && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
 			return true;
 		}
@@ -142,7 +150,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool IsKeyJumpBeingHeld()
 	{
-		if (Input.GetKey(_keyJump))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyJump))
 		{
 			return true;
 		}
@@ -151,7 +159,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyCrouch()
 	{
-		if (Input.GetKeyDown(_keyCrouch))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyCrouch))
 		{
 			return true;
 		}
@@ -160,7 +168,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyRightHandWeaponWheel()
 	{
-		if (Input.GetKey(_keyRightHandWeaponWheel))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRightHandWeaponWheel))
 		{
 			return true;
 		}
@@ -168,7 +176,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyLeftHandWeaponWheel()
 	{
-		if (Input.GetKey(_keyLeftHandWeaponWheel))
+		if (GameManager.IsPlayerControllable && Input.GetKey(_keyLeftHandWeaponWheel))
 		{
 			return true;
 		}
@@ -177,7 +185,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyRightHandWeaponAttack()
 	{
-		if (Input.GetKeyDown(_keyRightHandWeaponAttack))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyRightHandWeaponAttack))
 		{
 			return true;
 		}
@@ -186,7 +194,16 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyLeftHandWeaponAttack()
 	{
-		if (Input.GetKeyDown(_keyLeftHandWeaponAttack))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyLeftHandWeaponAttack))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyOpenMainMenu()
+	{
+		if (Input.GetKeyDown(_keyOpenMainMenu))
 		{
 			return true;
 		}

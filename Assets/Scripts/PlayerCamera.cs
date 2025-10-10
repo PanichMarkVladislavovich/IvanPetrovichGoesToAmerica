@@ -6,7 +6,7 @@ public class PlayerCamera : MonoBehaviour
 	public CapsuleCollider PlayerCollider;
 	public Transform PlayerTransform;
 
-	public WeaponWheelController weaponWheelController;
+	//public WeaponWheelController weaponWheelController;
 
 	public PlayerCameraState playerCameraState;
 	public PlayerCameraStateType playerCameraStateType;
@@ -52,7 +52,7 @@ public class PlayerCamera : MonoBehaviour
 
 	void Update()
 	{
-        if (weaponWheelController.IsWeaponWheelActive == false)
+        if (!GameManager.IsAnyMenuOpened)
         {
 			MouseRotation.y += Input.GetAxis("Mouse X");
 			MouseRotation.x += Input.GetAxis("Mouse Y");

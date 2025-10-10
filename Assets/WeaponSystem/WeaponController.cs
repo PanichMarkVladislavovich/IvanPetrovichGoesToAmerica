@@ -39,12 +39,12 @@ public class WeaponController : MonoBehaviour
 		}
 		*/
 
-		if (playerInputsList.GetKeyRightHandWeaponAttack())
+		if (playerInputsList.GetKeyRightHandWeaponAttack() && !GameManager.IsAnyMenuOpened)
 		{
 			RightWeaponAttack();
 		}
 
-		if (playerInputsList.GetKeyLeftHandWeaponAttack())
+		if (playerInputsList.GetKeyLeftHandWeaponAttack() && !GameManager.IsAnyMenuOpened)
 		{
 			LeftWeaponAttack();
 		}

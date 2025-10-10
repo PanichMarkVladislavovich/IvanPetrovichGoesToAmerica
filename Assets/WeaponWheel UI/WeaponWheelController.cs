@@ -1,53 +1,74 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponWheelController : MonoBehaviour
 {
 	PlayerInputsList playerInputsList;
-	public Canvas canvas; // Привяжите ваш Canvas сюда
-	public bool IsWeaponLeftHand {  get; private set; }
+	public Canvas WeaponWheelMenuCanvas; // Привяжите ваш Canvas сюда
+	public bool IsWeaponLeftHand { get; private set; }
 	public bool IsWeaponWheelActive { get; private set; }
+
+	private bool previousLeftHandPressed = false;
+	private bool previousRightHandPressed = false;
 
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
+		WeaponWheelMenuCanvas.gameObject.SetActive(false);
+		//DisableCanvas();
 	}
 
 	void Update()
 	{
-		if (playerInputsList.GetKeyLeftHandWeaponWheel() == true)
+		
+			bool currentLeftHandPressed = playerInputsList.GetKeyLeftHandWeaponWheel();
+			bool currentRightHandPressed = playerInputsList.GetKeyRightHandWeaponWheel();
+
+			// Обновляем состояние, только если изменилось нажатие кнопки
+			if (currentLeftHandPressed != previousLeftHandPressed ||
+				currentRightHandPressed != previousRightHandPressed)
+			{
+				HandleWeaponWheel(currentLeftHandPressed, currentRightHandPressed);
+			}
+
+			previousLeftHandPressed = currentLeftHandPressed;
+			previousRightHandPressed = currentRightHandPressed;
+		
+	}
+
+	private void HandleWeaponWheel(bool leftHandPressed, bool rightHandPressed)
+	{
+		if (leftHandPressed)
 		{
-			EnableCanvas();
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			EnableWeaponWheelMenuCanvas();
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = true;
 		}
-		else if (playerInputsList.GetKeyRightHandWeaponWheel() == true)
+		else if (rightHandPressed)
 		{
-			EnableCanvas();
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			EnableWeaponWheelMenuCanvas();
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = false;
 		}
 		else
 		{
-			DisableCanvas();
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			DisableWeaponWheelMenuCanvas();
 			IsWeaponWheelActive = false;
 		}
 	}
 
-	private void EnableCanvas()
+	private void EnableWeaponWheelMenuCanvas()
 	{
-		canvas.gameObject.SetActive(true); // Делаем Canvas видимым
+		WeaponWheelMenuCanvas.gameObject.SetActive(true); // Показываем Canvas
+		GameManager.OpenWeaponWheelMenu();
 	}
 
-	private void DisableCanvas()
+	private void DisableWeaponWheelMenuCanvas()
 	{
-		canvas.gameObject.SetActive(false); // Делаем Canvas невидимым
+		WeaponWheelMenuCanvas.gameObject.SetActive(false); // Скрываем Canvas
+		if (!GameManager.IsMainMenuOpened)
+		{
+			GameManager.CloseWeaponWheelMenu();
+		}
 	}
 }

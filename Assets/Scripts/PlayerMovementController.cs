@@ -88,7 +88,7 @@ public class PlayerMovementController : MonoBehaviour
 		/*
 		Gizmos.color = Color.red;
 		
-		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.2f);
+		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.3f);
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up * 0.3f);
 
 		Gizmos.DrawCube(transform.position + transform.up * 1.75f + transform.forward * 0.75f + transform.right * -0.4f, new Vector3(0.25f, 0.25f, 0.25f));
@@ -128,9 +128,11 @@ public class PlayerMovementController : MonoBehaviour
 		}
 		else PlayerWorldMovement.z = 0;
 
+		// короче тут проблема
 		if (playerInputsList.GetKeyJump())
 		{
-			PlayerRigidBody.AddForce(transform.up * 5, ForceMode.Impulse);
+			
+			PlayerRigidBody.AddForce(transform.up * 5f, ForceMode.Impulse);
 		}
 
 		//
@@ -138,7 +140,9 @@ public class PlayerMovementController : MonoBehaviour
 		IsPlayerGrounded = Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f);
 		IsPlayerAbleToStandUp = !Physics.Raycast(transform.position + new Vector3(0, PlayerUpRayYPosition, 0), Vector3.up, out hitInfo, 0.3f);
 		IsPlayerFalling = (_playerPreviousFramePositionChange.y < -0.01f && IsPlayerGrounded == false);
-		
+
+		//Debug.Log(IsPlayerGrounded);
+
 		if (IsPlayerCrouching == false)
 		{
 			PlayerDownRayYPosition = 0.1f;
@@ -150,18 +154,7 @@ public class PlayerMovementController : MonoBehaviour
 			PlayerUpRayYPosition = 1.2f;
 		}
 		
-		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
-		{
-			PlayerRigidBody.useGravity = false;
-			if (IsPLayerSliding == false)
-			{
-				PlayerRigidBody.linearVelocity = Vector3.zero;
-			}
-		}
-        else
-        {
-			PlayerRigidBody.useGravity = true;
-		}
+		
 
 		// Ledge Climbing BoxCast collision check
 		bool isAllBoxesColliding;
@@ -201,7 +194,7 @@ public class PlayerMovementController : MonoBehaviour
 		}
 
 		// Slope 
-		if ( Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
+		if (Physics.Raycast(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down, out hitInfo, 0.3f))
 		{
 			if (hitInfo.normal != Vector3.up)
 			{
@@ -211,6 +204,19 @@ public class PlayerMovementController : MonoBehaviour
 			{
 				IsPlayerOnSlope = false;
 			}
+		}
+
+		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
+		{
+			PlayerRigidBody.useGravity = false;
+			if (IsPLayerSliding == false)
+			{
+				PlayerRigidBody.linearVelocity = Vector3.zero;
+			}
+		}
+        else
+        {
+			PlayerRigidBody.useGravity = true;
 		}
 
 		if (IsPlayerOnSlope == true)
