@@ -4,38 +4,77 @@ using UnityEngine.InputSystem;
 public class PlayerBehaviour : MonoBehaviour
 {
 	PlayerInputsList playerInputsList;
+	WeaponController weaponController;
 
-	private bool _isPlayerArmed;
+	public bool IsPlayerArmed {  get; private set; }
 
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
+		weaponController = GetComponent<WeaponController>();
 
-		_isPlayerArmed = false;
+		IsPlayerArmed = false;
 	}
 
 	void Update()
 	{
 		if (playerInputsList.GetKeyShowWeapons())
 		{
-			_isPlayerArmed = !_isPlayerArmed;
+			if (!IsPlayerArmed)
+			{
+				ArmPlayer();
+			}
+			else DisarmPlayer();
 		}
+
+		
+
 
 		//Debug.Log(GetPlayerBehaviour());
-		//Debug.Log("Is player armed " + _isPlayerArmed);
+		//Debug.Log("Is player armed " + IsPlayerArmed);
 	}
-	public int GetPlayerBehaviour()
+	
+
+	public void ArmPlayer()
 	{
-		if (_isPlayerArmed == true)
+		if (!IsPlayerArmed)
 		{
-			return 1;
+			IsPlayerArmed = !IsPlayerArmed;
 		}
-		else return 0;
+
+		if (weaponController.RightHandWeapon != null)
+		{
+			weaponController.ShowRightWeapon();
+		}
+
+		if (weaponController.LeftHandWeapon != null)
+		{
+			weaponController.ShowLeftWeapon();
+		}
+
+
+		Debug.Log("PlayerArmed");
 	}
 
-	// normal 0
-	// armed 1
-	// wanted 2
-	// hostile 3
+	public void DisarmPlayer()
+	{
+		if (IsPlayerArmed)
+		{
+			IsPlayerArmed = !IsPlayerArmed;
+
+			if (weaponController.RightHandWeapon != null)
+			{
+				weaponController.HideRightWeapon();
+			}
+
+			if (weaponController.LeftHandWeapon != null)
+			{
+				weaponController.HideLeftWeapon();
+			}
+
+			Debug.Log("PlayerDisarmed");
+		}
+		
+	}
 
 }

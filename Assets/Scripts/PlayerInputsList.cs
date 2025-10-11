@@ -125,7 +125,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyShowWeapons()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons) && !GameManager.IsWeaponWheelMenuOpened)
 		{
 			return true;
 		}
@@ -148,7 +148,7 @@ public class PlayerInputsList : MonoBehaviour
 		}
 		else return false;
 	}
-	public bool IsKeyJumpBeingHeld()
+	public bool GetKeyJumpBeingHeld()
 	{
 		if (GameManager.IsPlayerControllable && Input.GetKey(_keyJump))
 		{

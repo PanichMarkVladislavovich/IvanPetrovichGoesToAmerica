@@ -5,7 +5,8 @@ public abstract class WeaponClass : MonoBehaviour
 	public string WeaponName;
 	public float WeaponDamage;
 	public GameObject weaponModel; // —сылка на 3D модель оружи€
-	private GameObject currentModelInstance; // —сылка на инстанцированную модель
+	public GameObject currentModelInstance; // —сылка на инстанцированную модель
+	public MeshRenderer weaponMeshRenderer;
 
 	public virtual void WeaponAttack()
 	{
@@ -30,6 +31,7 @@ public abstract class WeaponClass : MonoBehaviour
 		if (weaponModel != null)
 		{
 			currentModelInstance = Instantiate(weaponModel);
+			weaponMeshRenderer = currentModelInstance.GetComponent<MeshRenderer>();
 			currentModelInstance.transform.parent = transform;
 			if (isLeftHand)
 			{

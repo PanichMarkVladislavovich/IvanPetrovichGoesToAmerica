@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
 		if (IsWeaponWheelMenuOpened)
 		{
-			CloseWeaponWheelMenu();
+			CloseWeaponWheelMenu(true);
 		}
 
 
@@ -81,22 +81,33 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1f;
 	}
 
-	public static void OpenWeaponWheelMenu()
+	public static void OpenWeaponWheelMenu(bool IsItRightWeaponWheelMenu)
 	{
 		OpenMenu();
 		IsWeaponWheelMenuOpened = true;
-		
 
-		Debug.Log("WeaponWheelMenu is opened");
-
+		if (IsItRightWeaponWheelMenu)
+		{
+			Debug.Log("Right WeaponWheelMenu is opened");
+		}
+		else
+		{ 
+			Debug.Log("Left WeaponWheelMenu is opened");
+		}
 	}
 
-	public static void CloseWeaponWheelMenu()
+	public static void CloseWeaponWheelMenu(bool IsItRightWeaponWheelMenu)
 	{
 		CloseMenu();
 		IsWeaponWheelMenuOpened = false;
-		Debug.Log("WeaponWheelMenu is closed");
-
+		if (IsItRightWeaponWheelMenu)
+		{
+			Debug.Log("Right WeaponWheelMenu is closed");
+		}
+		else
+		{
+			Debug.Log("Left WeaponWheelMenu is closed");
+		}
 	}
 
 	public static void OpenMenu()

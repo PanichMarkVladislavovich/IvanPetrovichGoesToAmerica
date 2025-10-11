@@ -10,6 +10,7 @@ public class WeaponPlungerCrossbow : WeaponClass
 	public void Awake()
 	{
 		weaponModel = Resources.Load<GameObject>("WeaponPlungerCrossbow"); // Загружаем префаб револьвера
+	//	weaponMeshRenderer = weapon
 		//Debug.Log("Загружен префаб: " + weaponModel);
 	}
 

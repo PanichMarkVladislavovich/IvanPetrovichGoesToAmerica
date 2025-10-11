@@ -36,7 +36,7 @@ public class PlayerAnimationController : MonoBehaviour
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "Walking")
 		{
-			if ((playerBehaviour.GetPlayerBehaviour() == 1) || (playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.FirstPerson.ToString()))
+			if (playerBehaviour.IsPlayerArmed == true || (playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.FirstPerson.ToString()))
 			{
 				if (playerInputsList.GetKeyUp())
 				{
