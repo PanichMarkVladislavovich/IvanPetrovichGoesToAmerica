@@ -14,31 +14,18 @@ public abstract class WeaponClass : MonoBehaviour
 		// 4 weapon classes override this method
 	}
 
-	public virtual void Equip(bool isLeftHand)
-	{
-		string hand = isLeftHand ? "Left Hand" : "RightHand";
-		//Debug.Log(WeaponName + " Equiped in " + hand);
-		InstantiateWeaponModel(isLeftHand);
-	}
-
-	public virtual void Unequip()
-	{
-		//Debug.Log(WeaponName + " Unequiped");
-		DestroyWeaponModel();
-	}
-
-	protected void InstantiateWeaponModel(bool isLeftHand)
+	public void InstantiateWeaponModel(string handType)
 	{
 		if (weaponModel != null)
 		{
 			currentModelInstance = Instantiate(weaponModel);
 			weaponMeshRenderer = currentModelInstance.GetComponent<MeshRenderer>();
 			currentModelInstance.transform.parent = transform;
-			if (isLeftHand)
+			if (handType == "left")
 			{
 				currentModelInstance.transform.localPosition = new Vector3(-0.35f, 1.75f, 0.5f); // Локальная позиция для левой руки
 			}
-			else
+			else if(handType == "right")
 			{
 				currentModelInstance.transform.localPosition = new Vector3(0.35f, 1.75f, 0.5f); // Локальная позиция для правой руки
 			}
@@ -46,7 +33,7 @@ public abstract class WeaponClass : MonoBehaviour
 		}
 	}
 
-	protected void DestroyWeaponModel()
+	public void DestroyWeaponModel()
 	{
 		if (currentModelInstance != null)
 		{

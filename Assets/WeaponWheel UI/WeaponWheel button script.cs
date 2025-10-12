@@ -22,7 +22,6 @@ public class WeaponWheelbuttonscript : MonoBehaviour
     public void HoverEnter()
     {
 		WeaponText.text = AvailableWeaponName;
-
 	}
 
 	public void HoverExit()
@@ -35,7 +34,6 @@ public class WeaponWheelbuttonscript : MonoBehaviour
 		{
 			WeaponText.text = weaponController.RightHandWeapon?.WeaponNameUI;
 		}
-
 	}
 
 	public void ChangeWeaponWheelButtonColorToActive(Button buttonType)
@@ -57,26 +55,6 @@ public class WeaponWheelbuttonscript : MonoBehaviour
 		buttonType.colors = colors;
 	}
 
-	/*
-	public void ChangeWeaponWheelButtonColorToDefault(Button buttonType)
-	{
-		// Преобразуем HEX в значение цвета
-		string hexCode = "#D18A24"; // добавляем альфа-канал FF (полностью непрозрачный)
-
-		Color newColor;
-		if (!ColorUtility.TryParseHtmlString(hexCode, out newColor))
-			Debug.LogError("Ошибка конвертации HEX цвета");
-
-		// Меняем цвета всех состояний кнопки
-		ColorBlock colors = buttonType.colors;
-		//colors.normalColor = newColor;
-		colors.highlightedColor = newColor;
-		colors.selectedColor = newColor;
-		colors.pressedColor = newColor;
-		buttonType.colors = colors;
-
-	}
-	*/
 	public void ChangeWeaponWheelButtonColorToDefault(Button buttonType)
 	{
 		// Определяем HEX-коды для двух цветов

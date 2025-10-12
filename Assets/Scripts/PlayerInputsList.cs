@@ -41,6 +41,7 @@ public class PlayerInputsList : MonoBehaviour
 
 		_keyShowWeapons = KeyCode.F;
 
+		///////////////////
 		_keyEnterCutscene = KeyCode.C;
 
 		_keyRun = KeyCode.LeftShift;
@@ -115,9 +116,12 @@ public class PlayerInputsList : MonoBehaviour
 		}
 		else return false;
 	}
+
+	////////////////////////
+	//////////////////////
 	public bool GetKeyEnterCutscene()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyEnterCutscene))
+		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyEnterCutscene) && false)
 		{
 			return true;
 		}

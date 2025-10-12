@@ -8,11 +8,9 @@ public class WeaponEugenicGenie : WeaponClass
 		WeaponNameUI = "Евгеник Дыхание Джинна";
 	}
 
-
 	public void Awake()
 	{
 		weaponModel = Resources.Load<GameObject>("WeaponEugenicsGenie"); // Загружаем префаб револьвера
-		//Debug.Log("Загружен префаб: " + weaponModel);
 	}
 
 	public override void WeaponAttack()
