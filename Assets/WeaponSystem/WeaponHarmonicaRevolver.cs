@@ -4,7 +4,8 @@ public class WeaponHarmonicaRevolver : WeaponClass
 {
     WeaponHarmonicaRevolver()
     {
-        WeaponName = "HarmonicaRevolver";
+        WeaponNameSystem = "HarmonicaRevolver";
+		WeaponNameUI = "Револьвер Гармоника";
 	}
 
 	public void Awake()

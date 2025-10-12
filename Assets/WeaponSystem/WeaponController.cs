@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class WeaponController : MonoBehaviour
 {
 	public Button PoliceBatonButton;
@@ -9,38 +10,32 @@ public class WeaponController : MonoBehaviour
 	public Button EugenicGenieButton;
 
 	PlayerInputsList playerInputsList;
+	WeaponWheelController weaponWheelController;
 	PlayerBehaviour playerBehaviour;
+	public WeaponWheelbuttonscript weaponWheelbuttonscript;
 
 	public WeaponClass LeftHandWeapon {  get; private set; }
+	//public string CurrentLeftHandWeaponName { get; private set; }
 	public WeaponClass RightHandWeapon {  get; private set; }
-
-	WeaponWheelController weaponWheelController;
+	//public string CurrentRightHandWeaponName { get; private set; }
 
 	private void Start()
 	{
-		//leftHandWeapon = GetComponent<WeaponClass>();
-		//rightHandWeapon = GetComponent<WeaponClass>();
 		playerInputsList = GetComponent<PlayerInputsList>();
-
 		weaponWheelController = GetComponent<WeaponWheelController>();
+		playerBehaviour = GetComponent<PlayerBehaviour>();
 
 		// Назначаем обработчики событий для кнопок
 		PoliceBatonButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponPoliceBaton)));
 		HarmonicaRevolverButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponHarmonicaRevolver)));
 		PlungerCrossbowButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponPlungerCrossbow)));
 		EugenicGenieButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponEugenicGenie)));
-
-		playerBehaviour = GetComponent<PlayerBehaviour>();
 	}
 
 	private void Update()
 	{
-		/*
-		if (leftHandWeapon != null && rightHandWeapon != null && rightHandWeapon.WeaponName == leftHandWeapon.WeaponName)
-		{
-			Debug.Log("Одинакого");
-		}
-		*/
+		//Debug.Log(LeftHandWeapon?.WeaponName);
+		//Debug.Log(RightHandWeapon?.WeaponName);
 
 		if (playerInputsList.GetKeyRightHandWeaponAttack() && !GameManager.IsAnyMenuOpened)
 		{
@@ -61,99 +56,73 @@ public class WeaponController : MonoBehaviour
 		if (weaponWheelController.IsWeaponLeftHand && LeftHandWeapon != null && LeftHandWeapon.GetType() == weaponType)
 		{
 			// Если текущее оружие совпадает с выбранным, ничего не делаем
+			playerBehaviour.ArmPlayer();
 			return;
 		}
 		// Проверяем, есть ли оружие в правой руке
 		else if (!isLeftHand && RightHandWeapon != null && RightHandWeapon.GetType() == weaponType)
 		{
 			// Если текущее оружие совпадает с выбранным, ничего не делаем
+			playerBehaviour.ArmPlayer();
 			return;
 		}
 		else
 		{
-
-
 			// Если оружие не найдено ни в одной руке, создаем новый экземпляр оружия
 			if (isLeftHand)
 			{
-
-
 				if (LeftHandWeapon != null)
 				{
-					//leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
-					//Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
-					//leftHandWeapon = null;
-					RemoveLeftWeapon();
+					RemoveWeapon("left");
+					//CurrentLeftHandWeaponName = "-";
 				}
 				else if (RightHandWeapon != null && RightHandWeapon.GetType() == weaponType)
 				{
-					//rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
-					//Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
-					//rightHandWeapon = null;
-					RemoveRightWeapon();
+					RemoveWeapon("right");
 				}
-
-
 
 				// Создаем новый экземпляр оружия
 				LeftHandWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
+				ChangeWheaponWheelButtonColor("left");
 				LeftHandWeapon.Equip(true); // Передаем флаг isLeftHand
+				//CurrentLeftHandWeaponName = LeftHandWeapon.WeaponName;
 				playerBehaviour.ArmPlayer();
 			}
 			else
 			{
 				if (RightHandWeapon != null)
 				{
-					//rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
-					//Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
-					//rightHandWeapon = null;
-					RemoveRightWeapon();
+					RemoveWeapon("right");
 				}
 				else if (LeftHandWeapon != null && LeftHandWeapon.GetType() == weaponType)
 				{
-					//leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
-					//Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
-					//leftHandWeapon = null;
-					RemoveLeftWeapon();
+					RemoveWeapon("left");
+					//CurrentLeftHandWeaponName = "-";
 				}
-
-
 
 				// Создаем новый экземпляр оружия
 				RightHandWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
+				ChangeWheaponWheelButtonColor("right");
 				RightHandWeapon.Equip(false); // Передаем флаг isLeftHand
+			//	CurrentRightHandWeaponName = RightHandWeapon.WeaponName;
 				playerBehaviour.ArmPlayer();
-
-
-
-
-
-
-
 			}
 
-			if (LeftHandWeapon != null && RightHandWeapon != null && RightHandWeapon.WeaponName == LeftHandWeapon.WeaponName)
+			if (LeftHandWeapon != null && RightHandWeapon != null && RightHandWeapon.WeaponNameSystem == LeftHandWeapon.WeaponNameSystem)
 			{
 				if (isLeftHand == true)
 				{
-					//rightHandWeapon.Unequip(); // Добавляем вызов Unequip()
-					//Destroy(rightHandWeapon); // Уничтожаем предыдущее оружие
-					//rightHandWeapon = null;
-					RemoveRightWeapon();
+					RemoveWeapon("right");
 				}
 				else if (isLeftHand == false)
 				{
-					//leftHandWeapon.Unequip(); // Добавляем вызов Unequip()
-					//Destroy(leftHandWeapon); // Уничтожаем предыдущее оружие
-					//leftHandWeapon = null;
-					RemoveLeftWeapon();
+					RemoveWeapon("left");
 				}
 			}
 
-			Debug.Log("LeftHand: " + (LeftHandWeapon?.WeaponName ?? "null") + " | RightHand: " + (RightHandWeapon?.WeaponName ?? "null"));
+			Debug.Log("LeftHand: " + (LeftHandWeapon?.WeaponNameSystem ?? "null") + " | RightHand: " + (RightHandWeapon?.WeaponNameSystem ?? "null"));
 		}
 	}
-
 
 	public void RightWeaponAttack()
 	{
@@ -170,36 +139,120 @@ public class WeaponController : MonoBehaviour
 			LeftHandWeapon.WeaponAttack();
 		}
 	}
-	public void RemoveRightWeapon()
+	public void RemoveWeapon(string handType)
 	{
-		RightHandWeapon.Unequip(); // Добавляем вызов Unequip()
-		Destroy(RightHandWeapon); // Уничтожаем предыдущее оружие
-		RightHandWeapon = null;
+		if (handType == "right")
+		{
+			RightHandWeapon.Unequip(); // Добавляем вызов Unequip()
+			Destroy(RightHandWeapon); // Уничтожаем предыдущее оружие
+			RightHandWeapon = null;
+		}
+		else if (handType == "left")
+		{
+			LeftHandWeapon.Unequip(); // Добавляем вызов Unequip()
+			Destroy(LeftHandWeapon); // Уничтожаем предыдущее оружие
+			LeftHandWeapon = null;
+		}
 	}
 
-	public void RemoveLeftWeapon()
-	{
-		LeftHandWeapon.Unequip(); // Добавляем вызов Unequip()
-		Destroy(LeftHandWeapon); // Уничтожаем предыдущее оружие
-		LeftHandWeapon = null;
+	public void ShowWeapon(string handType)
+	{ 
+		if (handType == "right")
+		{
+			RightHandWeapon.weaponMeshRenderer.enabled = true;
+		}
+		else if (handType == "left")
+		{
+			LeftHandWeapon.weaponMeshRenderer.enabled = true;
+		}
 	}
 
-	public void ShowRightWeapon()
+	public void HideWeapon(string handType)
 	{
-		RightHandWeapon.weaponMeshRenderer.enabled = true;
+		if (handType == "right")
+		{
+			RightHandWeapon.weaponMeshRenderer.enabled = false;
+		}
+		else if (handType == "left")
+		{
+			LeftHandWeapon.weaponMeshRenderer.enabled = false;
+		}
 	}
 
-	public void ShowLeftWeapon()
+	public void ChangeWheaponWheelButtonColor(string handType)
 	{
-		LeftHandWeapon.weaponMeshRenderer.enabled = true;
-	}
-	public void HideRightWeapon()
-	{
-		RightHandWeapon.weaponMeshRenderer.enabled = false;
+		if (handType == "right")
+		{
+			if (RightHandWeapon?.WeaponNameSystem == "PoliceBaton")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PoliceBatonButton);
+			}
+			if (RightHandWeapon?.WeaponNameSystem == "HarmonicaRevolver")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(HarmonicaRevolverButton);
+			}
+			if (RightHandWeapon?.WeaponNameSystem == "PlungerCrossbow")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PlungerCrossbowButton);
+			}
+			if (RightHandWeapon?.WeaponNameSystem == "EugenicGenie")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(EugenicGenieButton);
+			}
+
+			if (RightHandWeapon?.WeaponNameSystem != "PoliceBaton")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PoliceBatonButton);
+			}
+			if (RightHandWeapon?.WeaponNameSystem != "HarmonicaRevolver")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(HarmonicaRevolverButton);
+			}
+			if (RightHandWeapon?.WeaponNameSystem != "PlungerCrossbow")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PlungerCrossbowButton);
+			}
+			if (RightHandWeapon?.WeaponNameSystem != "EugenicGenie")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(EugenicGenieButton);
+			}
+		}
+		else if (handType == "left")
+		{
+			if (LeftHandWeapon?.WeaponNameSystem == "PoliceBaton")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PoliceBatonButton);
+			}
+			if (LeftHandWeapon?.WeaponNameSystem == "HarmonicaRevolver")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(HarmonicaRevolverButton);
+			}
+			if (LeftHandWeapon?.WeaponNameSystem == "PlungerCrossbow")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PlungerCrossbowButton);
+			}
+			if (LeftHandWeapon?.WeaponNameSystem == "EugenicGenie")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(EugenicGenieButton);
+			}
+
+			if (LeftHandWeapon?.WeaponNameSystem != "PoliceBaton")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PoliceBatonButton);
+			}
+			if (LeftHandWeapon?.WeaponNameSystem != "HarmonicaRevolver")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(HarmonicaRevolverButton);
+			}
+			if (LeftHandWeapon?.WeaponNameSystem != "PlungerCrossbow")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PlungerCrossbowButton); ;
+			}
+			if (LeftHandWeapon?.WeaponNameSystem != "EugenicGenie")
+			{
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(EugenicGenieButton);
+			}
+		}
 	}
 
-	public void HideLeftWeapon()
-	{
-		LeftHandWeapon.weaponMeshRenderer.enabled = false;
-	}
 }

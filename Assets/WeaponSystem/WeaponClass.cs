@@ -2,7 +2,8 @@ using UnityEngine;
 
 public abstract class WeaponClass : MonoBehaviour
 {
-	public string WeaponName;
+	public string WeaponNameSystem;
+	public string WeaponNameUI;
 	public float WeaponDamage;
 	public GameObject weaponModel; // Ссылка на 3D модель оружия
 	public GameObject currentModelInstance; // Ссылка на инстанцированную модель
@@ -35,11 +36,11 @@ public abstract class WeaponClass : MonoBehaviour
 			currentModelInstance.transform.parent = transform;
 			if (isLeftHand)
 			{
-				currentModelInstance.transform.localPosition = new Vector3(-0.25f, 1.75f, 0.5f); // Локальная позиция для левой руки
+				currentModelInstance.transform.localPosition = new Vector3(-0.35f, 1.75f, 0.5f); // Локальная позиция для левой руки
 			}
 			else
 			{
-				currentModelInstance.transform.localPosition = new Vector3(0.25f, 1.75f, 0.5f); // Локальная позиция для правой руки
+				currentModelInstance.transform.localPosition = new Vector3(0.35f, 1.75f, 0.5f); // Локальная позиция для правой руки
 			}
 			currentModelInstance.transform.localRotation = Quaternion.Euler(0, 0, 0); // Локальное вращение
 		}

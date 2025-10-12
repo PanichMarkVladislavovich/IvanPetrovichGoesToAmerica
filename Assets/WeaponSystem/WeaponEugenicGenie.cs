@@ -4,8 +4,9 @@ public class WeaponEugenicGenie : WeaponClass
 {
     WeaponEugenicGenie()
     {
-        WeaponName = "EugenicGenie";
-    }
+        WeaponNameSystem = "EugenicGenie";
+		WeaponNameUI = "Евгеник Дыхание Джинна";
+	}
 
 
 	public void Awake()

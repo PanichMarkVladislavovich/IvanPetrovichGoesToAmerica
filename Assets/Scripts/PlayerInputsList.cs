@@ -48,8 +48,8 @@ public class PlayerInputsList : MonoBehaviour
 		_keyJump = KeyCode.Space;
 		_keyCrouch = KeyCode.LeftControl;
 
-		_keyRightHandWeaponWheel = KeyCode.Q;
-		_keyLeftHandWeaponWheel = KeyCode.Tab;
+		_keyRightHandWeaponWheel = KeyCode.E;
+		_keyLeftHandWeaponWheel = KeyCode.Q;
 
 		_keyRightHandWeaponAttack = KeyCode.Mouse1;
 		_keyLeftHandWeaponAttack = KeyCode.Mouse0;

@@ -4,7 +4,8 @@ public class WeaponPoliceBaton : WeaponClass
 {
     public WeaponPoliceBaton()
     {
-        WeaponName = "PoliceBaton";
+        WeaponNameSystem = "PoliceBaton";
+		WeaponNameUI = "Милицейская Дубинка";
 		//weaponModel = Resources.Load<GameObject>("Prefabs/PoliceBaton"); // Загружаем префаб дубинки
 	}
 

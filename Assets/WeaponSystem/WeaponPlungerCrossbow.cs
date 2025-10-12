@@ -4,8 +4,9 @@ public class WeaponPlungerCrossbow : WeaponClass
 {
     public WeaponPlungerCrossbow()
     {
-        WeaponName = "PlungerCrossbow";
-    }
+        WeaponNameSystem = "PlungerCrossbow";
+		WeaponNameUI = "Абордажный Арбалет";
+	}
 
 	public void Awake()
 	{

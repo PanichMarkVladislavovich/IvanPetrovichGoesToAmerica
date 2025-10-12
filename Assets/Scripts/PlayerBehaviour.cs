@@ -44,12 +44,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if (weaponController.RightHandWeapon != null)
 		{
-			weaponController.ShowRightWeapon();
+			weaponController.ShowWeapon("right");
 		}
 
 		if (weaponController.LeftHandWeapon != null)
 		{
-			weaponController.ShowLeftWeapon();
+			weaponController.ShowWeapon("left");
 		}
 
 
@@ -64,12 +64,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 			if (weaponController.RightHandWeapon != null)
 			{
-				weaponController.HideRightWeapon();
+				weaponController.HideWeapon("right");
 			}
 
 			if (weaponController.LeftHandWeapon != null)
 			{
-				weaponController.HideLeftWeapon();
+				weaponController.HideWeapon("left");
 			}
 
 			Debug.Log("PlayerDisarmed");

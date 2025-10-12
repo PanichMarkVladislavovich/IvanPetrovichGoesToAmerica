@@ -11,14 +11,18 @@ public class WeaponWheelController : MonoBehaviour
 
 	private bool previousRightHandPressed = false;
 	private bool previousLeftHandPressed = false;
-	
 
+	PlayerBehaviour playerBehaviour;
 	public TextMeshProUGUI WeaponWheelName;
+	public WeaponWheelbuttonscript weaponWheelbuttonscript;
+	 WeaponController weaponController;
 
 
 	void Start()
 	{
+		playerBehaviour = GetComponent<PlayerBehaviour>();
 		playerInputsList = GetComponent<PlayerInputsList>();
+		weaponController = GetComponent<WeaponController>();
 		WeaponWheelMenuCanvas.gameObject.SetActive(false);
 		//DisableCanvas();
 	}
@@ -53,20 +57,26 @@ public class WeaponWheelController : MonoBehaviour
 		if (rightHandPressed && !leftHandPressed && !IsWeaponWheelActive)
 		{
 			EnableWeaponWheelMenuCanvas(true);
+			
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = false;
-		
-			WeaponWheelName.text = "RIGHT HAND";
+			playerBehaviour.ArmPlayer();
+			weaponController.ChangeWheaponWheelButtonColor("right");
+			weaponWheelbuttonscript.HoverExit();
+			WeaponWheelName.text = "œ–¿¬¿ﬂ –” ¿";
 		}
 
 		// Œ·‡·ÓÚÍ‡ ÎÂ‚ÓÈ ÛÍË
 		else if (leftHandPressed && !rightHandPressed && !IsWeaponWheelActive)
 		{
 			EnableWeaponWheelMenuCanvas(false);
+			
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = true;
-		
-			WeaponWheelName.text = "LEFT HAND";
+			playerBehaviour.ArmPlayer();
+			weaponController.ChangeWheaponWheelButtonColor("left");
+			weaponWheelbuttonscript.HoverExit();
+			WeaponWheelName.text = "À≈¬¿ﬂ –” ¿";
 		}
 
 		
