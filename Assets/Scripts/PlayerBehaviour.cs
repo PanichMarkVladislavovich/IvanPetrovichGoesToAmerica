@@ -28,10 +28,6 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 
 		
-
-
-		//Debug.Log(GetPlayerBehaviour());
-		//Debug.Log("Is player armed " + IsPlayerArmed);
 	}
 	
 
@@ -40,20 +36,21 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!IsPlayerArmed)
 		{
 			IsPlayerArmed = !IsPlayerArmed;
+
+
+			if (weaponController.RightHandWeapon != null)
+			{
+				weaponController.ShowWeapon("right");
+			}
+
+			if (weaponController.LeftHandWeapon != null)
+			{
+				weaponController.ShowWeapon("left");
+			}
+
+
+			Debug.Log("PlayerArmed");
 		}
-
-		if (weaponController.RightHandWeapon != null)
-		{
-			weaponController.ShowWeapon("right");
-		}
-
-		if (weaponController.LeftHandWeapon != null)
-		{
-			weaponController.ShowWeapon("left");
-		}
-
-
-		Debug.Log("PlayerArmed");
 	}
 
 	public void DisarmPlayer()

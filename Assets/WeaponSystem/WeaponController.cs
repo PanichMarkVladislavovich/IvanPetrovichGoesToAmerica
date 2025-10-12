@@ -217,6 +217,7 @@ public class WeaponController : MonoBehaviour
 				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(EugenicGenieButton);
 			}
 		}
+
 		else if (handType == "left")
 		{
 			if (LeftHandWeapon?.WeaponNameSystem == "PoliceBaton")
