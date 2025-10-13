@@ -52,7 +52,7 @@ public class PlayerCamera : MonoBehaviour
 
 	void Update()
 	{
-        if (!GameManager.IsAnyMenuOpened)
+        if (!MenuManager.IsAnyMenuOpened)
         {
 			MouseRotation.y += Input.GetAxis("Mouse X");
 			MouseRotation.x += Input.GetAxis("Mouse Y");

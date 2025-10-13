@@ -14,7 +14,7 @@ public class WeaponWheelController : MonoBehaviour
 
 	PlayerBehaviour playerBehaviour;
 	public TextMeshProUGUI WeaponWheelName;
-	public WeaponWheelbuttonscript weaponWheelbuttonscript;
+	public WeaponWheelsButtons weaponWheelbuttonscript;
 	 WeaponController weaponController;
 
 	void Start()
@@ -46,7 +46,7 @@ public class WeaponWheelController : MonoBehaviour
 		// Обработка правой руки
 		if (rightHandPressed && !leftHandPressed && !IsWeaponWheelActive)
 		{
-			EnableWeaponWheelMenuCanvas(true);
+			EnableWeaponWheelMenuCanvas("right");
 			
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = false;
@@ -59,7 +59,7 @@ public class WeaponWheelController : MonoBehaviour
 		// Обработка левой руки
 		else if (leftHandPressed && !rightHandPressed && !IsWeaponWheelActive)
 		{
-			EnableWeaponWheelMenuCanvas(false);
+			EnableWeaponWheelMenuCanvas("left");
 			
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = true;
@@ -77,18 +77,18 @@ public class WeaponWheelController : MonoBehaviour
 		}
 	}
 
-	private void EnableWeaponWheelMenuCanvas(bool IsItRightWeaponWheelMenuCanvas)
+	private void EnableWeaponWheelMenuCanvas(string handType)
 	{
 		WeaponWheelMenuCanvas.gameObject.SetActive(true); // Показываем Canvas
-		GameManager.OpenWeaponWheelMenu(IsItRightWeaponWheelMenuCanvas);
+		MenuManager.OpenWeaponWheelMenu(handType);
 	}
 
 	private void DisableWeaponWheelMenuCanvas(bool IsItRightWeaponWheelMenuCanvas)
 	{
 		WeaponWheelMenuCanvas.gameObject.SetActive(false); // Скрываем Canvas
-		if (!GameManager.IsMainMenuOpened)
+		if (!MenuManager.IsPauseMenuOpened)
 		{
-			GameManager.CloseWeaponWheelMenu(IsItRightWeaponWheelMenuCanvas);
+			MenuManager.CloseWeaponWheelMenu(IsItRightWeaponWheelMenuCanvas);
 		}
 	}
 

@@ -26,7 +26,7 @@ public class PlayerInputsList : MonoBehaviour
 	private KeyCode _keyRightHandWeaponAttack;
 	private KeyCode _keyLeftHandWeaponAttack;
 
-	private KeyCode _keyOpenMainMenu; 
+	private KeyCode _keyPauseMenu; 
 	void Start()
 	{
 		playerMovementController = GetComponent<PlayerMovementController>();
@@ -55,17 +55,17 @@ public class PlayerInputsList : MonoBehaviour
 		_keyRightHandWeaponAttack = KeyCode.Mouse1;
 		_keyLeftHandWeaponAttack = KeyCode.Mouse0;
 
-		_keyOpenMainMenu = KeyCode.Alpha1; //for now its not ESC as Unity and stuff...
+		_keyPauseMenu = KeyCode.Alpha1; //for now its not ESC as Unity and stuff...
 	}
 
 	
 	public bool GetKeyUp()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
 		{
 			return false;
 		}
-		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyUp) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (MenuManager.IsPlayerControllable && Input.GetKey(_keyUp) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -73,11 +73,11 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyDown()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyUp) && Input.GetKey(_keyDown))
 		{
 			return false;
 		}
-		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyDown) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (MenuManager.IsPlayerControllable && Input.GetKey(_keyDown) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -85,11 +85,11 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyRight()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
 		{
 			return false;
 		}
-		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyRight) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (MenuManager.IsPlayerControllable && Input.GetKey(_keyRight) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -97,11 +97,11 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyLeft()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyRight) && Input.GetKey(_keyLeft))
 		{
 			return false;
 		}
-		else if (GameManager.IsPlayerControllable && Input.GetKey(_keyLeft) && playerMovementController.IsPlayerAbleToMove == true)
+		else if (MenuManager.IsPlayerControllable && Input.GetKey(_keyLeft) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -110,7 +110,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyChangeCameraView()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyChangeCameraView))
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyChangeCameraView))
 		{
 			return true;
 		}
@@ -121,7 +121,7 @@ public class PlayerInputsList : MonoBehaviour
 	//////////////////////
 	public bool GetKeyEnterCutscene()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyEnterCutscene) && false)
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyEnterCutscene) && false)
 		{
 			return true;
 		}
@@ -129,7 +129,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyShowWeapons()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons) && !GameManager.IsWeaponWheelMenuOpened)
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons) && !MenuManager.IsWeaponWheelMenuOpened)
 		{
 			return true;
 		}
@@ -137,7 +137,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyRun()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRun) && playerMovementController.IsPlayerAbleToMove == true)
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyRun) && playerMovementController.IsPlayerAbleToMove == true)
 		{
 			return true;
 		}
@@ -146,7 +146,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyJump()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyJump) && playerMovementController.IsPlayerGrounded == true && playerMovementController.IsPlayerAbleToMove == true && playerMovementController.IsPlayerAbleToStandUp == true)
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyJump) && playerMovementController.IsPlayerGrounded == true && playerMovementController.IsPlayerAbleToMove == true && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
 			return true;
 		}
@@ -154,7 +154,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyJumpBeingHeld()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyJump))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyJump))
 		{
 			return true;
 		}
@@ -163,7 +163,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyCrouch()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyCrouch))
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyCrouch))
 		{
 			return true;
 		}
@@ -172,7 +172,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyRightHandWeaponWheel()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyRightHandWeaponWheel))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyRightHandWeaponWheel))
 		{
 			return true;
 		}
@@ -180,7 +180,7 @@ public class PlayerInputsList : MonoBehaviour
 	}
 	public bool GetKeyLeftHandWeaponWheel()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKey(_keyLeftHandWeaponWheel))
+		if (MenuManager.IsPlayerControllable && Input.GetKey(_keyLeftHandWeaponWheel))
 		{
 			return true;
 		}
@@ -189,7 +189,7 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyRightHandWeaponAttack()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyRightHandWeaponAttack))
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyRightHandWeaponAttack))
 		{
 			return true;
 		}
@@ -198,16 +198,16 @@ public class PlayerInputsList : MonoBehaviour
 
 	public bool GetKeyLeftHandWeaponAttack()
 	{
-		if (GameManager.IsPlayerControllable && Input.GetKeyDown(_keyLeftHandWeaponAttack))
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyLeftHandWeaponAttack))
 		{
 			return true;
 		}
 		else return false;
 	}
 
-	public bool GetKeyOpenMainMenu()
+	public bool GetKeyPauseMenu()
 	{
-		if (Input.GetKeyDown(_keyOpenMainMenu))
+		if (Input.GetKeyDown(_keyPauseMenu))
 		{
 			return true;
 		}

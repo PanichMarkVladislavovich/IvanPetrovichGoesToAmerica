@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class WeaponWheelbuttonscript : MonoBehaviour
+public class WeaponWheelsButtons : MonoBehaviour
 {
     public string WeaponWheelButtonName;
     public string AvailableWeaponName;

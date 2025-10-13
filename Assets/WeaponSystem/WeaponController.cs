@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
 	PlayerInputsList playerInputsList;
 	WeaponWheelController weaponWheelController;
 	PlayerBehaviour playerBehaviour;
-	public WeaponWheelbuttonscript weaponWheelbuttonscript;
+	public WeaponWheelsButtons weaponWheelbuttonscript;
 
 	public WeaponClass LeftHandWeapon {  get; private set; }
 	public WeaponClass RightHandWeapon {  get; private set; }
@@ -57,12 +57,12 @@ public class WeaponController : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerInputsList.GetKeyRightHandWeaponAttack() && !GameManager.IsAnyMenuOpened)
+		if (playerInputsList.GetKeyRightHandWeaponAttack() && !MenuManager.IsAnyMenuOpened)
 		{
 			RightWeaponAttack();
 		}
 
-		if (playerInputsList.GetKeyLeftHandWeaponAttack() && !GameManager.IsAnyMenuOpened)
+		if (playerInputsList.GetKeyLeftHandWeaponAttack() && !MenuManager.IsAnyMenuOpened)
 		{
 			LeftWeaponAttack();
 		}
