@@ -1,18 +1,18 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class WeaponPlungerCrossbow : WeaponClass
 {
     public WeaponPlungerCrossbow()
     {
         WeaponNameSystem = "PlungerCrossbow";
-		WeaponNameUI = "Абордажный Арбалет";
+		WeaponNameUI = "РђР±РѕСЂРґР°Р¶РЅС‹Р№ РђСЂР±Р°Р»РµС‚";
 	}
 
 	public void Awake()
 	{
-		weaponModel = Resources.Load<GameObject>("WeaponPlungerCrossbow"); // Загружаем префаб револьвера
+		weaponModel = Resources.Load<GameObject>("WeaponPlungerCrossbow"); // Р—Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„Р°Р± СЂРµРІРѕР»СЊРІРµСЂР°
 	//	weaponMeshRenderer = weapon
-		//Debug.Log("Загружен префаб: " + weaponModel);
+		//Debug.Log("Р—Р°РіСЂСѓР¶РµРЅ РїСЂРµС„Р°Р±: " + weaponModel);
 	}
 
 	public override void WeaponAttack()

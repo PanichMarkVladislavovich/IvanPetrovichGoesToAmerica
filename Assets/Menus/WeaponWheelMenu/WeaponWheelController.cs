@@ -1,11 +1,11 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class WeaponWheelController : MonoBehaviour
 {
 	PlayerInputsList playerInputsList;
-	public Canvas WeaponWheelMenuCanvas; // Привяжите ваш Canvas сюда
+	public Canvas WeaponWheelMenuCanvas; // РџСЂРёРІСЏР¶РёС‚Рµ РІР°С€ Canvas СЃСЋРґР°
 	public bool IsWeaponLeftHand { get; private set; }
 	public bool IsWeaponWheelActive { get; private set; }
 
@@ -31,7 +31,7 @@ public class WeaponWheelController : MonoBehaviour
 			bool currentRightHandPressed = playerInputsList.GetKeyRightHandWeaponWheel();
 			bool currentLeftHandPressed = playerInputsList.GetKeyLeftHandWeaponWheel();
 			
-			// Обновляем состояние, только если изменилось нажатие кнопки
+			// РћР±РЅРѕРІР»СЏРµРј СЃРѕСЃС‚РѕСЏРЅРёРµ, С‚РѕР»СЊРєРѕ РµСЃР»Рё РёР·РјРµРЅРёР»РѕСЃСЊ РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё
 			if (currentRightHandPressed != previousRightHandPressed || currentLeftHandPressed != previousLeftHandPressed)
 			{
 				HandleWeaponWheel(currentRightHandPressed, currentLeftHandPressed);
@@ -43,7 +43,7 @@ public class WeaponWheelController : MonoBehaviour
 
 	void HandleWeaponWheel(bool rightHandPressed, bool leftHandPressed)
 	{
-		// Обработка правой руки
+		// РћР±СЂР°Р±РѕС‚РєР° РїСЂР°РІРѕР№ СЂСѓРєРё
 		if (rightHandPressed && !leftHandPressed && !IsWeaponWheelActive)
 		{
 			EnableWeaponWheelMenuCanvas("right");
@@ -53,10 +53,10 @@ public class WeaponWheelController : MonoBehaviour
 			playerBehaviour.ArmPlayer();
 			ChangeWheaponWheelButtonColor("right");
 			weaponWheelbuttonscript.HoverExit();
-			WeaponWheelName.text = "ПРАВАЯ РУКА";
+			WeaponWheelName.text = "РџР РђР’РђРЇ Р РЈРљРђ";
 		}
 
-		// Обработка левой руки
+		// РћР±СЂР°Р±РѕС‚РєР° Р»РµРІРѕР№ СЂСѓРєРё
 		else if (leftHandPressed && !rightHandPressed && !IsWeaponWheelActive)
 		{
 			EnableWeaponWheelMenuCanvas("left");
@@ -66,10 +66,10 @@ public class WeaponWheelController : MonoBehaviour
 			playerBehaviour.ArmPlayer();
 			ChangeWheaponWheelButtonColor("left");
 			weaponWheelbuttonscript.HoverExit();
-			WeaponWheelName.text = "ЛЕВАЯ РУКА";
+			WeaponWheelName.text = "Р›Р•Р’РђРЇ Р РЈРљРђ";
 		}
 
-		// Деактивация, если ничего не нажато
+		// Р”РµР°РєС‚РёРІР°С†РёСЏ, РµСЃР»Рё РЅРёС‡РµРіРѕ РЅРµ РЅР°Р¶Р°С‚Рѕ
 		else if (!leftHandPressed && !rightHandPressed)
 		{
 			DisableWeaponWheelMenuCanvas(!IsWeaponLeftHand);
@@ -79,13 +79,13 @@ public class WeaponWheelController : MonoBehaviour
 
 	private void EnableWeaponWheelMenuCanvas(string handType)
 	{
-		WeaponWheelMenuCanvas.gameObject.SetActive(true); // Показываем Canvas
+		WeaponWheelMenuCanvas.gameObject.SetActive(true); // РџРѕРєР°Р·С‹РІР°РµРј Canvas
 		MenuManager.OpenWeaponWheelMenu(handType);
 	}
 
 	private void DisableWeaponWheelMenuCanvas(bool IsItRightWeaponWheelMenuCanvas)
 	{
-		WeaponWheelMenuCanvas.gameObject.SetActive(false); // Скрываем Canvas
+		WeaponWheelMenuCanvas.gameObject.SetActive(false); // РЎРєСЂС‹РІР°РµРј Canvas
 		if (!MenuManager.IsPauseMenuOpened)
 		{
 			MenuManager.CloseWeaponWheelMenu(IsItRightWeaponWheelMenuCanvas);

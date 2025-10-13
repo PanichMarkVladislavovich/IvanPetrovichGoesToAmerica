@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -38,14 +38,14 @@ public class WeaponWheelsButtons : MonoBehaviour
 
 	public void ChangeWeaponWheelButtonColorToActive(Button buttonType)
 	{
-		// Преобразуем HEX в значение цвета
-		string hexCode = "#FFEE00"; // добавляем альфа-канал FF (полностью непрозрачный)
+		// РџСЂРµРѕР±СЂР°Р·СѓРµРј HEX РІ Р·РЅР°С‡РµРЅРёРµ С†РІРµС‚Р°
+		string hexCode = "#FFEE00"; // РґРѕР±Р°РІР»СЏРµРј Р°Р»СЊС„Р°-РєР°РЅР°Р» FF (РїРѕР»РЅРѕСЃС‚СЊСЋ РЅРµРїСЂРѕР·СЂР°С‡РЅС‹Р№)
 
 		Color newColor;
 		if (!ColorUtility.TryParseHtmlString(hexCode, out newColor))
-			Debug.LogError("Ошибка конвертации HEX цвета");
+			Debug.LogError("РћС€РёР±РєР° РєРѕРЅРІРµСЂС‚Р°С†РёРё HEX С†РІРµС‚Р°");
 
-		// Меняем цвета всех состояний кнопки
+		// РњРµРЅСЏРµРј С†РІРµС‚Р° РІСЃРµС… СЃРѕСЃС‚РѕСЏРЅРёР№ РєРЅРѕРїРєРё
 		ColorBlock colors = buttonType.colors;
 		colors.normalColor = newColor;
 		colors.highlightedColor = newColor;
@@ -57,36 +57,36 @@ public class WeaponWheelsButtons : MonoBehaviour
 
 	public void ChangeWeaponWheelButtonColorToDefault(Button buttonType)
 	{
-		// Определяем HEX-коды для двух цветов
-		string highlightHexCode = "#D18A24FF"; // Основной цвет для Highlight/Press/Select
-		string normalHexCode = "#5B4328FF";    // Отдельный цвет для Normal состояния
+		// РћРїСЂРµРґРµР»СЏРµРј HEX-РєРѕРґС‹ РґР»СЏ РґРІСѓС… С†РІРµС‚РѕРІ
+		string highlightHexCode = "#D18A24FF"; // РћСЃРЅРѕРІРЅРѕР№ С†РІРµС‚ РґР»СЏ Highlight/Press/Select
+		string normalHexCode = "#5B4328FF";    // РћС‚РґРµР»СЊРЅС‹Р№ С†РІРµС‚ РґР»СЏ Normal СЃРѕСЃС‚РѕСЏРЅРёСЏ
 
-		// Создаем объекты Color для обоих цветов
+		// РЎРѕР·РґР°РµРј РѕР±СЉРµРєС‚С‹ Color РґР»СЏ РѕР±РѕРёС… С†РІРµС‚РѕРІ
 		Color highlightColor;
 		Color normalColor;
 
-		// Проверяем оба HEX-кода
+		// РџСЂРѕРІРµСЂСЏРµРј РѕР±Р° HEX-РєРѕРґР°
 		if (!ColorUtility.TryParseHtmlString(highlightHexCode, out highlightColor))
 		{
-			Debug.LogError("Ошибка конвертации первого HEX цвета");
+			Debug.LogError("РћС€РёР±РєР° РєРѕРЅРІРµСЂС‚Р°С†РёРё РїРµСЂРІРѕРіРѕ HEX С†РІРµС‚Р°");
 		}
 		if (!ColorUtility.TryParseHtmlString(normalHexCode, out normalColor))
 		{
-			Debug.LogError("Ошибка конвертации второго HEX цвета");
+			Debug.LogError("РћС€РёР±РєР° РєРѕРЅРІРµСЂС‚Р°С†РёРё РІС‚РѕСЂРѕРіРѕ HEX С†РІРµС‚Р°");
 		}
 
-		// Читаем текущие настройки цветов кнопки
+		// Р§РёС‚Р°РµРј С‚РµРєСѓС‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё С†РІРµС‚РѕРІ РєРЅРѕРїРєРё
 		ColorBlock colors = buttonType.colors;
 
-		// Применяем новые цвета для конкретных состояний
-		colors.normalColor = normalColor;       // Только для обычного состояния
-		colors.highlightedColor = highlightColor; // Для выделенного состояния
-		colors.pressedColor = highlightColor;   // Для нажатого состояния
-		colors.selectedColor = highlightColor;  // Для выбранного состояния
+		// РџСЂРёРјРµРЅСЏРµРј РЅРѕРІС‹Рµ С†РІРµС‚Р° РґР»СЏ РєРѕРЅРєСЂРµС‚РЅС‹С… СЃРѕСЃС‚РѕСЏРЅРёР№
+		colors.normalColor = normalColor;       // РўРѕР»СЊРєРѕ РґР»СЏ РѕР±С‹С‡РЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ
+		colors.highlightedColor = highlightColor; // Р”Р»СЏ РІС‹РґРµР»РµРЅРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ
+		colors.pressedColor = highlightColor;   // Р”Р»СЏ РЅР°Р¶Р°С‚РѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ
+		colors.selectedColor = highlightColor;  // Р”Р»СЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 
-		// Оставляем disabledColor без изменений
+		// РћСЃС‚Р°РІР»СЏРµРј disabledColor Р±РµР· РёР·РјРµРЅРµРЅРёР№
 
-		// Назначаем обновленные цвета кнопке
+		// РќР°Р·РЅР°С‡Р°РµРј РѕР±РЅРѕРІР»РµРЅРЅС‹Рµ С†РІРµС‚Р° РєРЅРѕРїРєРµ
 		buttonType.colors = colors;
 	}
 	

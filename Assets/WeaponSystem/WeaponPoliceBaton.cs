@@ -1,18 +1,18 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class WeaponPoliceBaton : WeaponClass
 {
     public WeaponPoliceBaton()
     {
         WeaponNameSystem = "PoliceBaton";
-		WeaponNameUI = "Милицейская Дубинка";
-		//weaponModel = Resources.Load<GameObject>("Prefabs/PoliceBaton"); // Загружаем префаб дубинки
+		WeaponNameUI = "РњРёР»РёС†РµР№СЃРєР°СЏ Р”СѓР±РёРЅРєР°";
+		//weaponModel = Resources.Load<GameObject>("Prefabs/PoliceBaton"); // Р—Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„Р°Р± РґСѓР±РёРЅРєРё
 	}
 
 	public void Awake()
 	{
-		weaponModel = Resources.Load<GameObject>("WeaponPoliceBaton"); // Загружаем префаб револьвера
-		//Debug.Log("Загружен префаб: " + weaponModel);
+		weaponModel = Resources.Load<GameObject>("WeaponPoliceBaton"); // Р—Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„Р°Р± СЂРµРІРѕР»СЊРІРµСЂР°
+		//Debug.Log("Р—Р°РіСЂСѓР¶РµРЅ РїСЂРµС„Р°Р±: " + weaponModel);
 	}
 
 	public override void WeaponAttack()

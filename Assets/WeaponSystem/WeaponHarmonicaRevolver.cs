@@ -1,17 +1,17 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class WeaponHarmonicaRevolver : WeaponClass
 {
     WeaponHarmonicaRevolver()
     {
         WeaponNameSystem = "HarmonicaRevolver";
-		WeaponNameUI = "Револьвер Гармоника";
+		WeaponNameUI = "Р РµРІРѕР»СЊРІРµСЂ Р“Р°СЂРјРѕРЅРёРєР°";
 	}
 
 	public void Awake()
 	{
-		weaponModel = Resources.Load<GameObject>("WeaponHarmonicaRevolver"); // Загружаем префаб револьвера
-		//Debug.Log("Загружен префаб: " + weaponModel);
+		weaponModel = Resources.Load<GameObject>("WeaponHarmonicaRevolver"); // Р—Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„Р°Р± СЂРµРІРѕР»СЊРІРµСЂР°
+		//Debug.Log("Р—Р°РіСЂСѓР¶РµРЅ РїСЂРµС„Р°Р±: " + weaponModel);
 	}
 
 	public override void WeaponAttack()

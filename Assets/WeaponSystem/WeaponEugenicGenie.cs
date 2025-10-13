@@ -1,16 +1,16 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class WeaponEugenicGenie : WeaponClass
 {
     WeaponEugenicGenie()
     {
         WeaponNameSystem = "EugenicGenie";
-		WeaponNameUI = "Евгеник Дыхание Джинна";
+		WeaponNameUI = "Р•РІРіРµРЅРёРє Р”С‹С…Р°РЅРёРµ Р”Р¶РёРЅРЅР°";
 	}
 
 	public void Awake()
 	{
-		weaponModel = Resources.Load<GameObject>("WeaponEugenicsGenie"); // Загружаем префаб револьвера
+		weaponModel = Resources.Load<GameObject>("WeaponEugenicsGenie"); // Р—Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„Р°Р± СЂРµРІРѕР»СЊРІРµСЂР°
 	}
 
 	public override void WeaponAttack()
