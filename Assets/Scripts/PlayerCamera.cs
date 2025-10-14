@@ -23,7 +23,7 @@ public class PlayerCamera : MonoBehaviour
 	public float PlayerCameraDistanceZ;
 
 	public float CameraRotationY;
-	private float MouseRotationLimit = 45f;
+	private float MouseRotationLimit = 65f;
 	public bool IsPlayerCameraFirstPerson { get; private set; }
 	private string _currentPlayerCameraType;
 	private string _previousPlayerCameraType;
@@ -172,7 +172,7 @@ public class PlayerCamera : MonoBehaviour
 	public void FirstPersonCameraTransform()
 	{
 		transform.position = PlayerTransform.position + Quaternion.Euler(0, MouseRotation.y, 0) *
-		new Vector3(0, playerMovementController.PlayerCurrentHeight, 0.05f);
+		new Vector3(0, playerMovementController.PlayerCurrentHeight -0.13f, 0.1f);
 	}
 	public void ThirdPersonCameraTransform()
 	{

@@ -76,9 +76,9 @@ public class PlayerMovementController : MonoBehaviour
 		PlayerCrouchingSpeed = 1.8f;
 		PlayerSlidingSpeed = 7.5f;
 
-		PlayerCurrentHeight = 2;
+		PlayerCurrentHeight = 1.75f;
 		PlayerCrouchingHeight = 1;
-		PlayerStandingHeight = 2;
+		PlayerStandingHeight = 1.75f;
 
 		IsPlayerAbleToSlide = true;
 	}
