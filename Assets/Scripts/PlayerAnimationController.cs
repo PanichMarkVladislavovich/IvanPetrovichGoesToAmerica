@@ -156,12 +156,12 @@ public class PlayerAnimationController : MonoBehaviour
 		// анимации оружия
 		if (weaponController.RightHandWeapon != null)
 		{
-			if (weaponController.RightHandWeapon.weaponMeshRenderer.enabled)
+			if (weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
 			{
 				playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponRight"), 1);
 				ChangePlayerWeaponRightAnimation("EquipRightWeapon");
 			}
-			else
+			else 
 			{
 				ChangePlayerWeaponRightAnimation("UnequipRightWeapon");
 				if (playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponRight")).IsName("UnequipRightWeapon") && playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponRight")).normalizedTime >= 0.99f)
@@ -170,15 +170,23 @@ public class PlayerAnimationController : MonoBehaviour
 				}
 			}
 		}
+		else
+		{
+				ChangePlayerWeaponRightAnimation("UnequipRightWeapon");
+				if (playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponRight")).IsName("UnequipRightWeapon") && playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponRight")).normalizedTime >= 0.99f)
+				{
+					playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponRight"), 0);
+				}
+		}
 
 		if (weaponController.LeftHandWeapon != null)
 		{
-			if (weaponController.LeftHandWeapon.weaponMeshRenderer.enabled)
+			if (weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
 			{
 				playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponLeft"), 1);
 				ChangePlayerWeaponLeftAnimation("EquipLeftWeapon");
 			}
-			else
+			else 
 			{
 				ChangePlayerWeaponLeftAnimation("UnequipLeftWeapon");
 				
@@ -186,6 +194,15 @@ public class PlayerAnimationController : MonoBehaviour
 				{
 					playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponLeft"), 0);
 				}
+			}
+		}
+		else
+		{
+			ChangePlayerWeaponLeftAnimation("UnequipLeftWeapon");
+
+			if (playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponLeft")).IsName("UnequipLeftWeapon") && playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponLeft")).normalizedTime >= 0.99f)
+			{
+				playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponLeft"), 0);
 			}
 		}
 

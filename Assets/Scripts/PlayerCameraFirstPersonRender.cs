@@ -8,113 +8,99 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 	public GameObject PlayerCameraObject;
 
 	public GameObject PlayerHeadParent;
-	public GameObject[] PlayerHeadChildren;
-
 	public GameObject PlayerHandRightParent;
-	public GameObject[] PlayerHandRightChildren;
-
 	public GameObject PlayerHandLeftParent;
-	public GameObject[] PlayerHandLeftChildren;
 
 	void Start()
 	{
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		weaponController = GetComponent<WeaponController>();
-
-		// Get all PlayerHead children
-		PlayerHeadChildren = new GameObject[PlayerHeadParent.transform.childCount];
-
-		for (int i = 0; i < PlayerHeadChildren.Length; i++)
-		{
-			PlayerHeadChildren[i] = PlayerHeadParent.transform.GetChild(i).gameObject;
-		}
-
-		// Get all PlayerHandRight children
-		PlayerHandRightChildren = new GameObject[PlayerHandRightParent.transform.childCount];
-
-		for (int i = 0; i < PlayerHandRightChildren.Length; i++)
-		{
-			PlayerHandRightChildren[i] = PlayerHandRightParent.transform.GetChild(i).gameObject;
-		}
-
-		// Get all PlayerHandLeft children
-		PlayerHandLeftChildren = new GameObject[PlayerHandLeftParent.transform.childCount];
-
-		for (int i = 0; i < PlayerHandLeftChildren.Length; i++)
-		{
-			PlayerHandLeftChildren[i] = PlayerHandLeftParent.transform.GetChild(i).gameObject;
-		}
-
 	}
 
 	void FixedUpdate()
 	{
 		if (playerCamera.IsPlayerCameraFirstPerson == true) 
 		{
-			// In 1st person DO NOT show Head render and its children
-			PlayerHeadParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-			for (int i = 0; i < PlayerHeadChildren.Length; i++)
-			{
-				PlayerHeadChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-			}
+			HideMeshes(PlayerHeadParent);
 
 			if (weaponController.RightHandWeapon != null)
 			{
-				// In 1st person DO NOT show HandRight render and its children
-				PlayerHandRightParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-				for (int i = 0; i < PlayerHandRightChildren.Length; i++)
-				{
-					PlayerHandRightChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-				}
+				HideMeshes(PlayerHandRightParent);
 			}
 			else
 			{
-				PlayerHandRightParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-				for (int i = 0; i < PlayerHandRightChildren.Length; i++)
-				{
-					PlayerHandRightChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-				}
+				ShowMeshes(PlayerHandRightParent);
 			}
 
 			if (weaponController.LeftHandWeapon != null)
 			{
-				// In 1st person DO NOT show HandLeft render and its children
-				PlayerHandLeftParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-				for (int i = 0; i < PlayerHandLeftChildren.Length; i++)
-				{
-					PlayerHandLeftChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-				}
+				HideMeshes(PlayerHandLeftParent);
 			}
 			else
 			{
-				PlayerHandLeftParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-				for (int i = 0; i < PlayerHandLeftChildren.Length; i++)
-				{
-					PlayerHandLeftChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-				}
+				ShowMeshes(PlayerHandLeftParent);
+			}
+
+			if (weaponController.RightHandWeapon != null)
+			{
+				ShowMeshes(weaponController.RightHandWeapon.FirstPersonWeaponModelInstance);
+				HideMeshes(weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance);
+			}
+
+			if (weaponController.LeftHandWeapon != null)
+			{
+				ShowMeshes(weaponController.LeftHandWeapon.FirstPersonWeaponModelInstance);
+				HideMeshes(weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance);
 			}
 		}
+
 		else 
 		{
-			// In 3rd person show Head render and its children
-			PlayerHeadParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-			for (int i = 0; i < PlayerHeadChildren.Length; i++)
+			ShowMeshes(PlayerHeadParent);
+
+			ShowMeshes(PlayerHandRightParent);
+			ShowMeshes(PlayerHandLeftParent);
+
+			if (weaponController.RightHandWeapon != null)
 			{
-				PlayerHeadChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+				HideMeshes(weaponController.RightHandWeapon.FirstPersonWeaponModelInstance);
+				ShowMeshes(weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance);
 			}
 
-			// In 3rd person show HandRight render and its children
-			PlayerHandRightParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-			for (int i = 0; i < PlayerHandRightChildren.Length; i++)
+			if (weaponController.LeftHandWeapon != null)
 			{
-				PlayerHandRightChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+				HideMeshes(weaponController.LeftHandWeapon.FirstPersonWeaponModelInstance);
+				ShowMeshes(weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance);
 			}
+		}
+	}
 
-			// In 3rd person show HandLeft render and its children
-			PlayerHandLeftParent.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-			for (int i = 0; i < PlayerHandLeftChildren.Length; i++)
+	public void ShowMeshes(GameObject rootObj)
+	{
+		// Получаем все рендеры (включая дочерние объекты)
+		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
+
+		// Перебираем все рендеры и включаем отбрасывание теней
+		foreach (Renderer renderer in renderers)
+		{
+			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
 			{
-				PlayerHandLeftChildren[i].GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+				renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+			}
+		}
+	}
+
+	public void HideMeshes(GameObject rootObj)
+	{
+		// Получаем все рендеры (включая дочерние объекты)
+		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
+
+		// Перебираем все рендеры и включаем отбрасывание теней
+		foreach (Renderer renderer in renderers)
+		{
+			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
+			{
+				renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
 			}
 		}
 	}

@@ -8,6 +8,8 @@ public class WeaponController : MonoBehaviour
 	public Button PlungerCrossbowButton;
 	public Button EugenicGenieButton;
 
+	public PlayerCamera playerCamera;
+
 	public bool IsPoliceBatonWeaponUnlocked {  get; private set; }
 	public bool IsHarmoniceRevolverWeaponUnlocked { get; private set; }
 	public bool IsPlungerCrossbowWeaponUnlocked { get; private set; }
@@ -26,6 +28,7 @@ public class WeaponController : MonoBehaviour
 		playerInputsList = GetComponent<PlayerInputsList>();
 		weaponWheelController = GetComponent<WeaponWheelController>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
+		playerCamera = GetComponent<PlayerCamera>();
 
 
 		///////////////////
@@ -200,11 +203,22 @@ public class WeaponController : MonoBehaviour
 	{ 
 		if (handType == "right")
 		{
-			RightHandWeapon.weaponMeshRenderer.enabled = true;
+			//if (playerCamera.IsPlayerCameraFirstPerson)
+			//{
+				RightHandWeapon.FirstPersonWeaponModelInstance.SetActive(true);
+			//}
+			RightHandWeapon.ThirdPersonWeaponModelInstance.SetActive(true);
+
+
 		}
 		else if (handType == "left")
 		{
-			LeftHandWeapon.weaponMeshRenderer.enabled = true;
+			//if (playerCamera.IsPlayerCameraFirstPerson)
+			//{
+				LeftHandWeapon.FirstPersonWeaponModelInstance.SetActive(true);
+			//}
+			LeftHandWeapon.ThirdPersonWeaponModelInstance.SetActive(true);
+
 		}
 	}
 
@@ -212,11 +226,20 @@ public class WeaponController : MonoBehaviour
 	{
 		if (handType == "right")
 		{
-			RightHandWeapon.weaponMeshRenderer.enabled = false;
+			//if (playerCamera.IsPlayerCameraFirstPerson)
+		//	{
+				RightHandWeapon.FirstPersonWeaponModelInstance.SetActive(false);
+			//}
+			RightHandWeapon.ThirdPersonWeaponModelInstance.SetActive(false);
+
 		}
 		else if (handType == "left")
 		{
-			LeftHandWeapon.weaponMeshRenderer.enabled = false;
+			//if (playerCamera.IsPlayerCameraFirstPerson)
+			//{
+				LeftHandWeapon.FirstPersonWeaponModelInstance.SetActive(false);
+			//}
+			LeftHandWeapon.ThirdPersonWeaponModelInstance.SetActive(false);
 		}
 	}
 

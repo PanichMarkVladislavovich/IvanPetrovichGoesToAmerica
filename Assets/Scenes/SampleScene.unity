@@ -957,6 +957,7 @@ MonoBehaviour:
   HarmonicaRevolverButton: {fileID: 1951153787}
   PlungerCrossbowButton: {fileID: 1200027710}
   EugenicGenieButton: {fileID: 0}
+  playerCamera: {fileID: 0}
   weaponWheelbuttonscript: {fileID: 0}
 --- !u!4 &279834159
 Transform:
@@ -3321,11 +3322,8 @@ MonoBehaviour:
   playerCameraStateType: 0
   PlayerCameraObject: {fileID: 330585543}
   PlayerHeadParent: {fileID: 9112344834459783258}
-  PlayerHeadChildren: []
   PlayerHandRightParent: {fileID: 7696285752720775060}
-  PlayerHandRightChildren: []
   PlayerHandLeftParent: {fileID: 2251594248204347696}
-  PlayerHandLeftChildren: []
 --- !u!114 &693704268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3343,6 +3341,7 @@ MonoBehaviour:
   playerCamera: {fileID: 330585548}
   playerCameraObject: {fileID: 330585543}
   playerBehaviour: {fileID: 0}
+  weaponController: {fileID: 0}
 --- !u!114 &693704269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3374,6 +3373,7 @@ MonoBehaviour:
   HarmonicaRevolverButton: {fileID: 1951153787}
   PlungerCrossbowButton: {fileID: 1200027710}
   EugenicGenieButton: {fileID: 1415595842}
+  playerCamera: {fileID: 0}
   weaponWheelbuttonscript: {fileID: 1200027713}
 --- !u!114 &693704271
 MonoBehaviour:
