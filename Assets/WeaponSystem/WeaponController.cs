@@ -171,7 +171,11 @@ public class WeaponController : MonoBehaviour
 	{
 		if (RightHandWeapon != null)
 		{
+			if (RightHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
+			{ 
 			RightHandWeapon.WeaponAttack();
+			}
+			playerBehaviour.ArmPlayer();
 		}
 	}
 
@@ -179,7 +183,11 @@ public class WeaponController : MonoBehaviour
 	{
 		if (LeftHandWeapon != null)
 		{
+			if (LeftHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
+			{ 
 			LeftHandWeapon.WeaponAttack();
+			}
+			playerBehaviour.ArmPlayer();
 		}
 	}
 
@@ -203,22 +211,13 @@ public class WeaponController : MonoBehaviour
 	{ 
 		if (handType == "right")
 		{
-			//if (playerCamera.IsPlayerCameraFirstPerson)
-			//{
-				RightHandWeapon.FirstPersonWeaponModelInstance.SetActive(true);
-			//}
+			RightHandWeapon.FirstPersonWeaponModelInstance.SetActive(true);
 			RightHandWeapon.ThirdPersonWeaponModelInstance.SetActive(true);
-
-
 		}
 		else if (handType == "left")
 		{
-			//if (playerCamera.IsPlayerCameraFirstPerson)
-			//{
-				LeftHandWeapon.FirstPersonWeaponModelInstance.SetActive(true);
-			//}
+			LeftHandWeapon.FirstPersonWeaponModelInstance.SetActive(true);
 			LeftHandWeapon.ThirdPersonWeaponModelInstance.SetActive(true);
-
 		}
 	}
 
@@ -226,19 +225,12 @@ public class WeaponController : MonoBehaviour
 	{
 		if (handType == "right")
 		{
-			//if (playerCamera.IsPlayerCameraFirstPerson)
-		//	{
-				RightHandWeapon.FirstPersonWeaponModelInstance.SetActive(false);
-			//}
+			RightHandWeapon.FirstPersonWeaponModelInstance.SetActive(false);
 			RightHandWeapon.ThirdPersonWeaponModelInstance.SetActive(false);
-
 		}
 		else if (handType == "left")
 		{
-			//if (playerCamera.IsPlayerCameraFirstPerson)
-			//{
-				LeftHandWeapon.FirstPersonWeaponModelInstance.SetActive(false);
-			//}
+			LeftHandWeapon.FirstPersonWeaponModelInstance.SetActive(false);
 			LeftHandWeapon.ThirdPersonWeaponModelInstance.SetActive(false);
 		}
 	}

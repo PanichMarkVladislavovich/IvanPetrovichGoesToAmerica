@@ -55,6 +55,9 @@ public abstract class WeaponClass : MonoBehaviour
 				//currentModelInstance.transform.localPosition = new Vector3(0.35f, 1.75f, 0.5f); // Локальная позиция для правой руки
 			}
 			// Обнуляем локальную позицию и ориентацию
+			//FirstPersonWeaponModelInstance.transform.localPosition = Vector3.zero;
+			FirstPersonWeaponModelInstance.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
+
 			ThirdPersonWeaponModelInstance.transform.localPosition = Vector3.zero;
 			ThirdPersonWeaponModelInstance.transform.localRotation = Quaternion.identity;
 		}
