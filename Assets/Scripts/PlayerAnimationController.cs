@@ -11,8 +11,10 @@ public class PlayerAnimationController : MonoBehaviour
 	public GameObject playerCameraObject;
 
 	private Animator playerAnimator;
-	private string currentPlayerAnimation = "";
-	
+	private string currentPlayerMovementAnimation = "";
+	private string currentPlayerWeaponRightAnimation = "";
+	private string currentPlayerWeaponLeftAnimation = "";
+
 	public PlayerBehaviour playerBehaviour;
 
 	public WeaponController weaponController;
@@ -27,7 +29,7 @@ public class PlayerAnimationController : MonoBehaviour
 		playerCamera = playerCameraObject.GetComponent<PlayerCamera>();
 
 		playerAnimator = GetComponent<Animator>();
-		ChangePlayerAnimation("Idle");
+		ChangePlayerMovementAnimation("Idle");
 
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 
@@ -88,7 +90,7 @@ public class PlayerAnimationController : MonoBehaviour
 		if (playerMovementController.CurrentPlayerMovementStateType == "Idle")
 		{
 			
-			ChangePlayerAnimation("Idle");
+			ChangePlayerMovementAnimation("Idle");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "Walking")
 		{
@@ -96,56 +98,56 @@ public class PlayerAnimationController : MonoBehaviour
 			{
 				if (playerInputsList.GetKeyUp())
 				{
-					ChangePlayerAnimation("Walking Forward");
+					ChangePlayerMovementAnimation("Walking Forward");
 				}
 				else if (playerInputsList.GetKeyDown())
 				{
-					ChangePlayerAnimation("Walking Backwards");
+					ChangePlayerMovementAnimation("Walking Backwards");
 				}
 				if (playerInputsList.GetKeyRight())
 				{
-					ChangePlayerAnimation("Walking Right");
+					ChangePlayerMovementAnimation("Walking Right");
 				}
 				else if (playerInputsList.GetKeyLeft())
 				{
-					ChangePlayerAnimation("Walking Left");
+					ChangePlayerMovementAnimation("Walking Left");
 				}
 			}
-			else ChangePlayerAnimation("Walking Forward");
+			else ChangePlayerMovementAnimation("Walking Forward");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "Running")
 		{
 
-			ChangePlayerAnimation("Running");
+			ChangePlayerMovementAnimation("Running");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "Jumping")
 		{
 
-			ChangePlayerAnimation("Jumping");
+			ChangePlayerMovementAnimation("Jumping");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "Falling")
 		{
 
-			ChangePlayerAnimation("Falling");
+			ChangePlayerMovementAnimation("Falling");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "CrouchingIdle")
 		{
 
-			ChangePlayerAnimation("CrouchingIdle");
+			ChangePlayerMovementAnimation("CrouchingIdle");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "CrouchingWalking")
 		{
 
-			ChangePlayerAnimation("CrouchingWalking");
+			ChangePlayerMovementAnimation("CrouchingWalking");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "Sliding")
 		{
 
-			ChangePlayerAnimation("Sliding");
+			ChangePlayerMovementAnimation("Sliding");
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "LedgeClimbing")
 		{
-			ChangePlayerAnimation("Ledge Climbing");
+			ChangePlayerMovementAnimation("Ledge Climbing");
 		}
 
 
@@ -157,11 +159,11 @@ public class PlayerAnimationController : MonoBehaviour
 			if (weaponController.RightHandWeapon.weaponMeshRenderer.enabled)
 			{
 				playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponRight"), 1);
-				ChangePlayerAnimation("EquipRightWeapon");
+				ChangePlayerWeaponRightAnimation("EquipRightWeapon");
 			}
 			else
 			{
-				ChangePlayerAnimation("UnequipRightWeapon");
+				ChangePlayerWeaponRightAnimation("UnequipRightWeapon");
 				if (playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponRight")).IsName("UnequipRightWeapon") && playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponRight")).normalizedTime >= 0.99f)
 				{
 					playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponRight"), 0);
@@ -174,11 +176,12 @@ public class PlayerAnimationController : MonoBehaviour
 			if (weaponController.LeftHandWeapon.weaponMeshRenderer.enabled)
 			{
 				playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponLeft"), 1);
-				ChangePlayerAnimation("EquipLeftWeapon");
+				ChangePlayerWeaponLeftAnimation("EquipLeftWeapon");
 			}
 			else
 			{
-				ChangePlayerAnimation("UnequipLeftWeapon");
+				ChangePlayerWeaponLeftAnimation("UnequipLeftWeapon");
+				
 				if (playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponLeft")).IsName("UnequipLeftWeapon") && playerAnimator.GetCurrentAnimatorStateInfo(playerAnimator.GetLayerIndex("WeaponLeft")).normalizedTime >= 0.99f)
 				{
 					playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("WeaponLeft"), 0);
@@ -194,13 +197,32 @@ public class PlayerAnimationController : MonoBehaviour
 
 
 	}
-		private void ChangePlayerAnimation(string animation, float crossfade = 0f)
+		private void ChangePlayerMovementAnimation(string animation, float crossfade = 0.2f)
 		{
-			if (currentPlayerAnimation != animation)
+			if (currentPlayerMovementAnimation != animation)
 			{
-				currentPlayerAnimation = animation;
+				currentPlayerMovementAnimation = animation;
 				playerAnimator.CrossFade(animation, crossfade);
 			}
 		}
+
+
+	private void ChangePlayerWeaponRightAnimation(string animation, float crossfade = 0.2f)
+	{
+		if (currentPlayerWeaponRightAnimation != animation)
+		{
+			currentPlayerWeaponRightAnimation = animation;
+			playerAnimator.CrossFade(animation, crossfade);
+		}
 	}
+
+	private void ChangePlayerWeaponLeftAnimation(string animation, float crossfade = 0.2f)
+	{
+		if (currentPlayerWeaponLeftAnimation != animation)
+		{
+			currentPlayerWeaponLeftAnimation = animation;
+			playerAnimator.CrossFade(animation, crossfade);
+		}
+	}
+}
 
