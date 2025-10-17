@@ -5,40 +5,70 @@ using TMPro;
 public class WeaponWheelController : MonoBehaviour
 {
 	PlayerInputsList playerInputsList;
-	public Canvas WeaponWheelMenuCanvas; // Привяжите ваш Canvas сюда
+	public Canvas WeaponWheelMenuCanvas; 
+
+	public Button PoliceBatonButton;
+	public Button HarmonicaRevolverButton;
+	public Button PlungerCrossbowButton;
+	public Button EugenicGenieButton;
 	public bool IsWeaponLeftHand { get; private set; }
 	public bool IsWeaponWheelActive { get; private set; }
 
 	private bool previousRightHandPressed = false;
 	private bool previousLeftHandPressed = false;
 
-	PlayerBehaviour playerBehaviour;
 	public TextMeshProUGUI WeaponWheelName;
 	public WeaponWheelsButtons weaponWheelbuttonscript;
 	 WeaponController weaponController;
 
 	void Start()
 	{
-		playerBehaviour = GetComponent<PlayerBehaviour>();
 		playerInputsList = GetComponent<PlayerInputsList>();
 		weaponController = GetComponent<WeaponController>();
-		WeaponWheelMenuCanvas.gameObject.SetActive(false);
-		//DisableCanvas();
+
+		PoliceBatonButton.onClick.AddListener(() => weaponController.SelectWeapon(typeof(WeaponPoliceBaton)));
+		HarmonicaRevolverButton.onClick.AddListener(() => weaponController.SelectWeapon(typeof(WeaponHarmonicaRevolver)));
+		PlungerCrossbowButton.onClick.AddListener(() => weaponController.SelectWeapon(typeof(WeaponPlungerCrossbow)));
+		EugenicGenieButton.onClick.AddListener(() => weaponController.SelectWeapon(typeof(WeaponEugenicGenie)));
 	}
 
 	void Update()
 	{
-			bool currentRightHandPressed = playerInputsList.GetKeyRightHandWeaponWheel();
-			bool currentLeftHandPressed = playerInputsList.GetKeyLeftHandWeaponWheel();
-			
-			// Обновляем состояние, только если изменилось нажатие кнопки
-			if (currentRightHandPressed != previousRightHandPressed || currentLeftHandPressed != previousLeftHandPressed)
-			{
-				HandleWeaponWheel(currentRightHandPressed, currentLeftHandPressed);
-			}
+		bool currentRightHandPressed = playerInputsList.GetKeyRightHandWeaponWheel();
+		bool currentLeftHandPressed = playerInputsList.GetKeyLeftHandWeaponWheel();
+		
+		// Обновляем состояние, только если изменилось нажатие кнопки
+		if (currentRightHandPressed != previousRightHandPressed || currentLeftHandPressed != previousLeftHandPressed)
+		{
+			HandleWeaponWheel(currentRightHandPressed, currentLeftHandPressed);
+		}
 
-			previousRightHandPressed = currentRightHandPressed;
-			previousLeftHandPressed = currentLeftHandPressed;
+		previousRightHandPressed = currentRightHandPressed;
+		previousLeftHandPressed = currentLeftHandPressed;
+
+		if (weaponController.IsPoliceBatonWeaponUnlocked)
+		{
+			PoliceBatonButton.gameObject.SetActive(true);
+		}
+		else PoliceBatonButton.gameObject.SetActive(false);
+
+		if (weaponController.IsHarmoniceRevolverWeaponUnlocked)
+		{
+			HarmonicaRevolverButton.gameObject.SetActive(true);
+		}
+		else HarmonicaRevolverButton.gameObject.SetActive(false);
+
+		if (weaponController.IsPlungerCrossbowWeaponUnlocked)
+		{
+			PlungerCrossbowButton.gameObject.SetActive(true);
+		}
+		else PlungerCrossbowButton.gameObject.SetActive(false);
+
+		if (weaponController.IsEugenicGenieWeaponUnlocked)
+		{
+			EugenicGenieButton.gameObject.SetActive(true);
+		}
+		else EugenicGenieButton.gameObject.SetActive(false);
 	}
 
 	void HandleWeaponWheel(bool rightHandPressed, bool leftHandPressed)
@@ -98,36 +128,36 @@ public class WeaponWheelController : MonoBehaviour
 		{
 			if (weaponController.RightHandWeapon?.WeaponNameSystem == "PoliceBaton")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.PoliceBatonButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PoliceBatonButton);
 			}
 			if (weaponController.RightHandWeapon?.WeaponNameSystem == "HarmonicaRevolver")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.HarmonicaRevolverButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(HarmonicaRevolverButton);
 			}
 			if (weaponController.RightHandWeapon?.WeaponNameSystem == "PlungerCrossbow")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.PlungerCrossbowButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PlungerCrossbowButton);
 			}
 			if (weaponController.RightHandWeapon?.WeaponNameSystem == "EugenicGenie")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.EugenicGenieButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(EugenicGenieButton);
 			}
 
 			if (weaponController.RightHandWeapon?.WeaponNameSystem != "PoliceBaton")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.PoliceBatonButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PoliceBatonButton);
 			}
 			if (weaponController.RightHandWeapon?.WeaponNameSystem != "HarmonicaRevolver")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.HarmonicaRevolverButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(HarmonicaRevolverButton);
 			}
 			if (weaponController.RightHandWeapon?.WeaponNameSystem != "PlungerCrossbow")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.PlungerCrossbowButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PlungerCrossbowButton);
 			}
 			if (weaponController.RightHandWeapon?.WeaponNameSystem != "EugenicGenie")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.EugenicGenieButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(EugenicGenieButton);
 			}
 		}
 
@@ -135,36 +165,36 @@ public class WeaponWheelController : MonoBehaviour
 		{
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem == "PoliceBaton")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.PoliceBatonButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PoliceBatonButton);
 			}
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem == "HarmonicaRevolver")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.HarmonicaRevolverButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(HarmonicaRevolverButton);
 			}
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem == "PlungerCrossbow")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.PlungerCrossbowButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(PlungerCrossbowButton);
 			}
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem == "EugenicGenie")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(weaponController.EugenicGenieButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToActive(EugenicGenieButton);
 			}
 
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem != "PoliceBaton")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.PoliceBatonButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PoliceBatonButton);
 			}
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem != "HarmonicaRevolver")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.HarmonicaRevolverButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(HarmonicaRevolverButton);
 			}
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem != "PlungerCrossbow")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.PlungerCrossbowButton); ;
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(PlungerCrossbowButton); ;
 			}
 			if (weaponController.LeftHandWeapon?.WeaponNameSystem != "EugenicGenie")
 			{
-				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(weaponController.EugenicGenieButton);
+				weaponWheelbuttonscript.ChangeWeaponWheelButtonColorToDefault(EugenicGenieButton);
 			}
 		}
 	}

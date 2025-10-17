@@ -3,12 +3,7 @@ using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
 {
-	public Button PoliceBatonButton;
-	public Button HarmonicaRevolverButton;
-	public Button PlungerCrossbowButton;
-	public Button EugenicGenieButton;
-
-	public PlayerCamera playerCamera;
+	//public PlayerCamera playerCamera;
 
 	public bool IsPoliceBatonWeaponUnlocked {  get; private set; }
 	public bool IsHarmoniceRevolverWeaponUnlocked { get; private set; }
@@ -18,44 +13,21 @@ public class WeaponController : MonoBehaviour
 	PlayerInputsList playerInputsList;
 	WeaponWheelController weaponWheelController;
 	PlayerBehaviour playerBehaviour;
-	public WeaponWheelsButtons weaponWheelbuttonscript;
 
 	public WeaponClass LeftHandWeapon {  get; private set; }
 	public WeaponClass RightHandWeapon {  get; private set; }
 
 	private void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
-		weaponWheelController = GetComponent<WeaponWheelController>();
-		playerBehaviour = GetComponent<PlayerBehaviour>();
-		playerCamera = GetComponent<PlayerCamera>();
-
-
-		///////////////////
 		IsPoliceBatonWeaponUnlocked = true;
 		IsHarmoniceRevolverWeaponUnlocked = true;
 		IsPlungerCrossbowWeaponUnlocked = true;
 		IsEugenicGenieWeaponUnlocked = true;
-
-
-
-		// Назначаем обработчики событий для кнопок
-		if (IsPoliceBatonWeaponUnlocked)
-		{
-			PoliceBatonButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponPoliceBaton)));
-		}
-		if (IsHarmoniceRevolverWeaponUnlocked)
-		{
-			HarmonicaRevolverButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponHarmonicaRevolver)));
-		}
-		if (IsPlungerCrossbowWeaponUnlocked)
-		{
-			PlungerCrossbowButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponPlungerCrossbow)));
-		}
-		if (IsEugenicGenieWeaponUnlocked)
-		{
-			EugenicGenieButton.onClick.AddListener(() => SelectWeapon(typeof(WeaponEugenicGenie)));
-		}
+		
+		
+		playerInputsList = GetComponent<PlayerInputsList>();
+		weaponWheelController = GetComponent<WeaponWheelController>();
+		playerBehaviour = GetComponent<PlayerBehaviour>();
 	}
 
 	private void Update()
@@ -69,33 +41,9 @@ public class WeaponController : MonoBehaviour
 		{
 			LeftWeaponAttack();
 		}
-
-		if (IsPoliceBatonWeaponUnlocked)
-		{
-			PoliceBatonButton.gameObject.SetActive(true);
-		}
-		else PoliceBatonButton.gameObject.SetActive(false);
-
-		if (IsHarmoniceRevolverWeaponUnlocked)
-		{
-			HarmonicaRevolverButton.gameObject.SetActive(true);
-		}
-		else HarmonicaRevolverButton.gameObject.SetActive(false);
-
-		if (IsPlungerCrossbowWeaponUnlocked)
-		{
-			PlungerCrossbowButton.gameObject.SetActive(true);
-		}
-		else PlungerCrossbowButton.gameObject.SetActive(false);
-
-		if (IsEugenicGenieWeaponUnlocked)
-		{
-			EugenicGenieButton.gameObject.SetActive(true);
-		}
-		else EugenicGenieButton.gameObject.SetActive(false);
 	}
 
-	private void SelectWeapon(System.Type weaponType)
+	public void SelectWeapon(System.Type weaponType)
 	{
 		bool isLeftHand = weaponWheelController.IsWeaponLeftHand;
 

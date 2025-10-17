@@ -953,12 +953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af762ebb9c88e74c8f75865d7511cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoliceBatonButton: {fileID: 319870582}
-  HarmonicaRevolverButton: {fileID: 1951153787}
-  PlungerCrossbowButton: {fileID: 1200027710}
-  EugenicGenieButton: {fileID: 0}
-  playerCamera: {fileID: 0}
-  weaponWheelbuttonscript: {fileID: 0}
 --- !u!4 &279834159
 Transform:
   m_ObjectHideFlags: 0
@@ -3174,21 +3168,21 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 693704261}
-  - component: {fileID: 693704265}
-  - component: {fileID: 693704264}
-  - component: {fileID: 693704263}
-  - component: {fileID: 693704262}
   - component: {fileID: 693704266}
+  - component: {fileID: 693704262}
+  - component: {fileID: 693704265}
+  - component: {fileID: 693704263}
+  - component: {fileID: 693704264}
   - component: {fileID: 693704267}
   - component: {fileID: 693704268}
-  - component: {fileID: 693704269}
-  - component: {fileID: 693704270}
   - component: {fileID: 693704271}
   - component: {fileID: 693704272}
   - component: {fileID: 693704276}
   - component: {fileID: 693704275}
   - component: {fileID: 693704274}
   - component: {fileID: 693704273}
+  - component: {fileID: 693704270}
+  - component: {fileID: 693704269}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3262,9 +3256,8 @@ MonoBehaviour:
   playerInputsList: {fileID: 0}
   playerMovementStateType: 0
   PlayerWorldMovement: {x: 0, y: 0, z: 0}
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 330585548}
   PlayerCameraObject: {fileID: 330585543}
-  playerBehaviour: {fileID: 0}
   PlayerTransform: {fileID: 693704261}
   PlayerRigidBody: {fileID: 693704266}
   playerCapsuleCollider: {fileID: 1656739191}
@@ -3358,6 +3351,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponWheelMenuCanvas: {fileID: 1699398954}
+  PoliceBatonButton: {fileID: 319870582}
+  HarmonicaRevolverButton: {fileID: 1951153787}
+  PlungerCrossbowButton: {fileID: 1200027710}
+  EugenicGenieButton: {fileID: 1415595842}
   WeaponWheelName: {fileID: 1269969}
   weaponWheelbuttonscript: {fileID: 1200027713}
 --- !u!114 &693704270
@@ -3372,12 +3369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af762ebb9c88e74c8f75865d7511cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoliceBatonButton: {fileID: 319870582}
-  HarmonicaRevolverButton: {fileID: 1951153787}
-  PlungerCrossbowButton: {fileID: 1200027710}
-  EugenicGenieButton: {fileID: 1415595842}
-  playerCamera: {fileID: 0}
-  weaponWheelbuttonscript: {fileID: 1200027713}
 --- !u!114 &693704271
 MonoBehaviour:
   m_ObjectHideFlags: 0

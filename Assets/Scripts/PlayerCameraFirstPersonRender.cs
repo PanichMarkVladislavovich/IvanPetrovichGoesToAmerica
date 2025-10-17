@@ -61,27 +61,38 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 				if (weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
 				{
 					HideBodyPart(PlayerHandRightParent);
-					ShowFirstPersonHands(PlayerFirstPersonHandRight);
+					ShowFirstPersonHand(PlayerFirstPersonHandRight);
 				}
 				else
 				{
 					ShowBodyPart(PlayerHandRightParent);
-					HideFirstPersonHands(PlayerFirstPersonHandRight);
+					HideFirstPersonHand(PlayerFirstPersonHandRight);
 				}
+
+			}			
+			else
+			{
+				ShowBodyPart(PlayerHandRightParent);
+				HideFirstPersonHand(PlayerFirstPersonHandRight);
 			}
 
 			if (weaponController.LeftHandWeapon != null)
-			{ 
+			{
 				if (weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
 				{
 					HideBodyPart(PlayerHandLeftParent);
-					ShowFirstPersonHands(PlayerFirstPersonHandLeft);
+					ShowFirstPersonHand(PlayerFirstPersonHandLeft);
 				}
 				else
 				{
 					ShowBodyPart(PlayerHandLeftParent);
-					HideFirstPersonHands(PlayerFirstPersonHandLeft);
+					HideFirstPersonHand(PlayerFirstPersonHandLeft);
 				}
+			}
+			else
+			{
+				ShowBodyPart(PlayerHandLeftParent);
+				HideFirstPersonHand(PlayerFirstPersonHandLeft);
 			}
 		}
 		else 
@@ -90,8 +101,8 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 			ShowBodyPart(PlayerHandRightParent);
 			ShowBodyPart(PlayerHandLeftParent);
 
-			HideFirstPersonHands(PlayerFirstPersonHandRight);
-			HideFirstPersonHands(PlayerFirstPersonHandLeft);
+			HideFirstPersonHand(PlayerFirstPersonHandRight);
+			HideFirstPersonHand(PlayerFirstPersonHandLeft);
 		}
 	}
 
@@ -125,7 +136,7 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 		}
 	}
 
-	public void ShowFirstPersonHands(GameObject rootObj)
+	public void ShowFirstPersonHand(GameObject rootObj)
 	{
 		// Получаем все рендеры (включая дочерние объекты)
 		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
@@ -140,7 +151,7 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 		}
 	}
 
-	public void HideFirstPersonHands(GameObject rootObj)
+	public void HideFirstPersonHand(GameObject rootObj)
 	{
 		// Получаем все рендеры (включая дочерние объекты)
 		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);

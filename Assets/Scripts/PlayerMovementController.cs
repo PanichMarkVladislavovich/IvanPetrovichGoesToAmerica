@@ -14,7 +14,7 @@ public class PlayerMovementController : MonoBehaviour
 	public PlayerCamera playerCamera;
 	public GameObject PlayerCameraObject;
 
-	public PlayerBehaviour playerBehaviour;
+	PlayerBehaviour playerBehaviour;
 
 	public Transform PlayerTransform;
 	public Rigidbody PlayerRigidBody;
