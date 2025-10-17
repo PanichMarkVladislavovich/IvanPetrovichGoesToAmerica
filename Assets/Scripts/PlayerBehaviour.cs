@@ -20,7 +20,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (playerInputsList.GetKeyShowWeapons())
 		{
-			if (!IsPlayerArmed)
+			if (!IsPlayerArmed && (weaponController.RightHandWeapon != null || weaponController.LeftHandWeapon != null))
 			{
 				ArmPlayer();
 			}

@@ -50,7 +50,7 @@ public class WeaponWheelController : MonoBehaviour
 			
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = false;
-			playerBehaviour.ArmPlayer();
+			//playerBehaviour.ArmPlayer();
 			ChangeWheaponWheelButtonColor("right");
 			weaponWheelbuttonscript.HoverExit();
 			WeaponWheelName.text = "ПРАВАЯ РУКА";
@@ -63,7 +63,7 @@ public class WeaponWheelController : MonoBehaviour
 			
 			IsWeaponWheelActive = true;
 			IsWeaponLeftHand = true;
-			playerBehaviour.ArmPlayer();
+			//playerBehaviour.ArmPlayer();
 			ChangeWheaponWheelButtonColor("left");
 			weaponWheelbuttonscript.HoverExit();
 			WeaponWheelName.text = "ЛЕВАЯ РУКА";

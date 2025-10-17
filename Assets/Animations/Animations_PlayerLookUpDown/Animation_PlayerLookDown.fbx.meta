@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ef5f999f8f837e64fa7f28fbe6047415
+guid: 9cd85e3fa5eb0a14cb4547997c2446d2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,18 +31,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CrouchingWalking
-      takeName: mixamo.com
-      internalID: -203655887218126122
+      name: Armature UNITY Player|PlayerLookDown
+      takeName: Armature UNITY Player|PlayerLookDown
+      internalID: 3998662315392385027
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -3341,7 +3341,7 @@ MonoBehaviour:
   playerInputsList: {fileID: 0}
   playerMovementController: {fileID: 0}
   playerCamera: {fileID: 330585548}
-  PlayerCameraObject: {fileID: 330585543}
+  playerCameraObject: {fileID: 330585543}
   playerBehaviour: {fileID: 0}
 --- !u!114 &693704269
 MonoBehaviour:
