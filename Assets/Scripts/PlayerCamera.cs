@@ -6,17 +6,18 @@ public class PlayerCamera : MonoBehaviour
 	public CapsuleCollider PlayerCollider;
 	public Transform PlayerTransform;
 
-	//public WeaponWheelController weaponWheelController;
-
 	public PlayerCameraState playerCameraState;
 	public PlayerCameraStateType playerCameraStateType;
 
 	public Vector2 MouseRotation;
+	public Vector2 MouseScrollWheel;
 
 	public Vector3 CameraForward;
 	public Vector3 CameraRight;
 
 	private RaycastHit hit;
+
+	public bool IsAbleToZoomCameraOut = true;
 
 	public float PlayerCameraDistanceX;
 	public float PlayerCameraDistanceY;
@@ -28,11 +29,11 @@ public class PlayerCamera : MonoBehaviour
 	private string _currentPlayerCameraType;
 	private string _previousPlayerCameraType;
 
+	private bool IsCameraShoulderRight = true;
+
 	private bool canReturn = false;     
 	private float startTransitionTime; 
 	public float transitionDelay = 0.5f;
-
-	private float targetDistance;
 
 	private void Awake()
 	{
@@ -43,11 +44,19 @@ public class PlayerCamera : MonoBehaviour
 		SetPlayerCameraState(playerCameraStateType);
 
 		playerInputsList = GetComponent<PlayerInputsList>();
-		//weaponWheelController = GetComponent<WeaponWheelController>();
 
 		PlayerCameraDistanceX = -0.85f;
-		PlayerCameraDistanceY = -2;
-		PlayerCameraDistanceZ = 5f;
+
+		PlayerCameraDistanceY = -1.75f;
+		PlayerCameraDistanceZ = 3.25f;
+
+		// DO NOT DELETE
+		// MAX AND MIN CONSTS
+		//PlayerCameraDistanceY = -2;
+		//PlayerCameraDistanceZ = 5;
+		//
+		//PlayerCameraDistanceY = -1.5f;
+		//PlayerCameraDistanceZ = 1.5f;
 	}
 
 	void Update()
@@ -57,12 +66,31 @@ public class PlayerCamera : MonoBehaviour
 			MouseRotation.y += Input.GetAxis("Mouse X");
 			MouseRotation.x += Input.GetAxis("Mouse Y");
 			MouseRotation.x = Mathf.Clamp(MouseRotation.x, MouseRotationLimit * -1, MouseRotationLimit);
+			MouseScrollWheel = Input.mouseScrollDelta;
         }
-		else
-		{
 
+		if (MouseScrollWheel.y < 0 && IsAbleToZoomCameraOut == true && IsPlayerCameraFirstPerson == false)
+		{
+			if (PlayerCameraDistanceY < -2)
+			{
+				PlayerCameraDistanceY += -0.05f;
+			}
+			if (PlayerCameraDistanceZ < 5)
+			{
+				PlayerCameraDistanceZ += 0.35f;
+			}
 		}
-       
+		if (MouseScrollWheel.y > 0 && IsPlayerCameraFirstPerson == false)
+		{
+			if (PlayerCameraDistanceY > -1.5f)
+			{
+				PlayerCameraDistanceY += 0.05f;
+			}
+			if (PlayerCameraDistanceZ > 1.5f)
+			{
+				PlayerCameraDistanceZ += -0.35f;
+			}
+		}
 
 		playerCameraState.PlayerCameraPosition();
 
@@ -83,11 +111,20 @@ public class PlayerCamera : MonoBehaviour
 			}
 		}
 
-		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
+		if (playerInputsList.GetKeyChangeCameraShoulder())
 		{
-			 targetDistance = hit.distance;
+			IsCameraShoulderRight = !IsCameraShoulderRight;
 		}
 
+		if (IsCameraShoulderRight == true)
+		{
+			PlayerCameraDistanceX = Mathf.Lerp(PlayerCameraDistanceX, -0.85f, Time.deltaTime * 4);
+		}
+		else
+		{
+			PlayerCameraDistanceX = Mathf.Lerp(PlayerCameraDistanceX, 0.85f, Time.deltaTime * 4);
+		}
+		
 		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
 		{
 			// Камера снова видит игрока
@@ -106,8 +143,9 @@ public class PlayerCamera : MonoBehaviour
 					{
 						// Потеря контакта с игроком, идём на минимальное расстояние
 						PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, hit.distance, Time.deltaTime * 4f);
-						
+						IsAbleToZoomCameraOut = false;
 					}
+					//else 
 				}
 			}
 		}
@@ -115,8 +153,9 @@ public class PlayerCamera : MonoBehaviour
 		{
 			if (PlayerCameraDistanceZ <= 5f )
 			{
+					IsAbleToZoomCameraOut = true;
 				// Начинаем постепенное удаление камеры
-				PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
+			//	PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
 			}
 
 			canReturn = false; // Отменяем возвращение
@@ -125,10 +164,8 @@ public class PlayerCamera : MonoBehaviour
 		CameraForward = transform.forward;
 		CameraRight = transform.right;
 
-		
 		transform.rotation = Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0);
 		
-
 		CameraRotationY = transform.eulerAngles.y;
 	}
 	public void SetPlayerCameraState(PlayerCameraStateType playerCameraStateType)
@@ -183,6 +220,7 @@ public class PlayerCamera : MonoBehaviour
 	{
 		transform.position = new Vector3(0, 5, -7);
 	}
+
 	public void SetPlayerCameraType(PlayerCameraStateType newCameraType)
 	{
 		_previousPlayerCameraType = _currentPlayerCameraType;

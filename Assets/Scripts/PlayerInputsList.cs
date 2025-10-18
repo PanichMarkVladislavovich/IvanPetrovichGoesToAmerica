@@ -10,6 +10,7 @@ public class PlayerInputsList : MonoBehaviour
 	private KeyCode _keyLeft;
 
 	private KeyCode _keyChangeCameraView;
+	private KeyCode _keyChangeCameraShoulder;
 
 	private KeyCode _keyShowWeapons;
 
@@ -38,11 +39,12 @@ public class PlayerInputsList : MonoBehaviour
 		_keyLeft = KeyCode.A;
 
 		_keyChangeCameraView = KeyCode.V;
+		_keyChangeCameraShoulder = KeyCode.C;
 
 		_keyShowWeapons = KeyCode.F;
 
 		///////////////////
-		_keyEnterCutscene = KeyCode.C;
+		_keyEnterCutscene = KeyCode.Z;
 
 		_keyRun = KeyCode.LeftShift;
 
@@ -111,6 +113,15 @@ public class PlayerInputsList : MonoBehaviour
 	public bool GetKeyChangeCameraView()
 	{
 		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyChangeCameraView))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyChangeCameraShoulder()
+	{
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyChangeCameraShoulder))
 		{
 			return true;
 		}
