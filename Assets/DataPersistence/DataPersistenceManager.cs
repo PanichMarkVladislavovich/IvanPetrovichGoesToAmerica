@@ -6,20 +6,28 @@ using NUnit.Framework;
 
 public class DataPersistenceManager : MonoBehaviour
 {
-	[SerializeField] private string fileName = "";
+	[SerializeField] private string fileSaveDataName1 = "";
+	[SerializeField] private string fileSaveDataName2 = "";
+	[SerializeField] private string fileSaveDataName3 = "";
+	[SerializeField] private string fileSaveDataName4 = "";
+	[SerializeField] private string fileSaveDataName5 = "";
 
 	private string saveElsewhere = @"C:\Users\PanichMark\Desktop";
 
 	private GameData gameData;
 	private List<IDataPersistence> dataPersistenceObjects;
-	private FileDataHandler DataHandler;
+	private FileDataHandler fileDataHandler;
 
     public static DataPersistenceManager instance {  get; private set; }
 
 
 	private void Awake()
 	{
-		fileName = "SAVEGAME1.json";
+		fileSaveDataName1 = "SAVEGAME1.json";
+		fileSaveDataName2 = "SAVEGAME2.json";
+		fileSaveDataName3 = "SAVEGAME3.json";
+		fileSaveDataName4 = "SAVEGAME4.json";
+		fileSaveDataName5 = "SAVEGAME5.json";
 
 		if (instance != null)
 		{
@@ -29,63 +37,108 @@ public class DataPersistenceManager : MonoBehaviour
 		instance = this;
 
 		//this.DataHandler = new FileDataHandler(saveElsewhere, fileName);
-		this.DataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+		//this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
 		this.dataPersistenceObjects = FindAllDataPersistenceObjects();
 
 		if (this.gameData == null)
 		{
 			Debug.Log("No data found. starting New game");
 			NewGame();
-			LoadGame();
+			//LoadGame(1);
 		}
+		
 	}
 
-	private void Start()
+	private void Update()
 	{
-		
-		
+		if (this.gameData == null)
+		{
+		//	Debug.Log("EMPTY");
+		}
+		//else Debug.Log("OKOK");
 	}
 
 	public void NewGame()
 	{
 		this.gameData = new GameData();
-		//Debug.Log("IsRightShoulder is " + gameData.IsCameraShoulderRight);
+		//LoadGame(1);
 	}
 
-	public void SaveGame()
+	public void SaveGame(int saveSlotNumber)
 	{
+        if (saveSlotNumber == 1)
+        {
+             this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
+        }
+		else if (saveSlotNumber == 2)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName2);
+		}
+		else if (saveSlotNumber == 3)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName3);
+		}
+		else if (saveSlotNumber == 4)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName4);
+		}
+		else if (saveSlotNumber == 5)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName5);
+		}
+
 		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
 		{
 			dataPersistenceObj.SaveData(ref gameData);
 		}
 
-		//Debug.Log("Saved IsRightShoulder: " + gameData.IsCameraShoulderRight);
-		//Debug.Log("Saved State: " + gameData.CurrentPlayerMovementStateType);
-	//	Debug.Log("Saved Player Position: " + gameData.PlayerTransform);
+		fileDataHandler.Save(gameData);
 
-		DataHandler.Save(gameData);
+		Debug.Log("Data saved to slot " + saveSlotNumber);
 	}
 
-	public void LoadGame()
+	public void LoadGame(int loadSlotNumber)
 	{
-		this.gameData = DataHandler.Load();
+		if (loadSlotNumber == 1)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
+		}
+		else if (loadSlotNumber == 2)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName2);
+		}
+		else if (loadSlotNumber == 3)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName3);
+		}
+		else if (loadSlotNumber == 4)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName4);
+		}
+		else if (loadSlotNumber == 5)
+		{
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName5);
+		}
+
+
+		this.gameData = fileDataHandler.Load();
 
 		if (this.gameData == null)
 		{
-			Debug.Log("No data found. starting New game");
+			Debug.Log("No data to load found in slot " + loadSlotNumber);
 			NewGame();
+			return;
 		}
-
-
-
-		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+		else
 		{
-			dataPersistenceObj.LoadData(gameData);
-		}
 
-		//Debug.Log("Loaded IsCameraShoulderRight: " + gameData.IsCameraShoulderRight);
-		//Debug.Log("Loaded State: " + gameData.CurrentPlayerMovementStateType);
-		//Debug.Log("Loaded Player Position: " + gameData.PlayerTransform);
+
+			foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+			{
+				dataPersistenceObj.LoadData(gameData);
+			}
+			Debug.Log("Data loaded from slot " + loadSlotNumber);
+		}
 	}
 
 	private List<IDataPersistence> FindAllDataPersistenceObjects()

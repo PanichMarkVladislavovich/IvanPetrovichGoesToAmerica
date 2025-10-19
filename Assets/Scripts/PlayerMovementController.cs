@@ -27,7 +27,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 
 	private RaycastHit hitInfo;
 
-	public string CurrentPlayerMovementStateType { get; private set; } = "PlayerCrouchingIdle";
+	public string CurrentPlayerMovementStateType { get; private set; } = "PlayerIdle";
 
 	public float PlayerMovementSpeed { get; private set; }
 	public float PlayerRotationSpeed { get; private set; }
