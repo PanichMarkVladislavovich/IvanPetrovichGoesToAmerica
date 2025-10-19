@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-public class PlayerMovementController : MonoBehaviour
+using System;
+public class PlayerMovementController : MonoBehaviour, IDataPersistence
 {
 	public PlayerInputsList playerInputsList;
 
@@ -26,7 +27,7 @@ public class PlayerMovementController : MonoBehaviour
 
 	private RaycastHit hitInfo;
 
-	public string CurrentPlayerMovementStateType { get; private set; }
+	public string CurrentPlayerMovementStateType { get; private set; } = "PlayerCrouchingIdle";
 
 	public float PlayerMovementSpeed { get; private set; }
 	public float PlayerRotationSpeed { get; private set; }
@@ -56,17 +57,18 @@ public class PlayerMovementController : MonoBehaviour
 	private float angle;
 	private float moveFactor;
 
-	private void Awake()
-	{
-		playerMovementStateType = PlayerMovementStateType.PlayerIdle;
-	}
+	
 	void Start()
 	{
+
 		playerInputsList = GetComponent<PlayerInputsList>();
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 
 		_playerPreviousFramePosition = transform.position;
+
+
+		playerMovementStateType = (PlayerMovementStateType)Enum.Parse(typeof(PlayerMovementStateType),CurrentPlayerMovementStateType);
 
 		SetPlayerMovementState(playerMovementStateType);
 
@@ -265,7 +267,7 @@ public class PlayerMovementController : MonoBehaviour
 		if (playerMovementStateType == PlayerMovementStateType.PlayerIdle)
 		{
 			newState = new IdlePlayerMovementState(this);
-			CurrentPlayerMovementStateType = "Idle";
+			CurrentPlayerMovementStateType = "PlayerIdle";
 			IsPlayerAbleToMove = true;
 			IsPlayerCrouching = false;
 			PlayerRotationSpeed = 300f;
@@ -273,31 +275,31 @@ public class PlayerMovementController : MonoBehaviour
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerWalking)
 		{
 			newState = new WalkingPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "Walking";
+			CurrentPlayerMovementStateType = "PlayerWalking";
 			IsPlayerCrouching = false;
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerRunning)
 		{
 			newState = new RunningPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "Running";
+			CurrentPlayerMovementStateType = "PlayerRunning";
 			IsPlayerCrouching = false;
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerJumping)
 		{
 			newState = new JumpingPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "Jumping";
+			CurrentPlayerMovementStateType = "PlayerJumping";
 			IsPlayerCrouching = false;
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerFalling)
 		{
 			newState = new FallingPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "Falling";
+			CurrentPlayerMovementStateType = "PlayerFalling";
 			IsPlayerCrouching = false;
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingIdle)
 		{
 			newState = new CrouchingIdlePlayerMovementState(this);
-			CurrentPlayerMovementStateType = "CrouchingIdle";
+			CurrentPlayerMovementStateType = "PlayerCrouchingIdle";
 			IsPlayerCrouching = true;
 			IsPlayerAbleToMove = true;
 			PlayerRotationSpeed = 300f;
@@ -305,13 +307,13 @@ public class PlayerMovementController : MonoBehaviour
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingWalking)
 		{
 			newState = new CrouchingWalkingPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "CrouchingWalking";
+			CurrentPlayerMovementStateType = "PlayerCrouchingWalking";
 			IsPlayerCrouching = true;
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerSliding)
 		{
 			newState = new SlidingPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "Sliding";
+			CurrentPlayerMovementStateType = "PlayerSliding";
 			IsPlayerCrouching = true;
 			IsPlayerAbleToMove = false;
 			PlayerRotationSpeed = 0;
@@ -319,7 +321,7 @@ public class PlayerMovementController : MonoBehaviour
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerLedgeClimbing)
 		{
 			newState = new LedgeClimbingPlayerMovementState(this);
-			CurrentPlayerMovementStateType = "LedgeClimbing";
+			CurrentPlayerMovementStateType = "PlayerLedgeClimbing";
 			IsPlayerCrouching = false;
 			IsPlayerAbleToMove = false;
 			PlayerRotationSpeed = 0;
@@ -383,7 +385,7 @@ public class PlayerMovementController : MonoBehaviour
 
 		PlayerRigidBody.AddForce(transform.up * 1.01f, ForceMode.Impulse);
 
-		yield return new WaitForSeconds(0.25f);
+		yield return new WaitForSeconds(0.07f);
 
 		PlayerRigidBody.AddForce(Vector3.zero, ForceMode.Acceleration);
 		PlayerRigidBody.linearVelocity = Vector3.zero;
@@ -392,7 +394,7 @@ public class PlayerMovementController : MonoBehaviour
 
 		PlayerRigidBody.AddForce(transform.forward * 1.01f, ForceMode.Impulse);
 
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.01f);
 		
 		PlayerRigidBody.AddForce(Vector3.zero, ForceMode.Acceleration);
 		PlayerRigidBody.linearVelocity = Vector3.zero;
@@ -402,11 +404,17 @@ public class PlayerMovementController : MonoBehaviour
 		// DECIDE if player will end up in standing or crouching position after ledge climbing
 		if (Big == true)
 		{
-			SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
+			if (IsPlayerMoving == false)
+			{
+				SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
+			}
 		}
 		else
 		{
-			SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
+			if (IsPlayerMoving == false)
+			{
+				SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
+			}
 		}
 	}
 
@@ -414,5 +422,17 @@ public class PlayerMovementController : MonoBehaviour
 	public void StartPlayerLedgeClimbing()
 	{
 		StartCoroutine(PlayerLedgeClimbingCourutine());
+	}
+
+	public void SaveData(ref GameData data)
+	{
+		data.CurrentPlayerMovementStateType = this.CurrentPlayerMovementStateType;
+		data.PlayerTransform = this.PlayerTransform.position;
+	}
+
+	public void LoadData(GameData data)
+	{
+		this.CurrentPlayerMovementStateType = data.CurrentPlayerMovementStateType;
+		this.PlayerTransform.position = data.PlayerTransform;
 	}
 }

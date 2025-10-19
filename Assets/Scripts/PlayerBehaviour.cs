@@ -6,14 +6,14 @@ public class PlayerBehaviour : MonoBehaviour
 	PlayerInputsList playerInputsList;
 	WeaponController weaponController;
 
-	public bool IsPlayerArmed {  get; private set; }
+	public bool IsPlayerArmed { get; private set; } = false;
 
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
 		weaponController = GetComponent<WeaponController>();
 
-		IsPlayerArmed = false;
+		
 	}
 
 	void Update()

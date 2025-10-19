@@ -1,5 +1,5 @@
 using UnityEngine;
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : MonoBehaviour, IDataPersistence
 {
 	PlayerInputsList playerInputsList;
 	public PlayerMovementController playerMovementController;
@@ -61,6 +61,8 @@ public class PlayerCamera : MonoBehaviour
 
 	void Update()
 	{
+		//Debug.Log(IsCameraShoulderRight);
+
         if (!MenuManager.IsAnyMenuOpened)
         {
 			MouseRotation.y += Input.GetAxis("Mouse X");
@@ -111,7 +113,7 @@ public class PlayerCamera : MonoBehaviour
 			}
 		}
 
-		if (playerInputsList.GetKeyChangeCameraShoulder())
+		if (playerInputsList.GetKeyChangeCameraShoulder() && IsPlayerCameraFirstPerson == false)
 		{
 			IsCameraShoulderRight = !IsCameraShoulderRight;
 		}
@@ -220,7 +222,6 @@ public class PlayerCamera : MonoBehaviour
 	{
 		transform.position = new Vector3(0, 5, -7);
 	}
-
 	public void SetPlayerCameraType(PlayerCameraStateType newCameraType)
 	{
 		_previousPlayerCameraType = _currentPlayerCameraType;
@@ -233,5 +234,17 @@ public class PlayerCamera : MonoBehaviour
 	public string GetPreviousPlayerCameraType()
 	{
 		return _previousPlayerCameraType.ToString();
+	}
+
+	
+
+	public void SaveData(ref GameData data)
+	{
+		data.IsCameraShoulderRight = this.IsCameraShoulderRight;
+	}
+
+	public void LoadData(GameData data)
+	{
+		this.IsCameraShoulderRight = data.IsCameraShoulderRight;
 	}
 }

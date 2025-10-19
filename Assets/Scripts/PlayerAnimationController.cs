@@ -87,12 +87,12 @@ public class PlayerAnimationController : MonoBehaviour
 
 
 			// анимации PlayerMovement state машины
-		if (playerMovementController.CurrentPlayerMovementStateType == "Idle")
+		if (playerMovementController.CurrentPlayerMovementStateType == "PlayerIdle")
 		{
 			
 			ChangePlayerMovementAnimation("Idle");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "Walking")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerWalking")
 		{
 			if (playerBehaviour.IsPlayerArmed == true || (playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.FirstPerson.ToString()))
 			{
@@ -115,37 +115,37 @@ public class PlayerAnimationController : MonoBehaviour
 			}
 			else ChangePlayerMovementAnimation("Walking Forward");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "Running")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerRunning")
 		{
 
 			ChangePlayerMovementAnimation("Running");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "Jumping")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerJumping")
 		{
 
 			ChangePlayerMovementAnimation("Jumping");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "Falling")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerFalling")
 		{
 
 			ChangePlayerMovementAnimation("Falling");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "CrouchingIdle")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerCrouchingIdle")
 		{
 
 			ChangePlayerMovementAnimation("CrouchingIdle");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "CrouchingWalking")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerCrouchingWalking")
 		{
 
 			ChangePlayerMovementAnimation("CrouchingWalking");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "Sliding")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerSliding")
 		{
 
 			ChangePlayerMovementAnimation("Sliding");
 		}
-		else if (playerMovementController.CurrentPlayerMovementStateType == "LedgeClimbing")
+		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerLedgeClimbing")
 		{
 			ChangePlayerMovementAnimation("Ledge Climbing");
 		}

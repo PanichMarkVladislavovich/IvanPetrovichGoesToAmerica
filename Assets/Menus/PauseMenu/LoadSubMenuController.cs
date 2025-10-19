@@ -9,12 +9,14 @@ public class LoadSubMenuController : MonoBehaviour
 	public Canvas LoadSubMenuCanvas;
 
 	public Button CloseLoadSubMenuButton;
+	public Button LoadGameButton;
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
 		pauseMenuController = GetComponent<PauseMenuController>();
 
 		CloseLoadSubMenuButton.onClick.AddListener(CloseLoadSubMenu);
+		LoadGameButton.onClick.AddListener(DataPersistenceManager.instance.LoadGame);
 	}
 
 	private void Update()
