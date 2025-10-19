@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class PlayerCamera : MonoBehaviour, IDataPersistence
 {
@@ -5,6 +6,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 	public PlayerMovementController playerMovementController;
 	public CapsuleCollider PlayerCollider;
 	public Transform PlayerTransform;
+	public Transform CameraTransform;
 
 	public PlayerCameraState playerCameraState;
 	public PlayerCameraStateType playerCameraStateType;
@@ -25,7 +27,9 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 	public float CameraRotationY;
 	private float MouseRotationLimit = 65f;
-	public bool IsPlayerCameraFirstPerson { get; private set; }
+
+	public string CurrentPlayerCameraStateType { get; private set; } = "ThirdPerson";
+
 	private string _currentPlayerCameraType;
 	private string _previousPlayerCameraType;
 
@@ -35,21 +39,24 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 	private float startTransitionTime; 
 	public float transitionDelay = 0.5f;
 
-	private void Awake()
-	{
-		playerCameraStateType = PlayerCameraStateType.ThirdPerson;
-	}
+	
 	void Start()
 	{
-		SetPlayerCameraState(playerCameraStateType);
-
 		playerInputsList = GetComponent<PlayerInputsList>();
+		CameraTransform = GetComponent<Transform>();
 
 		PlayerCameraDistanceX = -0.85f;
-
 		PlayerCameraDistanceY = -1.75f;
 		PlayerCameraDistanceZ = 3.25f;
 
+
+		playerCameraStateType = (PlayerCameraStateType)Enum.Parse(typeof(PlayerCameraStateType), CurrentPlayerCameraStateType);
+
+		SetPlayerCameraState(playerCameraStateType);
+
+		
+
+		
 		// DO NOT DELETE
 		// MAX AND MIN CONSTS
 		//PlayerCameraDistanceY = -2;
@@ -61,9 +68,11 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 	void Update()
 	{
-		//Debug.Log(IsCameraShoulderRight);
+		
 
-        if (!MenuManager.IsAnyMenuOpened)
+		//Debug.Log(CurrentPlayerCameraStateType);
+
+		if (!MenuManager.IsAnyMenuOpened)
         {
 			MouseRotation.y += Input.GetAxis("Mouse X");
 			MouseRotation.x += Input.GetAxis("Mouse Y");
@@ -71,7 +80,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 			MouseScrollWheel = Input.mouseScrollDelta;
         }
 
-		if (MouseScrollWheel.y < 0 && IsAbleToZoomCameraOut == true && IsPlayerCameraFirstPerson == false)
+		if (MouseScrollWheel.y < 0 && IsAbleToZoomCameraOut == true && CurrentPlayerCameraStateType != "FirstPerson")
 		{
 			if (PlayerCameraDistanceY < -2)
 			{
@@ -82,7 +91,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 				PlayerCameraDistanceZ += 0.35f;
 			}
 		}
-		if (MouseScrollWheel.y > 0 && IsPlayerCameraFirstPerson == false)
+		if (MouseScrollWheel.y > 0 && CurrentPlayerCameraStateType != "FirstPerson")
 		{
 			if (PlayerCameraDistanceY > -1.5f)
 			{
@@ -113,7 +122,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 			}
 		}
 
-		if (playerInputsList.GetKeyChangeCameraShoulder() && IsPlayerCameraFirstPerson == false)
+		if (playerInputsList.GetKeyChangeCameraShoulder() && CurrentPlayerCameraStateType != "FirstPerson")
 		{
 			IsCameraShoulderRight = !IsCameraShoulderRight;
 		}
@@ -170,24 +179,40 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 		
 		CameraRotationY = transform.eulerAngles.y;
 	}
+
+	private void FixedUpdate()
+	{
+		if (MouseRotation.y >= 360)
+		{
+			MouseRotation.y = 0;
+		}
+		if (MouseRotation.y <= -360)
+			{
+				MouseRotation.y = 0;
+			}
+	}
+
 	public void SetPlayerCameraState(PlayerCameraStateType playerCameraStateType)
 	{
 		PlayerCameraState newState;
 
 		if (playerCameraStateType == PlayerCameraStateType.FirstPerson)
 		{
+			CurrentPlayerCameraStateType = "FirstPerson";
 			newState = new FirstPersonPlayerCameraState(this);
-			IsPlayerCameraFirstPerson = true;
+			//IsPlayerCameraFirstPerson = true;
 		}
 		else if (playerCameraStateType == PlayerCameraStateType.ThirdPerson)
 		{
+			CurrentPlayerCameraStateType = "ThirdPerson";
 			newState = new ThirdPersonPlayerCameraState(this);
-			IsPlayerCameraFirstPerson = false;
+			//IsPlayerCameraFirstPerson = false;
 		}
 		else if (playerCameraStateType == PlayerCameraStateType.Cutscene)
 		{
+			CurrentPlayerCameraStateType = "Cutscene";
 			newState = new CutscenePlayerCameraState(this);
-			IsPlayerCameraFirstPerson = false;
+			//IsPlayerCameraFirstPerson = false;
 		}
 		else
 		{
@@ -240,11 +265,27 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 	public void SaveData(ref GameData data)
 	{
+		//transform.rotation = Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0);
+
+		data.CurrentPlayerCameraStateType = this.CurrentPlayerCameraStateType;
+		//data.CameraRotation = this.CameraTransform.rotation;
+		data.CameraRotation = new Quaternion(-this.MouseRotation.x, this.MouseRotation.y, 0, 0);
 		data.IsCameraShoulderRight = this.IsCameraShoulderRight;
 	}
 
 	public void LoadData(GameData data)
 	{
+
+
+		this.CurrentPlayerCameraStateType = data.CurrentPlayerCameraStateType;
+		this.MouseRotation.x = -data.CameraRotation.x;
+		this.MouseRotation.y = data.CameraRotation.y;
+
+		//this.transform.rotation = data.CameraRotation;
 		this.IsCameraShoulderRight = data.IsCameraShoulderRight;
+
+		playerCameraStateType = (PlayerCameraStateType)Enum.Parse(typeof(PlayerCameraStateType), CurrentPlayerCameraStateType);
+		SetPlayerCameraState(playerCameraStateType);
+
 	}
 }

@@ -12,7 +12,7 @@ public class DataPersistenceManager : MonoBehaviour
 	[SerializeField] private string fileSaveDataName4 = "";
 	[SerializeField] private string fileSaveDataName5 = "";
 
-	private string saveElsewhere = @"C:\Users\PanichMark\Desktop";
+	//private string saveElsewhere = @"C:\Users\PanichMark\Desktop";
 
 	private GameData gameData;
 	private List<IDataPersistence> dataPersistenceObjects;

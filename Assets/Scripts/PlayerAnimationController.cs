@@ -50,7 +50,7 @@ public class PlayerAnimationController : MonoBehaviour
 		}
 	
 		// игрок смотрит вниз/вверх когда вооружен от 3го лица
-		if (playerBehaviour.IsPlayerArmed == true && playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.ThirdPerson.ToString())
+		if (playerBehaviour.IsPlayerArmed == true && playerCamera.CurrentPlayerCameraStateType == "ThirdPerson")
 		{
 			// Шаг 1: Определяем начальное значение (текущее значение параметра)
 			float startValue = playerAnimator.GetFloat("UpDown");
@@ -79,7 +79,7 @@ public class PlayerAnimationController : MonoBehaviour
 			playerAnimator.SetFloat("UpDown", newValue);
 		}
 
-		if (playerBehaviour.IsPlayerArmed == true && playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.FirstPerson.ToString())
+		if (playerBehaviour.IsPlayerArmed == true && playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
 		{
 			playerAnimator.SetFloat("UpDown", 0);
 		}
@@ -94,7 +94,7 @@ public class PlayerAnimationController : MonoBehaviour
 		}
 		else if (playerMovementController.CurrentPlayerMovementStateType == "PlayerWalking")
 		{
-			if (playerBehaviour.IsPlayerArmed == true || (playerCamera.GetCurrentPlayerCameraType() == PlayerCameraStateType.FirstPerson.ToString()))
+			if (playerBehaviour.IsPlayerArmed == true || (playerCamera.CurrentPlayerCameraStateType == "FirstPerson"))
 			{
 				if (playerInputsList.GetKeyUp())
 				{

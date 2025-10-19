@@ -21,7 +21,7 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerCamera.IsPlayerCameraFirstPerson)
+		if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
 		{
 			if (weaponController.RightHandWeapon != null)
 			{
@@ -52,7 +52,7 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 	}
 	void FixedUpdate()
 	{
-		if (playerCamera.IsPlayerCameraFirstPerson == true) 
+		if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson") 
 		{
 			HideBodyPart(PlayerHeadParent);
 
@@ -196,7 +196,7 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 		{
 			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
 			{
-				if (playerCamera.IsPlayerCameraFirstPerson)
+				if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
 				{
 					renderer.enabled = true;
 				}
