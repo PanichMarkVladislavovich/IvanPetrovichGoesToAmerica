@@ -16,6 +16,8 @@ public class GameData
 
 	//Camera
 	public string CurrentPlayerCameraStateType;
+	public float PlayerCameraDistanceY;
+	public float PlayerCameraDistanceZ;
 	public Quaternion CameraRotation;
 	public bool IsCameraShoulderRight;
 
@@ -27,6 +29,8 @@ public class GameData
 		PlayerRotation = new Quaternion(0, 0, 0, 0);
 
 		CurrentPlayerCameraStateType = "ThirdPerson";
+		PlayerCameraDistanceY = -1.75f;
+		PlayerCameraDistanceZ = 3.25f;
 		CameraRotation = new Quaternion(0, 0, 0, 0);
 		IsCameraShoulderRight = true;
 		

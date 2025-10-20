@@ -57,6 +57,9 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 	private float angle;
 	private float moveFactor;
 
+
+	public bool IsPlayerLegKicking;
+
 	void Start()
 	{
 
@@ -250,6 +253,15 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 			Quaternion PlayerRotateWhereCameraIsLooking = Quaternion.Euler(transform.localEulerAngles.x, playerCamera.CameraRotationY, transform.localEulerAngles.z);
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, PlayerRotateWhereCameraIsLooking, PlayerRotationSpeed * Time.deltaTime);
 		}
+
+
+		if (playerInputsList.GetKeyLegKick() && IsPlayerLegKicking == false && CurrentPlayerMovementStateType != "PlayerJumping" &&
+			CurrentPlayerMovementStateType != "PlayerFalling" && CurrentPlayerMovementStateType != "PlayerSliding" && CurrentPlayerMovementStateType != "PlayerLedgeClimbing")
+		{
+			StartCoroutine(LegKickAttack());
+		}
+
+		//Debug.Log(IsPlayerLegKicking);
 	}
 
 	private void FixedUpdate()
@@ -267,7 +279,10 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		{
 			newState = new IdlePlayerMovementState(this);
 			CurrentPlayerMovementStateType = "PlayerIdle";
-			IsPlayerAbleToMove = true;
+			if (IsPlayerLegKicking == false)
+			{
+				IsPlayerAbleToMove = true;
+			}
 			IsPlayerCrouching = false;
 			PlayerRotationSpeed = 300f;
 		}
@@ -300,7 +315,10 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 			newState = new CrouchingIdlePlayerMovementState(this);
 			CurrentPlayerMovementStateType = "PlayerCrouchingIdle";
 			IsPlayerCrouching = true;
-			IsPlayerAbleToMove = true;
+			if (IsPlayerLegKicking == false)
+			{
+				IsPlayerAbleToMove = true;
+			}
 			PlayerRotationSpeed = 300f;
 		}
 		else if (playerMovementStateType == PlayerMovementStateType.PlayerCrouchingWalking)
@@ -421,6 +439,23 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 	public void StartPlayerLedgeClimbing()
 	{
 		StartCoroutine(PlayerLedgeClimbingCourutine());
+	}
+
+	IEnumerator LegKickAttack()
+	{
+		Debug.Log("Leg Kick Attack");
+
+		IsPlayerLegKicking = true;
+
+		//SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
+
+		IsPlayerAbleToMove = false;
+
+		yield return new WaitForSeconds(1f);
+
+		IsPlayerAbleToMove = true;
+
+		IsPlayerLegKicking = false;
 	}
 
 	public void SaveData(ref GameData data)

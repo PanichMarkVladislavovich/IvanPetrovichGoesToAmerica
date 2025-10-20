@@ -21,6 +21,10 @@ public class PlayerInputsList : MonoBehaviour
 	private KeyCode _keyJump;
 	private KeyCode _keyCrouch;
 
+	private KeyCode _keyLegKick;
+
+	private KeyCode _keyInteract;
+
 	private KeyCode _keyRightHandWeaponWheel;
 	private KeyCode _keyLeftHandWeaponWheel;
 
@@ -50,6 +54,12 @@ public class PlayerInputsList : MonoBehaviour
 
 		_keyJump = KeyCode.Space;
 		_keyCrouch = KeyCode.LeftControl;
+
+		_keyLegKick = KeyCode.Mouse2;
+
+
+		_keyInteract = KeyCode.F;
+
 
 		_keyRightHandWeaponWheel = KeyCode.E;
 		_keyLeftHandWeaponWheel = KeyCode.Q;
@@ -175,6 +185,24 @@ public class PlayerInputsList : MonoBehaviour
 	public bool GetKeyCrouch()
 	{
 		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyCrouch))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyLegKick()
+	{
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyLegKick))
+		{
+			return true;
+		}
+		else return false;
+	}
+
+	public bool GetKeyInteract()
+	{
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyInteract))
 		{
 			return true;
 		}

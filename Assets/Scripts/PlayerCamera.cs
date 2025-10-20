@@ -82,24 +82,24 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 		if (MouseScrollWheel.y < 0 && IsAbleToZoomCameraOut == true && CurrentPlayerCameraStateType != "FirstPerson")
 		{
-			if (PlayerCameraDistanceY < -2)
+			if (PlayerCameraDistanceY > -1.99f)
 			{
-				PlayerCameraDistanceY += -0.05f;
+				PlayerCameraDistanceY -= 0.05f;
 			}
-			if (PlayerCameraDistanceZ < 5)
+			if (PlayerCameraDistanceZ < 4.99f)
 			{
 				PlayerCameraDistanceZ += 0.35f;
 			}
 		}
 		if (MouseScrollWheel.y > 0 && CurrentPlayerCameraStateType != "FirstPerson")
 		{
-			if (PlayerCameraDistanceY > -1.5f)
+			if (PlayerCameraDistanceY < -1.51f)
 			{
 				PlayerCameraDistanceY += 0.05f;
 			}
-			if (PlayerCameraDistanceZ > 1.5f)
+			if (PlayerCameraDistanceZ > 1.51f)
 			{
-				PlayerCameraDistanceZ += -0.35f;
+				PlayerCameraDistanceZ -= 0.35f;
 			}
 		}
 
@@ -261,31 +261,25 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 		return _previousPlayerCameraType.ToString();
 	}
 
-	
-
 	public void SaveData(ref GameData data)
 	{
-		//transform.rotation = Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0);
-
 		data.CurrentPlayerCameraStateType = this.CurrentPlayerCameraStateType;
-		//data.CameraRotation = this.CameraTransform.rotation;
+		data.PlayerCameraDistanceY = this.PlayerCameraDistanceY;
+		data.PlayerCameraDistanceZ = this.PlayerCameraDistanceZ;
 		data.CameraRotation = new Quaternion(-this.MouseRotation.x, this.MouseRotation.y, 0, 0);
 		data.IsCameraShoulderRight = this.IsCameraShoulderRight;
 	}
 
 	public void LoadData(GameData data)
 	{
-
-
 		this.CurrentPlayerCameraStateType = data.CurrentPlayerCameraStateType;
+		this.PlayerCameraDistanceY = data.PlayerCameraDistanceY;
+		this.PlayerCameraDistanceZ = data.PlayerCameraDistanceZ;
 		this.MouseRotation.x = -data.CameraRotation.x;
 		this.MouseRotation.y = data.CameraRotation.y;
-
-		//this.transform.rotation = data.CameraRotation;
 		this.IsCameraShoulderRight = data.IsCameraShoulderRight;
 
 		playerCameraStateType = (PlayerCameraStateType)Enum.Parse(typeof(PlayerCameraStateType), CurrentPlayerCameraStateType);
 		SetPlayerCameraState(playerCameraStateType);
-
 	}
 }

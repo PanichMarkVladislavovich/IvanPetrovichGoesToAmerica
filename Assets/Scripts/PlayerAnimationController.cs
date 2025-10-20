@@ -14,12 +14,16 @@ public class PlayerAnimationController : MonoBehaviour
 	private string currentPlayerMovementAnimation = "";
 	private string currentPlayerWeaponRightAnimation = "";
 	private string currentPlayerWeaponLeftAnimation = "";
+	private string currentPlayerLegKickAttackAnimation = "";
 
 	public PlayerBehaviour playerBehaviour;
 
 	public WeaponController weaponController;
 
-	float lmao;
+	private bool wasPreviouslyKicking = false;
+
+
+	private float adjustedCameraAngle;
 	void Start()
     {
 		playerInputsList = GetComponent<PlayerInputsList>();
@@ -39,14 +43,14 @@ public class PlayerAnimationController : MonoBehaviour
 	private void Update()
 	{
 		// считаем поворот камеры X
-		float bruh = playerCameraObject.transform.rotation.eulerAngles.x;
-		if (bruh >= 0 && bruh < 180)
+		float cameraRotationX = playerCameraObject.transform.rotation.eulerAngles.x;
+		if (cameraRotationX >= 0 && cameraRotationX < 180)
 		{
-			lmao = bruh;
+			adjustedCameraAngle = cameraRotationX;
 		}
-		else if (bruh < 360 && bruh > -180)
+		else if (cameraRotationX < 360 && cameraRotationX > -180)
 		{
-			lmao = bruh - 360;
+			adjustedCameraAngle = cameraRotationX - 360;
 		}
 	
 		// игрок смотрит вниз/вверх когда вооружен от 3го лица
@@ -56,7 +60,7 @@ public class PlayerAnimationController : MonoBehaviour
 			float startValue = playerAnimator.GetFloat("UpDown");
 
 			// Шаг 2: Рассчитываем целевое значение на основе угла камеры
-			float endValue = lmao * 0.0153846f;
+			float endValue = adjustedCameraAngle * 0.0153846f;
 
 			// Шаг 3: Интерполируем значение
 			float newValue = Mathf.Lerp(startValue, endValue, Time.deltaTime * 6);
@@ -206,9 +210,32 @@ public class PlayerAnimationController : MonoBehaviour
 			}
 		}
 
+		//Анимация атаки ногой
+		if (playerMovementController.IsPlayerLegKicking == true)
+		{
+			
+			playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("LegKick"), 1);
 
+			if (!wasPreviouslyKicking)
+			{
+				playerAnimator.Play("LegKick", 4, 0f); // третий аргумент сбрасывает анимацию на начало
+				//Debug.Log("LMAO");
+			}
+			
+			//wasPreviouslyKicking = true;
+			// Начинаем анимацию сначала
+			
+			//ChangePlayerLegKickAttackAnimation("LegKick");
+			playerAnimator.Play("LegKick");
+		}
+		else if (playerMovementController.IsPlayerLegKicking == false)
+		{
+			playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("LegKick"), 0);
+			//playerAnimator.Play("New State");
+			//ChangePlayerLegKickAttackAnimation("New State");
 
-
+		}
+		wasPreviouslyKicking = playerMovementController.IsPlayerLegKicking;
 
 
 
@@ -238,6 +265,15 @@ public class PlayerAnimationController : MonoBehaviour
 		if (currentPlayerWeaponLeftAnimation != animation)
 		{
 			currentPlayerWeaponLeftAnimation = animation;
+			playerAnimator.CrossFade(animation, crossfade);
+		}
+	}
+
+	private void ChangePlayerLegKickAttackAnimation(string animation, float crossfade = 0.2f)
+	{
+		if (currentPlayerLegKickAttackAnimation != animation)
+		{
+			currentPlayerLegKickAttackAnimation = animation;
 			playerAnimator.CrossFade(animation, crossfade);
 		}
 	}
