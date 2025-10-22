@@ -1,15 +1,14 @@
 using UnityEngine;
 
-public abstract class VendingMachineItem : InteractableItem
+public abstract class VendingMachineItem : MonoBehaviour, IInteractable
 {
-	public abstract string GoodsName { get; protected set; }
 
-	public override string InteractionHint => $"Купить {GoodsName} в {ItemName}?";
+	public virtual string ItemName => gameObject.name;
+	public virtual string InteractionHint => $"Купить {GoodsName} в {ItemName}?";
+	public virtual string GoodsName => gameObject.name;
 
-	public sealed override void Interact()
-	{
-		Debug.Log($"Вы купили {GoodsName} в {ItemName}");
-	//	Destroy(gameObject);
-		//PlayerMoneyManager.Instance.AddMoney(MoneyValue);
-	}
+
+
+	public abstract void Interact();
 }
+	

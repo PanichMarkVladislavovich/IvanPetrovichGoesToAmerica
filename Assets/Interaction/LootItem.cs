@@ -1,15 +1,11 @@
 using UnityEngine;
 
-public abstract class LootItem : InteractableItem
+public abstract class LootItem : MonoBehaviour, IInteractable
 {
-	public abstract int MoneyValue { get; protected set; }
+	public virtual string ItemName => gameObject.name;
 
-	public override string InteractionHint => $"Поднять {ItemName}";
+	public virtual string InteractionHint => $"Поднять {ItemName}";
 
-	public sealed override void Interact()
-	{
-		Debug.Log($"Вы подняли {ItemName}, получаете ${MoneyValue}");
-		Destroy(gameObject);
-		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
-	}
+	public virtual int MoneyValue { get; protected set; }
+	public abstract void Interact();
 }
