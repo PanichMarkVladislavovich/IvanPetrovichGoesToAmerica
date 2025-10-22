@@ -34,9 +34,9 @@ public class InteractionController : MonoBehaviour
 
 	void Update()
 	{
-		//Debug.Log("Current: " + currentRenderer);
-		//Debug.Log("Original: " + originalMaterial);
-		//Debug.Log("Outline: " + outlineMaterial);
+		//Debug.Log("Renderer object: " + currentRenderer);
+
+	//	Debug.Log("Original material: " + originalMaterial);
 
 
 		if (interactionText != null)
@@ -87,13 +87,27 @@ public class InteractionController : MonoBehaviour
 				{
 					interactableObj.Interact(); // Обработка события взаимодействия
 				}
+
+				if (interactableObj == null)
+				{
+					//originalMaterial = null;
+					//currentRenderer = null;
+					
+				}
 			}
-			else
+			else 
 			{
 				Debug.LogWarning("Объект с тегом \"Interactable\" не содержит интерфейс IInteractable.");
 			}
+
+			if (interactableObj == null)
+			{
+				//originalMaterial = null;
+				//currentRenderer = null;
+
+			}
 		}
-		else
+		else 
 		{
 			// Если объект вышел из зоны взаимодействия, возвращаем исходный материал
 			if (currentRenderer != null)
@@ -101,11 +115,14 @@ public class InteractionController : MonoBehaviour
 			//	Debug.Log("BRUH!");
 
 				currentRenderer.material = originalMaterial;
+			
+			}
 				currentRenderer = null;
 				originalMaterial = null;
 				IsAbleCheckForOldMaterial = true;
-			}
 		}
+
+		
 	}
 
 	// Функция для смены материалов (для выделения контура)
