@@ -3,10 +3,26 @@ using TMPro;
 
 public class PlayerMoneyManager : MonoBehaviour
 {
-    public PlayerInputsList playerInputsList;
+	public static PlayerMoneyManager Instance { get; private set; } // Статическое поле экземпляра
+	public PlayerInputsList playerInputsList;
 	public TMP_Text PlayerMoneyText;
 
     public int PlayerMoney { get; private set; } = 200;
+
+	private void Awake()
+	{
+		// Паттерн Singleton: предотвращаем создание второго экземпляра
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+		}
+		else
+		{
+			Destroy(gameObject); // Уничтожаем лишние экземпляры
+		}
+	}
+
 
 	private void Start()
 	{

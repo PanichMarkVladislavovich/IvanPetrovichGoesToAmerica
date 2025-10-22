@@ -45,7 +45,7 @@ public class PlayerInputsList : MonoBehaviour
 		_keyChangeCameraView = KeyCode.V;
 		_keyChangeCameraShoulder = KeyCode.C;
 
-		_keyShowWeapons = KeyCode.F;
+		_keyShowWeapons = KeyCode.X;
 
 		///////////////////
 		_keyEnterCutscene = KeyCode.Z;
@@ -207,6 +207,11 @@ public class PlayerInputsList : MonoBehaviour
 			return true;
 		}
 		else return false;
+	}
+
+	public string GetNameOfKeyInteract()
+	{
+		return _keyInteract.ToString();
 	}
 
 	public bool GetKeyRightHandWeaponWheel()
