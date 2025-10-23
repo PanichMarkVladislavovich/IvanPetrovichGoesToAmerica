@@ -19,4 +19,14 @@ public class LootItemHealingItem : LootItemAbstract
 		else Debug.Log("Can't pick up more Healing Items");
 
 	}
+
+	public override void LoadData(GameData data)
+	{
+		
+	}
+
+	public override void SaveData(ref GameData data)
+	{
+		
+	}
 }

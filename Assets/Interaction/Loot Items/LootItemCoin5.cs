@@ -13,4 +13,14 @@ public class LootItemCoin5 : LootItemAbstract
 		Destroy(gameObject);
 		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
 	}
+
+	public override void LoadData(GameData data)
+	{
+
+	}
+
+	public override void SaveData(ref GameData data)
+	{
+
+	}
 }

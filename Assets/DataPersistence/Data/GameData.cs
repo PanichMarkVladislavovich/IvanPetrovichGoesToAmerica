@@ -1,5 +1,5 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+
 
 [System.Serializable]
 
@@ -21,6 +21,13 @@ public class GameData
 	public Quaternion CameraRotation;
 	public bool IsCameraShoulderRight;
 
+	//PlayerMoney
+	public int PlayerMoney;
+
+	//Collectables
+	public bool[] WasLootItemCollectedCoin5;       // Массив для золотых слитков
+	public bool[] WasLootItemCollectedGoldBar;// Массив для пятирублёвых монет
+	public bool[] WasLootItemCollectedHealingItem;   // Массив для лечебных предметов
 
 	public GameData()
 	{
@@ -33,7 +40,12 @@ public class GameData
 		PlayerCameraDistanceZ = 3.25f;
 		CameraRotation = new Quaternion(0, 0, 0, 0);
 		IsCameraShoulderRight = true;
-		
+
+		PlayerMoney = 0;
+
+		WasLootItemCollectedCoin5 = new bool[10];
+		WasLootItemCollectedGoldBar = new bool[10];
+		WasLootItemCollectedHealingItem = new bool[10];
 	}
 }
 

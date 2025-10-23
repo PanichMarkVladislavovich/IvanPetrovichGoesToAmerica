@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class PlayerMoneyManager : MonoBehaviour
+public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 {
 	public static PlayerMoneyManager Instance { get; private set; } // Статическое поле экземпляра
 	public PlayerInputsList playerInputsList;
@@ -34,6 +34,7 @@ public class PlayerMoneyManager : MonoBehaviour
 	{
 		//Debug.Log(PlayerMoney);
 	}
+
 	public void AddMoney(int moneyAmmount)
     {
         if (moneyAmmount < 0)
@@ -68,5 +69,16 @@ public class PlayerMoneyManager : MonoBehaviour
 		{
 			PlayerMoneyText.text = PlayerMoney.ToString(); // Форматируем текст для вывода суммы
 		}
+	}
+
+	public void SaveData(ref GameData data)
+	{
+		data.PlayerMoney = this.PlayerMoney;
+	}
+
+	public void LoadData(GameData data)
+	{
+		this.PlayerMoney = data.PlayerMoney;
+		UpdateMoneyDisplay();
 	}
 }

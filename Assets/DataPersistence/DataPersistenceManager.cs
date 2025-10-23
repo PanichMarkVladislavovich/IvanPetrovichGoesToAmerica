@@ -46,7 +46,19 @@ public class DataPersistenceManager : MonoBehaviour
 			NewGame();
 			//LoadGame(1);
 		}
-		
+
+
+		// Ќайти все золотые слитки и назначить им индексы
+		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
+		for (int i = 0; i < goldBars.Length; i++)
+		{
+			goldBars[i].AssignLootItemIndex(i, typeof(LootItemGoldBar));
+		}
+
+
+
+
+
 	}
 
 	private void Update()
@@ -146,5 +158,15 @@ public class DataPersistenceManager : MonoBehaviour
 		IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
 		return new List<IDataPersistence>(dataPersistenceObjects);
+	}
+
+
+	public void ReAssignLootItemIndexes()
+	{
+		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
+		for (int i = 0; i < goldBars.Length; i++)
+		{
+			goldBars[i].AssignLootItemIndex(i, typeof(LootItemGoldBar));
+		}
 	}
 }
