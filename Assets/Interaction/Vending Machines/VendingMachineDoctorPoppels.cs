@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class VendingMachineAmmo : VendingMachineAbstract
+public class VendingMachineDoctorPoppels : VendingMachineAbstract
 {
 	//public override int MoneyValue { get; protected set; } = 5;
 
-	public override string ItemName => "Автомате по продаже патронов";
+	public override string ItemName => "Автомате по продаже Сиропа";
 
-	public override string GoodsName => "Патроны";
+	public override string GoodsName => "Сироп";
 
-	
+
 	public override void Interact()
 	{
 		Debug.Log($"Вы купили {GoodsName} в {ItemName}");

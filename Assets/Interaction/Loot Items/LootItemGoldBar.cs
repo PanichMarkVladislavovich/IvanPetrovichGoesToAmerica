@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class LootItemCoin5 : LootItemAbstract
+public class LootItemGoldBar : LootItemAbstract
 {
-	public override int MoneyValue { get; protected set; } = 5;
+	public override int MoneyValue { get; protected set; } = 20;
 
-	public override string ItemName => "Монета 5 рублей";
+	public override string ItemName => "Золотой слиток";
 
 
 	public override void Interact()

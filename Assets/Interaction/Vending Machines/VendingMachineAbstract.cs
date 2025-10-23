@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class VendingMachineItem : MonoBehaviour, IInteractable
+public abstract class VendingMachineAbstract : MonoBehaviour, IInteractable
 {
 
 	public virtual string ItemName => gameObject.name;

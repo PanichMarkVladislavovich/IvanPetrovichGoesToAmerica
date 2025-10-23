@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class LootItem : MonoBehaviour, IInteractable
+public abstract class LootItemAbstract : MonoBehaviour, IInteractable
 {
 	public virtual string ItemName => gameObject.name;
 
