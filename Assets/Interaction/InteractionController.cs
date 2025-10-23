@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InteractionController : MonoBehaviour
 {
-	public float interactionRange = 50f; // Диапазон взаимодействия
+	private float interactionRange = 50f; // Диапазон взаимодействия
 	public TextMeshProUGUI interactionText; // Подсказка (назначается вручную через Inspector)
 	public PlayerCamera playerCamera;
 	public GameObject PlayerCameraObject;
@@ -19,20 +19,22 @@ public class InteractionController : MonoBehaviour
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		outlineMaterial = Resources.Load<Material>("WhiteOutline"); // Загружаем контурный материал
 		IsAbleCheckForOldMaterial = true;
+		interactionRange = 1.5f; // Диапазон взаимодействия
+
 	}
 
 	/*
-	private void OnDrawGizmos()
+private void OnDrawGizmos()
+{
+	if (playerCamera != null)
 	{
-		if (playerCamera != null)
-		{
-			Gizmos.color = Color.red; // Цвет луча
-			Gizmos.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange);
-		}
+		Gizmos.color = Color.red; // Цвет луча
+		Gizmos.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange);
 	}
+}
 	*/
 
-	void Update()
+void Update()
 	{
 		//Debug.Log("Renderer object: " + currentRenderer);
 

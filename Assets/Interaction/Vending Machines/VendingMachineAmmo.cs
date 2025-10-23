@@ -2,17 +2,31 @@ using UnityEngine;
 
 public class VendingMachineAmmo : VendingMachineAbstract
 {
-	//public override int MoneyValue { get; protected set; } = 5;
+
+	public GameObject HealingItemModel;
+
 
 	public override string ItemName => "Автомате по продаже патронов";
 
 	public override string GoodsName => "Патроны";
 
-	
+	private int goodsPrice = 30;
+
+	private void Awake()
+	{
+		HealingItemModel = Resources.Load<GameObject>("HealingItem"); // Загружаем префаб револьвера
+
+	}
 	public override void Interact()
 	{
-		Debug.Log($"Вы купили {GoodsName} в {ItemName}");
-		//	Destroy(gameObject);
-		//PlayerMoneyManager.Instance.AddMoney(MoneyValue);
+		if (PlayerMoneyManager.Instance.PlayerMoney >= goodsPrice)
+		{
+			Vector3 spawnPosition = transform.position + new Vector3(-1f, 0.5f, 0f); // Сместили объект вверх на единицу
+
+			Debug.Log($"Вы купили {GoodsName} в {ItemName}");
+			Instantiate(HealingItemModel, spawnPosition, Quaternion.identity); 
+			PlayerMoneyManager.Instance.DeductMoney(-goodsPrice);
+		}
+		else Debug.Log("Not enought Money");
 	}
 }
