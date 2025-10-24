@@ -47,27 +47,25 @@ public class DataPersistenceManager : MonoBehaviour
 			//LoadGame(1);
 		}
 
-
-		// Ќайти все золотые слитки и назначить им индексы
 		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
 		for (int i = 0; i < goldBars.Length; i++)
 		{
-			goldBars[i].AssignLootItemIndex(i, typeof(LootItemGoldBar));
+			goldBars[i].AssignLootItemIndex(i);
 		}
-
-
-
 
 
 	}
 
 	private void Update()
 	{
+		/*
 		if (this.gameData == null)
 		{
 		//	Debug.Log("EMPTY");
 		}
 		//else Debug.Log("OKOK");
+		*/
+		//Debug.Log(gameData.WasLootItemCollectedCoin5[1]);
 	}
 
 	public void NewGame()
@@ -160,7 +158,7 @@ public class DataPersistenceManager : MonoBehaviour
 		return new List<IDataPersistence>(dataPersistenceObjects);
 	}
 
-
+	/*
 	public void ReAssignLootItemIndexes()
 	{
 		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
@@ -169,4 +167,5 @@ public class DataPersistenceManager : MonoBehaviour
 			goldBars[i].AssignLootItemIndex(i, typeof(LootItemGoldBar));
 		}
 	}
+	*/
 }

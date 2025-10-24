@@ -60,7 +60,12 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 
 	public bool IsPlayerLegKicking;
 
-	void Start()
+	private void Awake()
+	{
+		DontDestroyOnLoad(gameObject); // Игровой объект сохранится при смене сцены}
+	}
+
+		void Start()
 	{
 
 		playerInputsList = GetComponent<PlayerInputsList>();

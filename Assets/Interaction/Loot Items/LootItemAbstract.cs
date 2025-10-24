@@ -4,8 +4,8 @@ using Unity.IO.LowLevel.Unsafe;
 
 public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPersistence
 {
-	public virtual Vector3 LootItemPosition { get; protected set; }
-	public virtual Quaternion LootItemRotation { get; protected set; }
+	//public virtual Vector3 LootItemPosition { get; protected set; }
+	//public virtual Quaternion LootItemRotation { get; protected set; }
 	public virtual string ItemName => gameObject.name;
 
 	public virtual string InteractionHint => $"Поднять {ItemName}";
@@ -16,14 +16,21 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 	
 
 	// Поле для внутреннего индекса и хранения типа предмета
-	public int CollectableIndex { get; private set; }
-	public Type CollectableType { get; private set; }
+	public int LootItemIndex { get; protected set; }
+	//public Type CollectableType { get; private set; }
 
 	// Универсальная процедура назначения индекса
+
+	/*
 	internal void AssignLootItemIndex(int index, Type type)
 	{
 		CollectableIndex = index;
 		CollectableType = type;
+	}
+	*/
+	internal void AssignLootItemIndex(int index)
+	{
+		LootItemIndex = index;
 	}
 
 	public abstract void Interact();

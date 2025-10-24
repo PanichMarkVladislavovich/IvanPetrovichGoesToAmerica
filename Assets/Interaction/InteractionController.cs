@@ -13,6 +13,9 @@ public class InteractionController : MonoBehaviour
 	private Material originalMaterial; // Переменная для хранения оригинального материала
 	private bool IsAbleCheckForOldMaterial;
 
+	private RaycastHit hitInfo;
+	private bool isHit;
+
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>(); // Получаем список вводимых команд
@@ -44,13 +47,12 @@ void Update()
 		if (interactionText != null)
 			interactionText.text = "";
 
-		RaycastHit hitInfo;
-		bool isHit = Physics.Raycast(
-			playerCamera.transform.position,
-			playerCamera.transform.forward,
-			out hitInfo,
-			interactionRange
-		);
+
+		//RaycastHit hitInfo;
+		if (playerCamera != null)
+		{
+			isHit = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hitInfo, interactionRange);
+		}
 
 
 		if (isHit && hitInfo.collider != null && hitInfo.collider.tag == "Interactable") // Проверка по тегу и на null

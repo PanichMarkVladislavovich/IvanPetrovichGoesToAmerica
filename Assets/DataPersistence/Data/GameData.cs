@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GameData
 {
-	
+
 	//Player Movement
 	public string CurrentPlayerMovementStateType;
 	public Vector3 PlayerPosition;
@@ -25,9 +25,9 @@ public class GameData
 	public int PlayerMoney;
 
 	//Collectables
-	public bool[] WasLootItemCollectedCoin5;       // Массив для золотых слитков
-	public bool[] WasLootItemCollectedGoldBar;// Массив для пятирублёвых монет
-	public bool[] WasLootItemCollectedHealingItem;   // Массив для лечебных предметов
+	public LootItemData[] LootItemDataGoldBar;
+
+	//public int[] bruh;
 
 	public GameData()
 	{
@@ -43,9 +43,20 @@ public class GameData
 
 		PlayerMoney = 0;
 
-		WasLootItemCollectedCoin5 = new bool[10];
-		WasLootItemCollectedGoldBar = new bool[10];
-		WasLootItemCollectedHealingItem = new bool[10];
+		LootItemDataGoldBar = new LootItemData[10];
+
+		//bruh = new int[10];
 	}
+
+	
+
 }
 
+[System.Serializable]
+public struct LootItemData
+	{
+		public int LootItemIndex;        // Целое число
+		public bool WasLootItemCollected;      // Булевое значение
+		//public Vector3 LootItemPosition;   // Трёхмерный вектор
+		//public Quaternion LootItemRotation; // Кватернион
+	}

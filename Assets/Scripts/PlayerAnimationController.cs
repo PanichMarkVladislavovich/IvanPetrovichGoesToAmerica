@@ -23,6 +23,7 @@ public class PlayerAnimationController : MonoBehaviour
 	private bool wasPreviouslyKicking = false;
 
 
+
 	private float adjustedCameraAngle;
 	void Start()
     {
@@ -38,19 +39,24 @@ public class PlayerAnimationController : MonoBehaviour
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 
 		weaponController = GetComponent<WeaponController>();
+
+
 	}
 
 	private void Update()
 	{
-		// считаем поворот камеры X
-		float cameraRotationX = playerCameraObject.transform.rotation.eulerAngles.x;
-		if (cameraRotationX >= 0 && cameraRotationX < 180)
+		if (playerCameraObject != null)
 		{
-			adjustedCameraAngle = cameraRotationX;
-		}
-		else if (cameraRotationX < 360 && cameraRotationX > -180)
-		{
-			adjustedCameraAngle = cameraRotationX - 360;
+			// считаем поворот камеры X
+			float cameraRotationX = playerCameraObject.transform.rotation.eulerAngles.x;
+			if (cameraRotationX >= 0 && cameraRotationX < 180)
+			{
+				adjustedCameraAngle = cameraRotationX;
+			}
+			else if (cameraRotationX < 360 && cameraRotationX > -180)
+			{
+				adjustedCameraAngle = cameraRotationX - 360;
+			}
 		}
 	
 		// игрок смотрит вниз/вверх когда вооружен от 3го лица

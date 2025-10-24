@@ -18,6 +18,9 @@ public class PlayerHealthManager : MonoBehaviour
 
 	private void Awake()
 	{
+		
+		
+
 		// Паттерн Singleton: предотвращаем создание второго экземпляра
 		if (Instance == null)
 		{
@@ -28,6 +31,8 @@ public class PlayerHealthManager : MonoBehaviour
 		{
 			Destroy(gameObject); // Уничтожаем лишние экземпляры
 		}
+
+
 	}
 
 	void Start()

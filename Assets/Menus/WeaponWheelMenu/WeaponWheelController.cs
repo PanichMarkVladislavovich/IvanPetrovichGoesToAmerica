@@ -46,29 +46,41 @@ public class WeaponWheelController : MonoBehaviour
 		previousRightHandPressed = currentRightHandPressed;
 		previousLeftHandPressed = currentLeftHandPressed;
 
-		if (weaponController.IsPoliceBatonWeaponUnlocked)
+		if (PoliceBatonButton != null)
 		{
-			PoliceBatonButton.gameObject.SetActive(true);
+			if (weaponController.IsPoliceBatonWeaponUnlocked)
+			{
+				PoliceBatonButton.gameObject.SetActive(true);
+			}
+			else PoliceBatonButton.gameObject.SetActive(false);
 		}
-		else PoliceBatonButton.gameObject.SetActive(false);
 
-		if (weaponController.IsHarmoniceRevolverWeaponUnlocked)
+		if (HarmonicaRevolverButton != null)
 		{
-			HarmonicaRevolverButton.gameObject.SetActive(true);
+			if (weaponController.IsHarmoniceRevolverWeaponUnlocked)
+			{
+				HarmonicaRevolverButton.gameObject.SetActive(true);
+			}
+			else HarmonicaRevolverButton.gameObject.SetActive(false);
 		}
-		else HarmonicaRevolverButton.gameObject.SetActive(false);
 
-		if (weaponController.IsPlungerCrossbowWeaponUnlocked)
+		if (PlungerCrossbowButton != null)
 		{
-			PlungerCrossbowButton.gameObject.SetActive(true);
+			if (weaponController.IsPlungerCrossbowWeaponUnlocked)
+			{
+				PlungerCrossbowButton.gameObject.SetActive(true);
+			}
+			else PlungerCrossbowButton.gameObject.SetActive(false);
 		}
-		else PlungerCrossbowButton.gameObject.SetActive(false);
 
-		if (weaponController.IsEugenicGenieWeaponUnlocked)
+		if (EugenicGenieButton != null)
 		{
-			EugenicGenieButton.gameObject.SetActive(true);
+			if (weaponController.IsEugenicGenieWeaponUnlocked)
+			{
+				EugenicGenieButton.gameObject.SetActive(true);
+			}
+			else EugenicGenieButton.gameObject.SetActive(false);
 		}
-		else EugenicGenieButton.gameObject.SetActive(false);
 	}
 
 	void HandleWeaponWheel(bool rightHandPressed, bool leftHandPressed)

@@ -39,7 +39,13 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 	private float startTransitionTime; 
 	public float transitionDelay = 0.5f;
 
-	
+	/*
+	private void Awake()
+	{
+		DontDestroyOnLoad(gameObject); // Игровой объект сохранится при смене сцены}
+	}
+	*/
+
 	void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
@@ -68,17 +74,17 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 	void Update()
 	{
-		
+
 
 		//Debug.Log(CurrentPlayerCameraStateType);
 
 		if (!MenuManager.IsAnyMenuOpened)
-        {
+		{
 			MouseRotation.y += Input.GetAxis("Mouse X");
 			MouseRotation.x += Input.GetAxis("Mouse Y");
 			MouseRotation.x = Mathf.Clamp(MouseRotation.x, MouseRotationLimit * -1, MouseRotationLimit);
 			MouseScrollWheel = Input.mouseScrollDelta;
-        }
+		}
 
 		if (MouseScrollWheel.y < 0 && IsAbleToZoomCameraOut == true && CurrentPlayerCameraStateType != "FirstPerson")
 		{
@@ -103,7 +109,9 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 			}
 		}
 
+		
 		playerCameraState.PlayerCameraPosition();
+	
 
 		if (playerInputsList.GetKeyChangeCameraView())
 		{
@@ -135,41 +143,44 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 		{
 			PlayerCameraDistanceX = Mathf.Lerp(PlayerCameraDistanceX, 0.85f, Time.deltaTime * 4);
 		}
-		
-		if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
+
+		if (PlayerCollider != null)
 		{
-			// Камера снова видит игрока
-			if (!canReturn)
+			if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
 			{
-				// Запускаем обратный отсчёт
-				canReturn = true;
-				startTransitionTime = Time.time;
+				// Камера снова видит игрока
+				if (!canReturn)
+				{
+					// Запускаем обратный отсчёт
+					canReturn = true;
+					startTransitionTime = Time.time;
+				}
+				else
+				{
+					// Проверяем, прошёл ли период ожидания
+					if (Time.time - startTransitionTime >= transitionDelay)
+					{
+						if (PlayerCameraDistanceZ >= 0.75f)
+						{
+							// Потеря контакта с игроком, идём на минимальное расстояние
+							PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, hit.distance, Time.deltaTime * 4f);
+							IsAbleToZoomCameraOut = false;
+						}
+						//else 
+					}
+				}
 			}
 			else
 			{
-				// Проверяем, прошёл ли период ожидания
-				if (Time.time - startTransitionTime >= transitionDelay)
+				if (PlayerCameraDistanceZ <= 5f)
 				{
-					if (PlayerCameraDistanceZ >= 0.75f)
-					{
-						// Потеря контакта с игроком, идём на минимальное расстояние
-						PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, hit.distance, Time.deltaTime * 4f);
-						IsAbleToZoomCameraOut = false;
-					}
-					//else 
-				}
-			}
-		}
-		else
-		{
-			if (PlayerCameraDistanceZ <= 5f )
-			{
 					IsAbleToZoomCameraOut = true;
-				// Начинаем постепенное удаление камеры
-			//	PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
-			}
+					// Начинаем постепенное удаление камеры
+					//	PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
+				}
 
-			canReturn = false; // Отменяем возвращение
+				canReturn = false; // Отменяем возвращение
+			}
 		}
 		
 		CameraForward = transform.forward;
@@ -235,13 +246,19 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 	}
 	public void FirstPersonCameraTransform()
 	{
-		transform.position = PlayerTransform.position + Quaternion.Euler(0, MouseRotation.y, 0) *
-		new Vector3(0, playerMovementController.PlayerCurrentHeight -0.13f, 0.1f);
+		if (PlayerTransform != null)
+		{
+			transform.position = PlayerTransform.position + Quaternion.Euler(0, MouseRotation.y, 0) *
+			new Vector3(0, playerMovementController.PlayerCurrentHeight - 0.13f, 0.1f);
+		}
 	}
 	public void ThirdPersonCameraTransform()
 	{
-		transform.position = PlayerTransform.position - Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0) *
-		new Vector3(PlayerCameraDistanceX, PlayerCameraDistanceY, PlayerCameraDistanceZ);
+		if (PlayerTransform != null)
+		{
+			transform.position = PlayerTransform.position - Quaternion.Euler(-MouseRotation.x, MouseRotation.y, 0) *
+			new Vector3(PlayerCameraDistanceX, PlayerCameraDistanceY, PlayerCameraDistanceZ);
+		}
 	}
 	public void CutsceneCameraTransform()
 	{
@@ -272,6 +289,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 	public void LoadData(GameData data)
 	{
+
 		this.CurrentPlayerCameraStateType = data.CurrentPlayerCameraStateType;
 		this.PlayerCameraDistanceY = data.PlayerCameraDistanceY;
 		this.PlayerCameraDistanceZ = data.PlayerCameraDistanceZ;
@@ -281,5 +299,6 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 		playerCameraStateType = (PlayerCameraStateType)Enum.Parse(typeof(PlayerCameraStateType), CurrentPlayerCameraStateType);
 		SetPlayerCameraState(playerCameraStateType);
+
 	}
 }
