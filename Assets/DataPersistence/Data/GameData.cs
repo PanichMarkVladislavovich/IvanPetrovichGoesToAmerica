@@ -41,7 +41,7 @@ public class GameData
 		CameraRotation = new Quaternion(0, 0, 0, 0);
 		IsCameraShoulderRight = true;
 
-		PlayerMoney = 0;
+		PlayerMoney = 200;
 
 		LootItemDataGoldBar = new LootItemData[10];
 

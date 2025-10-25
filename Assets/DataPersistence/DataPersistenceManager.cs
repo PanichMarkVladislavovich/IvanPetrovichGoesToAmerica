@@ -18,7 +18,7 @@ public class DataPersistenceManager : MonoBehaviour
 	private GameData gameData;
 	private List<IDataPersistence> dataPersistenceObjects;
 	private FileDataHandler fileDataHandler;
-	[SerializeField] private int WhatSaveNumberWasLoaded;
+	[SerializeField] private static int WhatSaveNumberWasLoaded;
 
     public static DataPersistenceManager Instance {  get; private set; }
 
@@ -27,7 +27,7 @@ public class DataPersistenceManager : MonoBehaviour
 
 	private void Awake()
 	{
-
+		Time.timeScale = 1.0f;
 
 		// Паттерн Singleton: предотвращаем создание второго экземпляра
 		if (Instance == null)
@@ -47,16 +47,18 @@ public class DataPersistenceManager : MonoBehaviour
 		fileSaveDataName5 = "SAVEGAME5.json";
 
 
+		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
+		for (int i = 0; i < goldBars.Length; i++)
+		{
+			goldBars[i].AssignLootItemIndex(i);
+		}
 
 
-
-		//this.DataHandler = new FileDataHandler(saveElsewhere, fileName);
-		//this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
 		this.dataPersistenceObjects = FindAllDataPersistenceObjects();
 
-		Debug.Log(WhatSaveNumberWasLoaded);
 
-		if (WhatSaveNumberWasLoaded >= 1 && WhatSaveNumberWasLoaded <= 5)
+
+		if (WhatSaveNumberWasLoaded != 0)
 		{
 			string fileSaveDataName = null;
 			if (WhatSaveNumberWasLoaded == 1)
@@ -81,61 +83,52 @@ public class DataPersistenceManager : MonoBehaviour
 			}
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName);
 			this.gameData = fileDataHandler.Load();
-			Debug.Log("1 < x < 5");
-		}
-		Debug.Log(WhatSaveNumberWasLoaded);
-
-
-
-		Debug.Log(gameData);
-
-		if (this.gameData == null)
-		{
-			Debug.Log("No data found. starting New game");
-			NewGame();
 		}
 
-
-		Debug.Log(gameData);
-
-
-
-		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
-		for (int i = 0; i < goldBars.Length; i++)
-		{
-			goldBars[i].AssignLootItemIndex(i);
-		}
-
-
-	}
-
-
-	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-	{
-
-	}
-
-	void Start()
-	{
+	
 		if (this.gameData != null)
 		{
 			foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
 			{
 				dataPersistenceObj.LoadData(gameData);
 			}
+
 			Debug.Log("Data loaded from slot " + WhatSaveNumberWasLoaded);
+
 		}
+		else if (this.gameData == null)
+		{
+			Debug.Log("No data found. starting New game");
+			NewGame();
+		}
+
+		
+
+
 	}
 
-
-	private void Update()
+	public void Update()
 	{
-
+		//Debug.Log(Time.timeScale);
 	}
+
+
+	private void OnApplicationQuit()
+	{
+		WhatSaveNumberWasLoaded = 0;
+	}
+
+
 
 	public void NewGame()
 	{
 		this.gameData = new GameData();
+		WhatSaveNumberWasLoaded = 0;
+
+		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+		{
+			dataPersistenceObj.LoadData(gameData);
+		}
 	}
 
 	public void SaveGame(int saveSlotNumber)
@@ -199,17 +192,16 @@ public class DataPersistenceManager : MonoBehaviour
 			WhatSaveNumberWasLoaded = 5;
 		}
 
-		Debug.Log(gameData);
+		
 		this.gameData = fileDataHandler.Load();
-		Debug.Log("Gamedata was = file");
-		Debug.Log(gameData);
-		Debug.Log(WhatSaveNumberWasLoaded);
+
+
 
 		if (this.gameData == null)
 		{
 			Debug.Log("No data to load found in slot " + loadSlotNumber);
 			WhatSaveNumberWasLoaded = 0;
-			Debug.Log(WhatSaveNumberWasLoaded);
+
 
 			return;
 		}
