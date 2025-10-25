@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using NUnit.Framework;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -17,35 +18,87 @@ public class DataPersistenceManager : MonoBehaviour
 	private GameData gameData;
 	private List<IDataPersistence> dataPersistenceObjects;
 	private FileDataHandler fileDataHandler;
+	[SerializeField] private int WhatSaveNumberWasLoaded;
 
-    public static DataPersistenceManager instance {  get; private set; }
+    public static DataPersistenceManager Instance {  get; private set; }
+
+
 
 
 	private void Awake()
 	{
+
+
+		// Паттерн Singleton: предотвращаем создание второго экземпляра
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+		}
+		else
+		{
+			Destroy(gameObject); // Уничтожаем лишние экземпляры
+		}
+
 		fileSaveDataName1 = "SAVEGAME1.json";
 		fileSaveDataName2 = "SAVEGAME2.json";
 		fileSaveDataName3 = "SAVEGAME3.json";
 		fileSaveDataName4 = "SAVEGAME4.json";
 		fileSaveDataName5 = "SAVEGAME5.json";
 
-		if (instance != null)
-		{
-			Debug.Log("WRONG!");
-		}
 
-		instance = this;
+
+
 
 		//this.DataHandler = new FileDataHandler(saveElsewhere, fileName);
 		//this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
 		this.dataPersistenceObjects = FindAllDataPersistenceObjects();
 
+		Debug.Log(WhatSaveNumberWasLoaded);
+
+		if (WhatSaveNumberWasLoaded >= 1 && WhatSaveNumberWasLoaded <= 5)
+		{
+			string fileSaveDataName = null;
+			if (WhatSaveNumberWasLoaded == 1)
+			{
+				fileSaveDataName = fileSaveDataName1;
+			}
+			else if (WhatSaveNumberWasLoaded == 2)
+			{
+				fileSaveDataName = fileSaveDataName2;
+			}
+			else if (WhatSaveNumberWasLoaded == 3)
+			{
+				fileSaveDataName = fileSaveDataName3;
+			}
+			else if (WhatSaveNumberWasLoaded == 4)
+			{
+				fileSaveDataName = fileSaveDataName4;
+			}
+			else if (WhatSaveNumberWasLoaded == 5)
+			{
+				fileSaveDataName = fileSaveDataName5;
+			}
+			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName);
+			this.gameData = fileDataHandler.Load();
+			Debug.Log("1 < x < 5");
+		}
+		Debug.Log(WhatSaveNumberWasLoaded);
+
+
+
+		Debug.Log(gameData);
+
 		if (this.gameData == null)
 		{
 			Debug.Log("No data found. starting New game");
 			NewGame();
-			//LoadGame(1);
 		}
+
+
+		Debug.Log(gameData);
+
+
 
 		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
 		for (int i = 0; i < goldBars.Length; i++)
@@ -56,22 +109,33 @@ public class DataPersistenceManager : MonoBehaviour
 
 	}
 
+
+	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+
+	}
+
+	void Start()
+	{
+		if (this.gameData != null)
+		{
+			foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+			{
+				dataPersistenceObj.LoadData(gameData);
+			}
+			Debug.Log("Data loaded from slot " + WhatSaveNumberWasLoaded);
+		}
+	}
+
+
 	private void Update()
 	{
-		/*
-		if (this.gameData == null)
-		{
-		//	Debug.Log("EMPTY");
-		}
-		//else Debug.Log("OKOK");
-		*/
-		//Debug.Log(gameData.WasLootItemCollectedCoin5[1]);
+
 	}
 
 	public void NewGame()
 	{
 		this.gameData = new GameData();
-		//LoadGame(1);
 	}
 
 	public void SaveGame(int saveSlotNumber)
@@ -112,42 +176,49 @@ public class DataPersistenceManager : MonoBehaviour
 		if (loadSlotNumber == 1)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
+			WhatSaveNumberWasLoaded = 1;
 		}
 		else if (loadSlotNumber == 2)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName2);
+			WhatSaveNumberWasLoaded = 2;
 		}
 		else if (loadSlotNumber == 3)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName3);
+			WhatSaveNumberWasLoaded = 3;
 		}
 		else if (loadSlotNumber == 4)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName4);
+			WhatSaveNumberWasLoaded = 4;
 		}
 		else if (loadSlotNumber == 5)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName5);
+			WhatSaveNumberWasLoaded = 5;
 		}
 
-
+		Debug.Log(gameData);
 		this.gameData = fileDataHandler.Load();
+		Debug.Log("Gamedata was = file");
+		Debug.Log(gameData);
+		Debug.Log(WhatSaveNumberWasLoaded);
 
 		if (this.gameData == null)
 		{
 			Debug.Log("No data to load found in slot " + loadSlotNumber);
-			NewGame();
+			WhatSaveNumberWasLoaded = 0;
+			Debug.Log(WhatSaveNumberWasLoaded);
+
 			return;
 		}
 		else
 		{
+			string sceneName = SceneManager.GetActiveScene().name;
 
-
-			foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
-			{
-				dataPersistenceObj.LoadData(gameData);
-			}
-			Debug.Log("Data loaded from slot " + loadSlotNumber);
+			SceneManager.LoadScene(sceneName);
+			Debug.Log($"Scene {sceneName} reloaded");
 		}
 	}
 
@@ -157,15 +228,4 @@ public class DataPersistenceManager : MonoBehaviour
 
 		return new List<IDataPersistence>(dataPersistenceObjects);
 	}
-
-	/*
-	public void ReAssignLootItemIndexes()
-	{
-		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
-		for (int i = 0; i < goldBars.Length; i++)
-		{
-			goldBars[i].AssignLootItemIndex(i, typeof(LootItemGoldBar));
-		}
-	}
-	*/
 }

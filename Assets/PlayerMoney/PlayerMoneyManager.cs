@@ -15,7 +15,7 @@ public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 		if (Instance == null)
 		{
 			Instance = this;
-			DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+			//DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
 		}
 		else
 		{

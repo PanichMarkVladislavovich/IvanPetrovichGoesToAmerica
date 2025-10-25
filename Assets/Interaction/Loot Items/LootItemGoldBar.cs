@@ -44,8 +44,8 @@ public class LootItemGoldBar : LootItemAbstract
 	{
 		if (data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected == true)
 		{
-			Destroy(gameObject); // Если предмет собран, удаляем его
 			WasLootItemCollected = true;
+			Destroy(gameObject); // Если предмет собран, удаляем его
 		}
 
 		/*

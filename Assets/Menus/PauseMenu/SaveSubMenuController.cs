@@ -22,11 +22,11 @@ public class SaveSubMenuController : MonoBehaviour
 
 		CloseSaveSubMenuButton.onClick.AddListener(CloseSaveSubMenu);
 
-		SaveGame1Button.onClick.AddListener(() => DataPersistenceManager.instance.SaveGame(1));
-		SaveGame2Button.onClick.AddListener(() => DataPersistenceManager.instance.SaveGame(2));
-		SaveGame3Button.onClick.AddListener(() => DataPersistenceManager.instance.SaveGame(3));
-		SaveGame4Button.onClick.AddListener(() => DataPersistenceManager.instance.SaveGame(4));
-		SaveGame5Button.onClick.AddListener(() => DataPersistenceManager.instance.SaveGame(5));
+		SaveGame1Button.onClick.AddListener(() => DataPersistenceManager.Instance.SaveGame(1));
+		SaveGame2Button.onClick.AddListener(() => DataPersistenceManager.Instance.SaveGame(2));
+		SaveGame3Button.onClick.AddListener(() => DataPersistenceManager.Instance.SaveGame(3));
+		SaveGame4Button.onClick.AddListener(() => DataPersistenceManager.Instance.SaveGame(4));
+		SaveGame5Button.onClick.AddListener(() => DataPersistenceManager.Instance.SaveGame(5));
 
 	}
 

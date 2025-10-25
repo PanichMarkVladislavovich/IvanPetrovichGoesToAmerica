@@ -22,11 +22,11 @@ public class LoadSubMenuController : MonoBehaviour
 
 		CloseLoadSubMenuButton.onClick.AddListener(CloseLoadSubMenu);
 
-		LoadGame1Button.onClick.AddListener(() => DataPersistenceManager.instance.LoadGame(1));
-		LoadGame2Button.onClick.AddListener(() => DataPersistenceManager.instance.LoadGame(2));
-		LoadGame3Button.onClick.AddListener(() => DataPersistenceManager.instance.LoadGame(3));
-		LoadGame4Button.onClick.AddListener(() => DataPersistenceManager.instance.LoadGame(4));
-		LoadGame5Button.onClick.AddListener(() => DataPersistenceManager.instance.LoadGame(5));
+		LoadGame1Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(1));
+		LoadGame2Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(2));
+		LoadGame3Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(3));
+		LoadGame4Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(4));
+		LoadGame5Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(5));
 	}
 
 	private void Update()

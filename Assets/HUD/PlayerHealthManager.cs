@@ -25,7 +25,7 @@ public class PlayerHealthManager : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
-			DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+			//DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
 		}
 		else
 		{

@@ -60,17 +60,16 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 
 	public bool IsPlayerLegKicking;
 
-	private void Awake()
-	{
-		DontDestroyOnLoad(gameObject); // Игровой объект сохранится при смене сцены}
-	}
+	
 
-		void Start()
+	void Start()
 	{
 
 		playerInputsList = GetComponent<PlayerInputsList>();
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
+
+
 
 		_playerPreviousFramePosition = transform.position;
 
@@ -90,6 +89,8 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		PlayerStandingHeight = 1.75f;
 
 		IsPlayerAbleToSlide = true;
+
+		
 	}
 
 	void OnDrawGizmos()
