@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealthManager : MonoBehaviour
+public class PlayerHealthManager : MonoBehaviour, IDataPersistence
 {
 	public static PlayerHealthManager Instance { get; private set; } // Статическое поле экземпляра
 
@@ -77,4 +77,15 @@ public class PlayerHealthManager : MonoBehaviour
 
 	}
 
+	public void SaveData(ref GameData data)
+	{
+		data.PlayerHealth = CurrentPlayerHealth;
+		data.HealingItems = CurrentHealingItemsNumber;
+	}
+
+	public void LoadData(GameData data)
+	{
+		CurrentPlayerHealth = data.PlayerHealth;
+		CurrentHealingItemsNumber = data.HealingItems;
+	}
 }

@@ -24,6 +24,14 @@ public class GameData
 	//PlayerMoney
 	public int PlayerMoney;
 
+	//PlayerHealth
+	public int PlayerHealth;
+	public int HealingItems;
+
+	//PlayerMana
+	public int PlayerMana;
+	public int ManaReplenishItems;
+
 	//Collectables
 	public LootItemData[] LootItemDataGoldBar;
 
@@ -42,6 +50,12 @@ public class GameData
 		IsCameraShoulderRight = true;
 
 		PlayerMoney = 200;
+
+		PlayerHealth = 40;
+		HealingItems = 3;
+
+		PlayerMana = 15;
+		ManaReplenishItems = 6;
 
 		LootItemDataGoldBar = new LootItemData[10];
 

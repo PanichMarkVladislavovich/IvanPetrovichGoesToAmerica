@@ -22,11 +22,11 @@ public class InteractionController : MonoBehaviour
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		outlineMaterial = Resources.Load<Material>("WhiteOutline"); // Загружаем контурный материал
 		IsAbleCheckForOldMaterial = true;
-		interactionRange = 1.5f; // Диапазон взаимодействия
+		//interactionRange = 2.5f; // Диапазон взаимодействия
 
 	}
 
-	/*
+	
 private void OnDrawGizmos()
 {
 	if (playerCamera != null)
@@ -35,13 +35,22 @@ private void OnDrawGizmos()
 		Gizmos.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange);
 	}
 }
-	*/
+	
 
 void Update()
 	{
 		//Debug.Log("Renderer object: " + currentRenderer);
 
-	//	Debug.Log("Original material: " + originalMaterial);
+		//	Debug.Log("Original material: " + originalMaterial);
+		if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
+		{
+			interactionRange = 2.5f;
+		}
+		if (playerCamera.CurrentPlayerCameraStateType == "ThirdPerson")
+		{
+			interactionRange = 2f + playerCamera.PlayerCameraDistanceZ;
+		}
+
 
 
 		if (interactionText != null)
@@ -127,6 +136,7 @@ void Update()
 		}
 
 		
+
 	}
 
 	// Функция для смены материалов (для выделения контура)
