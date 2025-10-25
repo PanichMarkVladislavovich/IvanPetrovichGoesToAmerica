@@ -8,10 +8,8 @@ public class InteractionController : MonoBehaviour
 	public PlayerCamera playerCamera;
 	public GameObject PlayerCameraObject;
 	private PlayerInputsList playerInputsList; // Список кнопок ввода
-	private Material outlineMaterial; // Контурный материал
-	private Renderer currentRenderer; // Переменная для хранения текущего Renderer
-	private Material originalMaterial; // Переменная для хранения оригинального материала
-	private bool IsAbleCheckForOldMaterial;
+	private GameObject previousInteractableItem; // Переменная для хранения предыдущего объекта
+	private GameObject currentInteractableItem; // Текущий объект взаимодействия
 
 	private RaycastHit hitInfo;
 	private bool isHit;
@@ -20,28 +18,10 @@ public class InteractionController : MonoBehaviour
 	{
 		playerInputsList = GetComponent<PlayerInputsList>(); // Получаем список вводимых команд
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
-		outlineMaterial = Resources.Load<Material>("WhiteOutline"); // Загружаем контурный материал
-		IsAbleCheckForOldMaterial = true;
-		//interactionRange = 2.5f; // Диапазон взаимодействия
-
 	}
 
-	
-private void OnDrawGizmos()
-{
-	if (playerCamera != null)
+	void Update()
 	{
-		Gizmos.color = Color.red; // Цвет луча
-		Gizmos.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange);
-	}
-}
-	
-
-void Update()
-	{
-		//Debug.Log("Renderer object: " + currentRenderer);
-
-		//	Debug.Log("Original material: " + originalMaterial);
 		if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
 		{
 			interactionRange = 2.5f;
@@ -51,45 +31,35 @@ void Update()
 			interactionRange = 2f + playerCamera.PlayerCameraDistanceZ;
 		}
 
-
-
 		if (interactionText != null)
 			interactionText.text = "";
 
-
-		//RaycastHit hitInfo;
 		if (playerCamera != null)
 		{
 			isHit = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hitInfo, interactionRange);
 		}
 
-
-		if (isHit && hitInfo.collider != null && hitInfo.collider.tag == "Interactable") // Проверка по тегу и на null
+		if (isHit && hitInfo.collider != null && hitInfo.collider.tag == "Interactable")
 		{
 			var interactableObj = hitInfo.collider.GetComponent<IInteractable>();
 
-			if (interactableObj != null) // Проверка на наличие интерфейса
+			if (interactableObj != null)
 			{
-				Renderer renderer = hitInfo.collider.GetComponent<Renderer>();
+				GameObject renderer = hitInfo.collider.gameObject;
+
 				if (renderer != null)
 				{
-					currentRenderer = renderer;
+					currentInteractableItem = renderer;
 
-					if (IsAbleCheckForOldMaterial == true)
-					{ 
-						originalMaterial = renderer.material;
-						IsAbleCheckForOldMaterial = false;
-
-					}
-
-					// Сохраняем оригинальный материал в компоненте Renderer
-					if (renderer.material != outlineMaterial)
+					// Новый объект найден, проверяем, изменился ли он
+					if (previousInteractableItem != null && previousInteractableItem != currentInteractableItem)
 					{
-					
-						renderer.material = outlineMaterial;
+						// Предыдущий объект меняется на новый, сбрасываем слой предыдущего
+						previousInteractableItem.layer = LayerMask.NameToLayer("Default");
 					}
 
-					
+					// Ставим новый слой для текущего объекта
+					currentInteractableItem.layer = LayerMask.NameToLayer("Outline");
 				}
 
 				// Устанавливаем подсказку с нужной кнопкой
@@ -100,56 +70,25 @@ void Update()
 				{
 					interactableObj.Interact(); // Обработка события взаимодействия
 				}
-
-				if (interactableObj == null)
-				{
-					//originalMaterial = null;
-					//currentRenderer = null;
-					
-				}
 			}
-			else 
+			else
 			{
 				Debug.LogWarning("Объект с тегом \"Interactable\" не содержит интерфейс IInteractable.");
 			}
-
-			if (interactableObj == null)
-			{
-				//originalMaterial = null;
-				//currentRenderer = null;
-
-			}
-		}
-		else 
-		{
-			// Если объект вышел из зоны взаимодействия, возвращаем исходный материал
-			if (currentRenderer != null)
-			{
-			//	Debug.Log("BRUH!");
-
-				currentRenderer.material = originalMaterial;
-			
-			}
-				currentRenderer = null;
-				originalMaterial = null;
-				IsAbleCheckForOldMaterial = true;
-		}
-
-		
-
-	}
-
-	// Функция для смены материалов (для выделения контура)
-	private void ChangeMaterialToOutline(GameObject obj)
-	{
-		Renderer renderer = obj.GetComponent<Renderer>();
-		if (renderer != null && outlineMaterial != null)
-		{
-			renderer.material = outlineMaterial;
 		}
 		else
 		{
-			Debug.LogWarning("Материалов или Render-компонентов нет.");
+			// Если объект вышел из зоны взаимодействия
+			if (currentInteractableItem != null)
+			{
+				currentInteractableItem.layer = LayerMask.NameToLayer("Default");
+			}
+
+			// Очищаем текущий объект
+			currentInteractableItem = null;
 		}
+
+		// Запоминаем текущий объект как предыдущий для следующего кадра
+		previousInteractableItem = currentInteractableItem;
 	}
 }
