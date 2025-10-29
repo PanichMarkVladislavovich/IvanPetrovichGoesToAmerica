@@ -8,8 +8,8 @@ public abstract class DoorAbstract : MonoBehaviour, IInteractable
 	//public virtual Quaternion LootItemRotation { get; protected set; }
 	public virtual string ItemName => gameObject.name;
 
-	public virtual string InteractionHint => $"Открыть {ItemName}";
-
+	// Свойство подсказки теперь учитывает состояние двери
+	public virtual string InteractionHint => !IsDoorOpened ? $"Открыть {ItemName}" : $"Закрыть {ItemName}";
 
 	public virtual bool IsDoorOpened { get; protected set; }
 

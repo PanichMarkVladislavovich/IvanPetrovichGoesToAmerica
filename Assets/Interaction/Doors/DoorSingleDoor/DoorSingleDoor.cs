@@ -49,7 +49,7 @@ public class DoorSingleDoor : DoorAbstract
 
 	IEnumerator OpenDoor()
 	{
-		Debug.Log($"Вы открываете {ItemName}");
+		Debug.Log($"Была открыта {ItemName}");
 		IsDoorOpened = true;
 
 		while (Quaternion.Angle(transform.localRotation, openedRotation) > 0.1f)
@@ -63,7 +63,7 @@ public class DoorSingleDoor : DoorAbstract
 
 	IEnumerator CloseDoor()
 	{
-		Debug.Log($"Вы закрываете {ItemName}");
+		Debug.Log($"Была закрыта {ItemName}");
 		IsDoorOpened = false;
 
 		while (Quaternion.Angle(transform.localRotation, closedRotation) > 0.1f)
