@@ -4,7 +4,7 @@ public class LootItemGoldBar : LootItemAbstract
 {
 	public override int MoneyValue { get; protected set; } = 20;
 
-	public override string ItemName => "Золотой слиток";
+	public override string InteractionItemName => "Золотой слиток";
 
 	//private GameObject NewInstance;
 
@@ -12,7 +12,7 @@ public class LootItemGoldBar : LootItemAbstract
 	{
 		
 
-		Debug.Log($"Вы подняли {ItemName}, получаете {MoneyValue} рублей");
+		Debug.Log($"Вы подняли {InteractionItemName}, получаете {MoneyValue} рублей");
 		Destroy(gameObject);
 		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
 		WasLootItemCollected = true;

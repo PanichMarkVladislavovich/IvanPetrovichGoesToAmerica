@@ -5,14 +5,14 @@ public class LootItemHealingItem : LootItemAbstract
 
 	public override int MoneyValue { get; protected set; } = 0;
 
-	public override string ItemName => "Лечащий предмет";
+	public override string InteractionItemName => "Лечащий предмет";
 
 
 	public override void Interact()
 	{
 		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
 		{
-			Debug.Log($"Вы подняли {ItemName}");
+			Debug.Log($"Вы подняли {InteractionItemName}");
 			Destroy(gameObject);
 			PlayerHealthManager.Instance.AddHealingItem();
 		}

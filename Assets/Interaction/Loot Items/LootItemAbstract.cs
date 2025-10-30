@@ -6,9 +6,9 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 {
 	//public virtual Vector3 LootItemPosition { get; protected set; }
 	//public virtual Quaternion LootItemRotation { get; protected set; }
-	public virtual string ItemName => gameObject.name;
+	public virtual string InteractionItemName => gameObject.name;
 
-	public virtual string InteractionHint => $"Поднять {ItemName}";
+	public virtual string InteractionHint => $"Поднять {InteractionItemName}";
 
 	public virtual int MoneyValue { get; protected set; }
 

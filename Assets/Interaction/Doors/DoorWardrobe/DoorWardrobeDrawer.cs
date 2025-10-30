@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DoorWardrobeDrawer : DoorAbstract
 {
-	public override string ItemName => "Выдвижной ящик";
+	public override string InteractionItemName => "Выдвижной ящик";
 
 	private float drawerOpeningSpeed = 3f; // Скорость открытия-закрытия ящика
 
@@ -43,7 +43,7 @@ public class DoorWardrobeDrawer : DoorAbstract
 
 	IEnumerator OpenDrawer()
 	{
-		Debug.Log($"Был открыт {ItemName}");
+		Debug.Log($"Был открыт {InteractionItemName}");
 		IsDoorOpened = true;
 
 		while (Mathf.Abs(transform.localPosition.z - openedPosition.z) > 0.001f)
@@ -57,7 +57,7 @@ public class DoorWardrobeDrawer : DoorAbstract
 
 	IEnumerator CloseDrawer()
 	{
-		Debug.Log($"Был закрыт {ItemName}");
+		Debug.Log($"Был закрыт {InteractionItemName}");
 		IsDoorOpened = false;
 
 		while (Mathf.Abs(transform.localPosition.z - closedPosition.z) > 0.001f)

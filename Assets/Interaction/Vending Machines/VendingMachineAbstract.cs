@@ -3,8 +3,8 @@ using UnityEngine;
 public abstract class VendingMachineAbstract : MonoBehaviour, IInteractable
 {
 
-	public virtual string ItemName => gameObject.name;
-	public virtual string InteractionHint => $" упить {GoodsName} в {ItemName}?";
+	public virtual string InteractionItemName => gameObject.name;
+	public virtual string InteractionHint => $" упить {GoodsName} в {InteractionItemName}?";
 	public virtual string GoodsName => gameObject.name;
 
 

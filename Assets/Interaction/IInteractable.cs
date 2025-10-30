@@ -1,6 +1,6 @@
 public interface IInteractable
 {
-	string ItemName { get; }
+	string InteractionItemName { get; }
 	string InteractionHint { get; }
 	void Interact();
 }

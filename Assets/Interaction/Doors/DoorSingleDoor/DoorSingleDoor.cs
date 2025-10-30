@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DoorSingleDoor : DoorAbstract
 {
-	public override string ItemName => "Дверь";
+	public override string InteractionItemName => "Дверь";
 
 	private float doorOpeningSpeed = 200f; // Скорость открытия-закрытия
 
@@ -49,7 +49,7 @@ public class DoorSingleDoor : DoorAbstract
 
 	IEnumerator OpenDoor()
 	{
-		Debug.Log($"Была открыта {ItemName}");
+		Debug.Log($"Была открыта {InteractionItemName}");
 		IsDoorOpened = true;
 
 		while (Quaternion.Angle(transform.localRotation, openedRotation) > 0.1f)
@@ -63,7 +63,7 @@ public class DoorSingleDoor : DoorAbstract
 
 	IEnumerator CloseDoor()
 	{
-		Debug.Log($"Была закрыта {ItemName}");
+		Debug.Log($"Была закрыта {InteractionItemName}");
 		IsDoorOpened = false;
 
 		while (Quaternion.Angle(transform.localRotation, closedRotation) > 0.1f)
