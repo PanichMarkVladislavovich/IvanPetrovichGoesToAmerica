@@ -14,6 +14,8 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 	private float rotatorySafeSectionRotationSpeed = 0.15f;
 	private Coroutine safeRotatorySectionCoroutine; // Переменная для хранения текущей корутины
 
+	public bool IsSafeRotatorySectionPositionCorrect {  get; private set; }
+
 	public virtual string InteractionHint => $"Повернуть ячейку #{InteractionItemName}";
 
 	public void Interact()
@@ -45,6 +47,8 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 			currentSafeRotatorySectionPosition -= 9;
 		}
 		
+		
+
 
 		Quaternion rotateFrom = transform.localRotation;
 		Quaternion rotateTo = transform.localRotation * Quaternion.Euler(0, 36, 0);
@@ -59,6 +63,16 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 		}
 
 		Debug.Log($"Section #{InteractionItemName} new position is {currentSafeRotatorySectionPosition}");
+
+		if (currentSafeRotatorySectionPosition == correctSafeRotatorySectionPosition)
+		{
+			IsSafeRotatorySectionPositionCorrect = true;
+			Debug.Log($"Section #{InteractionItemName} CORRECT");
+		}
+		else
+		{
+			IsSafeRotatorySectionPositionCorrect = false;
+		}
 
 
 		transform.localRotation = rotateTo; // Гарантированно устанавливаем финальное положение

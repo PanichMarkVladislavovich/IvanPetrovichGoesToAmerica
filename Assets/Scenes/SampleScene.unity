@@ -11124,16 +11124,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.59
+      value: 0.074
       objectReference: {fileID: 0}
     - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.94
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3802471
+      value: 4.778
       objectReference: {fileID: 0}
     - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11162,6 +11174,10 @@ PrefabInstance:
     - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826460543148872648, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3587719684148015132, guid: 473426e767b35a84e95d8ed8412860c4, type: 3}
       propertyPath: m_Name
@@ -13333,9 +13349,11 @@ GameObject:
   - component: {fileID: 4607615570537016669}
   - component: {fileID: 8228377642330116232}
   - component: {fileID: 7706507113024222854}
+  - component: {fileID: 8228377642330116234}
+  - component: {fileID: 8228377642330116233}
   m_Layer: 0
   m_Name: Cylinder.005
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15609,7 +15627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeRotatorySectionName: 1
-  correctSafeRotatorySectionPosition: 0
+  correctSafeRotatorySectionPosition: 4
 --- !u!64 &6677933383651157126
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15965,7 +15983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeRotatorySectionName: 2
-  correctSafeRotatorySectionPosition: 0
+  correctSafeRotatorySectionPosition: 5
 --- !u!64 &7340620075264855209
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16279,6 +16297,44 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885601265963025144}
   m_Mesh: {fileID: 3390558720134950976, guid: de4e13f028d8760419881f3b3f7af862, type: 3}
+--- !u!114 &8228377642330116233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885601265963025144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26aab8041386daf449a7f13075f80ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SafeDoor: {fileID: 1387802067581622292}
+  SafeRotatorySection1: {fileID: 6088685332893079160}
+  SafeRotatorySection2: {fileID: 7340620075264855207}
+  SafeRotatorySection3: {fileID: 8461624076469738211}
+--- !u!64 &8228377642330116234
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885601265963025144}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3390558720134950976, guid: de4e13f028d8760419881f3b3f7af862, type: 3}
 --- !u!4 &8343539945087895509
 Transform:
   m_ObjectHideFlags: 0
@@ -16360,7 +16416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeRotatorySectionName: 3
-  correctSafeRotatorySectionPosition: 0
+  correctSafeRotatorySectionPosition: 1
 --- !u!64 &8461624076469738213
 MeshCollider:
   m_ObjectHideFlags: 0
