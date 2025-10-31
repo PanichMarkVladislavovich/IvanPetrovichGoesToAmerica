@@ -4,74 +4,107 @@ using System.Collections;
 public class SafeController : MonoBehaviour, IInteractable
 {
 	public GameObject SafeDoor;
-
+	private Transform safeDoorTransform;
 
 	public GameObject SafeRotatorySection1;
 	public GameObject SafeRotatorySection2;
 	public GameObject SafeRotatorySection3;
-
-	private float safeDoorOpeningSpeed = 100f;
+	private SafeRotatorySection section1;
+	private SafeRotatorySection section2;
+	private SafeRotatorySection section3;
 
 	private bool wasSafeOpened;
 
-	private Quaternion safeDoorOpenedRotation;       // Угловое положение открытой двери
+	private float safeDoorOpeningSpeed = 100f;
+	private Quaternion safeDoorOpenedRotation;
 
+	private bool isInStartMethod;
 
 	public string InteractionItemName => null;
-
 	public string InteractionHint => "Открыть сейф";
-
 
 	void Start()
 	{
-		// Настройка состояний вращения
+		isInStartMethod = true;
+
+		safeDoorTransform = SafeDoor.GetComponent<Transform>();
+
+		section1 = SafeRotatorySection1.GetComponent<SafeRotatorySection>();
+		section2 = SafeRotatorySection2.GetComponent<SafeRotatorySection>();
+		section3 = SafeRotatorySection3.GetComponent<SafeRotatorySection>();
+
 		Vector3 openedEulerAngles = new Vector3(0, -90, 0);
 		safeDoorOpenedRotation = Quaternion.Euler(openedEulerAngles);
 
+		CheckRotatorySectionCorrection();
 
+		if (wasSafeOpened == true)
+		{
+			safeDoorTransform.transform.localRotation = safeDoorOpenedRotation;
+		}
+
+		isInStartMethod = false;
 	}
-	
+
 	public void Interact()
 	{
-		var section1 = SafeRotatorySection1.GetComponent<SafeRotatorySection>();
-		var section2 = SafeRotatorySection2.GetComponent<SafeRotatorySection>();
-		var section3 = SafeRotatorySection3.GetComponent<SafeRotatorySection>();
-
-		//var safeDoor = SafeDoor.GetComponent<Transform>();
-
 		if (wasSafeOpened == false)
 		{
-			if (section1 != null && section2 != null && section3 != null)
-			{
-				if (section1.IsSafeRotatorySectionPositionCorrect && section2.IsSafeRotatorySectionPositionCorrect
-					&& section3.IsSafeRotatorySectionPositionCorrect)
-				{
-					Debug.Log("SAFE CORRECT");
-
-					wasSafeOpened = true;
-
-					if (SafeDoor != null)
-					{
-						StartCoroutine(OpenSafeDoor());
-					}
-				}
-				else
-				{
-					Debug.Log("SAFE FAILED");
-				}
-			}
+			CheckRotatorySectionCorrection();
+		
 		}
 	}
 
 	IEnumerator OpenSafeDoor()
 	{
-		var safeDoor = SafeDoor.GetComponent<Transform>();
+		gameObject.tag = "Untagged";
 
-		while (Quaternion.Angle(safeDoor.transform.localRotation, safeDoorOpenedRotation) > 0.1f)
+		SafeRotatorySection1.tag = "Untagged";
+		SafeRotatorySection2.tag = "Untagged";
+		SafeRotatorySection3.tag = "Untagged";
+
+		while (Quaternion.Angle(safeDoorTransform.transform.localRotation, safeDoorOpenedRotation) > 0.1f)
 		{
-			safeDoor.transform.localRotation = Quaternion.RotateTowards(safeDoor.transform.localRotation, safeDoorOpenedRotation, Time.deltaTime * safeDoorOpeningSpeed);
+			safeDoorTransform.transform.localRotation = Quaternion.RotateTowards(safeDoorTransform.transform.localRotation,
+				safeDoorOpenedRotation, Time.deltaTime * safeDoorOpeningSpeed);
 			yield return null;
 		}
+	}
 
+	private void CheckRotatorySectionCorrection()
+	{
+		if (section1.currentSectionPosition == section1.CorrectSectionPosition)
+		{
+			section1.SetSectionPositionToCorrect();
+		}
+		if (section2.currentSectionPosition == section2.CorrectSectionPosition)
+		{
+			section2.SetSectionPositionToCorrect();
+		}
+		if (section3.currentSectionPosition == section3.CorrectSectionPosition)
+		{
+			section3.SetSectionPositionToCorrect();
+		}
+
+		if(section1.currentSectionPosition == section1.CorrectSectionPosition
+			&& section2.currentSectionPosition == section2.CorrectSectionPosition
+			&& section3.currentSectionPosition == section3.CorrectSectionPosition)
+		{
+			if (isInStartMethod == false)
+			{
+				Debug.Log("SAFE CORRECT");
+			}
+
+			wasSafeOpened = true;
+
+			StartCoroutine(OpenSafeDoor());
+		}
+		else
+		{
+			if (isInStartMethod == false)
+			{
+				Debug.Log("SAFE FAILED");
+			}
+		}
 	}
 }

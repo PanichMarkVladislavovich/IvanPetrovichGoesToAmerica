@@ -3,53 +3,39 @@ using System.Collections;
 
 public class SafeRotatorySection : MonoBehaviour, IInteractable
 {
-	[SerializeField] private int safeRotatorySectionName;
-	public string InteractionItemName => safeRotatorySectionName.ToString();
+	[SerializeField] private int safeSectionSlotNumber;
+	[SerializeField] [Range(0, 9)] private int correctSectionPosition;
+	public int CorrectSectionPosition => correctSectionPosition; // Только чтение через публичное свойство
+	public bool IsSectionPositionCorrect { get; private set; }
+	public int currentSectionPosition { get; private set; }
 
+	private float sectionRotationSpeed = 0.15f;
+	private Coroutine sectionCoroutine; // Переменная для хранения текущей корутины
 
-	[SerializeField] [Range(0, 9)] private int correctSafeRotatorySectionPosition;
-
-	private int currentSafeRotatorySectionPosition;
-
-	private float rotatorySafeSectionRotationSpeed = 0.15f;
-	private Coroutine safeRotatorySectionCoroutine; // Переменная для хранения текущей корутины
-
-	public bool IsSafeRotatorySectionPositionCorrect {  get; private set; }
-
+	public string InteractionItemName => safeSectionSlotNumber.ToString();
 	public virtual string InteractionHint => $"Повернуть ячейку #{InteractionItemName}";
 
 	public void Interact()
 	{
 		// Проверяем, есть ли уже запущенная корутина
-		if (safeRotatorySectionCoroutine == null)
+		if (sectionCoroutine == null)
 		{
 			// Можно либо остановить текущую корутину и начать новую, либо проигнорировать вызов
-			//StopCoroutine(rotateRoutine); // Останавливаем текущую корутину
-			safeRotatorySectionCoroutine = StartCoroutine(RotateSmoothly(rotatorySafeSectionRotationSpeed));
-
-		}
-		else
-		{
-			// Запускаем новую корутину
+			sectionCoroutine = StartCoroutine(RotateSmoothly(sectionRotationSpeed));
 		}
 	}
 
 	IEnumerator RotateSmoothly(float duration)
 	{
-		//Debug.Log($"Rotating safe section #{InteractionItemName}");
-
-		if (currentSafeRotatorySectionPosition < 9)
+		if (currentSectionPosition < 9)
 		{
-			currentSafeRotatorySectionPosition++;
+			currentSectionPosition++;
 		}
 		else
 		{
-			currentSafeRotatorySectionPosition -= 9;
+			currentSectionPosition -= 9;
 		}
 		
-		
-
-
 		Quaternion rotateFrom = transform.localRotation;
 		Quaternion rotateTo = transform.localRotation * Quaternion.Euler(0, 36, 0);
 
@@ -62,22 +48,24 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 			yield return null;
 		}
 
-		Debug.Log($"Section #{InteractionItemName} new position is {currentSafeRotatorySectionPosition}");
+		Debug.Log($"Section #{InteractionItemName} new position is {currentSectionPosition}");
 
-		if (currentSafeRotatorySectionPosition == correctSafeRotatorySectionPosition)
+		if (currentSectionPosition == correctSectionPosition)
 		{
-			IsSafeRotatorySectionPositionCorrect = true;
+			IsSectionPositionCorrect = true;
 			Debug.Log($"Section #{InteractionItemName} CORRECT");
 		}
 		else
 		{
-			IsSafeRotatorySectionPositionCorrect = false;
+			IsSectionPositionCorrect = false;
 		}
 
-
 		transform.localRotation = rotateTo; // Гарантированно устанавливаем финальное положение
-		safeRotatorySectionCoroutine = null; // Освобождаем переменную после завершения корутины
+		sectionCoroutine = null; // Освобождаем переменную после завершения корутины
 	}
 
-
+	public void SetSectionPositionToCorrect()
+	{
+		IsSectionPositionCorrect = true;
+	}
 }
