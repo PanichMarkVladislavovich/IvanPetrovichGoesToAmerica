@@ -1,26 +1,26 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using System.Collections;
 
 public class SafeRotatorySection : MonoBehaviour, IInteractable
 {
 	[SerializeField] private int safeSectionSlotNumber;
 	[SerializeField] [Range(0, 9)] private int correctSectionPosition;
-	public int CorrectSectionPosition => correctSectionPosition; // Только чтение через публичное свойство
+	public int CorrectSectionPosition => correctSectionPosition; // РўРѕР»СЊРєРѕ С‡С‚РµРЅРёРµ С‡РµСЂРµР· РїСѓР±Р»РёС‡РЅРѕРµ СЃРІРѕР№СЃС‚РІРѕ
 	public bool IsSectionPositionCorrect { get; private set; }
 	public int currentSectionPosition { get; private set; }
 
 	private float sectionRotationSpeed = 0.15f;
-	private Coroutine sectionCoroutine; // Переменная для хранения текущей корутины
+	private Coroutine sectionCoroutine; // РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ С‚РµРєСѓС‰РµР№ РєРѕСЂСѓС‚РёРЅС‹
 
 	public string InteractionItemName => safeSectionSlotNumber.ToString();
-	public virtual string InteractionHint => $"Повернуть ячейку #{InteractionItemName}";
+	public virtual string InteractionHint => $"РџРѕРІРµСЂРЅСѓС‚СЊ СЏС‡РµР№РєСѓ #{InteractionItemName}";
 
 	public void Interact()
 	{
-		// Проверяем, есть ли уже запущенная корутина
+		// РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё СѓР¶Рµ Р·Р°РїСѓС‰РµРЅРЅР°СЏ РєРѕСЂСѓС‚РёРЅР°
 		if (sectionCoroutine == null)
 		{
-			// Можно либо остановить текущую корутину и начать новую, либо проигнорировать вызов
+			// РњРѕР¶РЅРѕ Р»РёР±Рѕ РѕСЃС‚Р°РЅРѕРІРёС‚СЊ С‚РµРєСѓС‰СѓСЋ РєРѕСЂСѓС‚РёРЅСѓ Рё РЅР°С‡Р°С‚СЊ РЅРѕРІСѓСЋ, Р»РёР±Рѕ РїСЂРѕРёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ РІС‹Р·РѕРІ
 			sectionCoroutine = StartCoroutine(RotateSmoothly(sectionRotationSpeed));
 		}
 	}
@@ -60,8 +60,8 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 			IsSectionPositionCorrect = false;
 		}
 
-		transform.localRotation = rotateTo; // Гарантированно устанавливаем финальное положение
-		sectionCoroutine = null; // Освобождаем переменную после завершения корутины
+		transform.localRotation = rotateTo; // Р“Р°СЂР°РЅС‚РёСЂРѕРІР°РЅРЅРѕ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„РёРЅР°Р»СЊРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ
+		sectionCoroutine = null; // РћСЃРІРѕР±РѕР¶РґР°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ РїРѕСЃР»Рµ Р·Р°РІРµСЂС€РµРЅРёСЏ РєРѕСЂСѓС‚РёРЅС‹
 	}
 
 	public void SetSectionPositionToCorrect()

@@ -1,22 +1,22 @@
-using TMPro;
+п»їusing TMPro;
 using UnityEngine;
 
 public class InteractionController : MonoBehaviour
 {
-	private float interactionRange = 50f; // Диапазон взаимодействия
-	public TextMeshProUGUI interactionText; // Подсказка (назначается вручную через Inspector)
+	private float interactionRange = 50f; // Р”РёР°РїР°Р·РѕРЅ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
+	public TextMeshProUGUI interactionText; // РџРѕРґСЃРєР°Р·РєР° (РЅР°Р·РЅР°С‡Р°РµС‚СЃСЏ РІСЂСѓС‡РЅСѓСЋ С‡РµСЂРµР· Inspector)
 	public PlayerCamera playerCamera;
 	public GameObject PlayerCameraObject;
-	private PlayerInputsList playerInputsList; // Список кнопок ввода
-	private GameObject previousInteractableItem; // Переменная для хранения предыдущего объекта
-	private GameObject currentInteractableItem; // Текущий объект взаимодействия
+	private PlayerInputsList playerInputsList; // РЎРїРёСЃРѕРє РєРЅРѕРїРѕРє РІРІРѕРґР°
+	private GameObject previousInteractableItem; // РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РїСЂРµРґС‹РґСѓС‰РµРіРѕ РѕР±СЉРµРєС‚Р°
+	private GameObject currentInteractableItem; // РўРµРєСѓС‰РёР№ РѕР±СЉРµРєС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
 
 	private RaycastHit hitInfo;
 	private bool isHit;
 
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>(); // Получаем список вводимых команд
+		playerInputsList = GetComponent<PlayerInputsList>(); // РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє РІРІРѕРґРёРјС‹С… РєРѕРјР°РЅРґ
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 	}
 
@@ -51,44 +51,44 @@ public class InteractionController : MonoBehaviour
 				{
 					currentInteractableItem = renderer;
 
-					// Новый объект найден, проверяем, изменился ли он
+					// РќРѕРІС‹Р№ РѕР±СЉРµРєС‚ РЅР°Р№РґРµРЅ, РїСЂРѕРІРµСЂСЏРµРј, РёР·РјРµРЅРёР»СЃСЏ Р»Рё РѕРЅ
 					if (previousInteractableItem != null && previousInteractableItem != currentInteractableItem)
 					{
-						// Предыдущий объект меняется на новый, сбрасываем слой предыдущего
+						// РџСЂРµРґС‹РґСѓС‰РёР№ РѕР±СЉРµРєС‚ РјРµРЅСЏРµС‚СЃСЏ РЅР° РЅРѕРІС‹Р№, СЃР±СЂР°СЃС‹РІР°РµРј СЃР»РѕР№ РїСЂРµРґС‹РґСѓС‰РµРіРѕ
 						previousInteractableItem.layer = LayerMask.NameToLayer("Default");
 					}
 
-					// Ставим новый слой для текущего объекта
+					// РЎС‚Р°РІРёРј РЅРѕРІС‹Р№ СЃР»РѕР№ РґР»СЏ С‚РµРєСѓС‰РµРіРѕ РѕР±СЉРµРєС‚Р°
 					currentInteractableItem.layer = LayerMask.NameToLayer("Outline");
 				}
 
-				// Устанавливаем подсказку с нужной кнопкой
-				interactionText.text = $"{interactableObj.InteractionHint}\nНажмите {playerInputsList.GetNameOfKeyInteract()}";
+				// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕРґСЃРєР°Р·РєСѓ СЃ РЅСѓР¶РЅРѕР№ РєРЅРѕРїРєРѕР№
+				interactionText.text = $"{interactableObj.InteractionHint}\nРќР°Р¶РјРёС‚Рµ {playerInputsList.GetNameOfKeyInteract()}";
 
-				// Проверка на нажатие кнопки
+				// РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё
 				if (playerInputsList.GetKeyInteract())
 				{
-					interactableObj.Interact(); // Обработка события взаимодействия
+					interactableObj.Interact(); // РћР±СЂР°Р±РѕС‚РєР° СЃРѕР±С‹С‚РёСЏ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
 				}
 			}
 			else
 			{
-				Debug.LogWarning("Объект с тегом \"Interactable\" не содержит интерфейс IInteractable.");
+				Debug.LogWarning("РћР±СЉРµРєС‚ СЃ С‚РµРіРѕРј \"Interactable\" РЅРµ СЃРѕРґРµСЂР¶РёС‚ РёРЅС‚РµСЂС„РµР№СЃ IInteractable.");
 			}
 		}
 		else
 		{
-			// Если объект вышел из зоны взаимодействия
+			// Р•СЃР»Рё РѕР±СЉРµРєС‚ РІС‹С€РµР» РёР· Р·РѕРЅС‹ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
 			if (currentInteractableItem != null)
 			{
 				currentInteractableItem.layer = LayerMask.NameToLayer("Default");
 			}
 
-			// Очищаем текущий объект
+			// РћС‡РёС‰Р°РµРј С‚РµРєСѓС‰РёР№ РѕР±СЉРµРєС‚
 			currentInteractableItem = null;
 		}
 
-		// Запоминаем текущий объект как предыдущий для следующего кадра
+		// Р—Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РёР№ РѕР±СЉРµРєС‚ РєР°Рє РїСЂРµРґС‹РґСѓС‰РёР№ РґР»СЏ СЃР»РµРґСѓСЋС‰РµРіРѕ РєР°РґСЂР°
 		previousInteractableItem = currentInteractableItem;
 	}
 }

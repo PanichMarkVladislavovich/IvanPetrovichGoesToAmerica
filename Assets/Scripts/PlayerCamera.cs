@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using UnityEngine;
 public class PlayerCamera : MonoBehaviour, IDataPersistence
 {
@@ -42,7 +42,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 	/*
 	private void Awake()
 	{
-		DontDestroyOnLoad(gameObject); // Игровой объект сохранится при смене сцены}
+		DontDestroyOnLoad(gameObject); // РРіСЂРѕРІРѕР№ РѕР±СЉРµРєС‚ СЃРѕС…СЂР°РЅРёС‚СЃСЏ РїСЂРё СЃРјРµРЅРµ СЃС†РµРЅС‹}
 	}
 	*/
 
@@ -148,21 +148,21 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 		{
 			if (Physics.Linecast(PlayerCollider.transform.position, transform.position, out hit))
 			{
-				// Камера снова видит игрока
+				// РљР°РјРµСЂР° СЃРЅРѕРІР° РІРёРґРёС‚ РёРіСЂРѕРєР°
 				if (!canReturn)
 				{
-					// Запускаем обратный отсчёт
+					// Р—Р°РїСѓСЃРєР°РµРј РѕР±СЂР°С‚РЅС‹Р№ РѕС‚СЃС‡С‘С‚
 					canReturn = true;
 					startTransitionTime = Time.time;
 				}
 				else
 				{
-					// Проверяем, прошёл ли период ожидания
+					// РџСЂРѕРІРµСЂСЏРµРј, РїСЂРѕС€С‘Р» Р»Рё РїРµСЂРёРѕРґ РѕР¶РёРґР°РЅРёСЏ
 					if (Time.time - startTransitionTime >= transitionDelay)
 					{
 						if (PlayerCameraDistanceZ >= 0.75f)
 						{
-							// Потеря контакта с игроком, идём на минимальное расстояние
+							// РџРѕС‚РµСЂСЏ РєРѕРЅС‚Р°РєС‚Р° СЃ РёРіСЂРѕРєРѕРј, РёРґС‘Рј РЅР° РјРёРЅРёРјР°Р»СЊРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
 							PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, hit.distance, Time.deltaTime * 4f);
 							IsAbleToZoomCameraOut = false;
 						}
@@ -175,11 +175,11 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 				if (PlayerCameraDistanceZ <= 5f)
 				{
 					IsAbleToZoomCameraOut = true;
-					// Начинаем постепенное удаление камеры
+					// РќР°С‡РёРЅР°РµРј РїРѕСЃС‚РµРїРµРЅРЅРѕРµ СѓРґР°Р»РµРЅРёРµ РєР°РјРµСЂС‹
 					//	PlayerCameraDistanceZ = Mathf.Lerp(PlayerCameraDistanceZ, 5f, Time.deltaTime * 4f);
 				}
 
-				canReturn = false; // Отменяем возвращение
+				canReturn = false; // РћС‚РјРµРЅСЏРµРј РІРѕР·РІСЂР°С‰РµРЅРёРµ
 			}
 		}
 		

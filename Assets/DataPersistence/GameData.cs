@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 
 [System.Serializable]
@@ -69,8 +69,8 @@ public class GameData
 [System.Serializable]
 public struct LootItemData
 	{
-		public int LootItemIndex;        // Целое число
-		public bool WasLootItemCollected;      // Булевое значение
-		//public Vector3 LootItemPosition;   // Трёхмерный вектор
-		//public Quaternion LootItemRotation; // Кватернион
+		public int LootItemIndex;        // Р¦РµР»РѕРµ С‡РёСЃР»Рѕ
+		public bool WasLootItemCollected;      // Р‘СѓР»РµРІРѕРµ Р·РЅР°С‡РµРЅРёРµ
+		//public Vector3 LootItemPosition;   // РўСЂС‘С…РјРµСЂРЅС‹Р№ РІРµРєС‚РѕСЂ
+		//public Quaternion LootItemRotation; // РљРІР°С‚РµСЂРЅРёРѕРЅ
 	}

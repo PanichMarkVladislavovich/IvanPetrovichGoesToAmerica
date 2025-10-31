@@ -1,23 +1,23 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class DoorWardrobeDrawer : DoorAbstract
 {
-	public override string InteractionItemName => "Âûäâèæíîé ÿùèê";
+	public override string InteractionItemName => "Ð’Ñ‹Ð´Ð²Ð¸Ð¶Ð½Ð¾Ð¹ ÑÑ‰Ð¸Ðº";
 
-	private float drawerOpeningSpeed = 3f; // Ñêîðîñòü îòêðûòèÿ-çàêðûòèÿ ÿùèêà
+	private float drawerOpeningSpeed = 3f; // Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¸Ñ-Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ñ ÑÑ‰Ð¸ÐºÐ°
 
-	private Coroutine currentAnimation;     // Ïåðåìåííàÿ äëÿ õðàíåíèÿ àêòèâíîé êîðóòèíû
+	private Coroutine currentAnimation;     // ÐŸÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð°Ñ Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¾Ð¹ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñ‹
 
-	private Vector3 openedPosition;        // Îòêðûòîå ïîëîæåíèå ÿùèêà
-	private Vector3 closedPosition;        // Çàêðûòîå ïîëîæåíèå ÿùèêà
+	private Vector3 openedPosition;        // ÐžÑ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ ÑÑ‰Ð¸ÐºÐ°
+	private Vector3 closedPosition;        // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ ÑÑ‰Ð¸ÐºÐ°
 
 	void Start()
 	{
-		// Íà÷àëüíîå ïîëîæåíèå çàêðûëîãî ÿùèêà
+		// ÐÐ°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð·Ð°ÐºÑ€Ñ‹Ð»Ð¾Ð³Ð¾ ÑÑ‰Ð¸ÐºÐ°
 		closedPosition = transform.localPosition;
 
-		// Îòêðûâàåì ÿùèê âïåð¸ä ïî îñè Z íà 0.45 åäèíèöû
+		// ÐžÑ‚ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ ÑÑ‰Ð¸Ðº Ð²Ð¿ÐµÑ€Ñ‘Ð´ Ð¿Ð¾ Ð¾ÑÐ¸ Z Ð½Ð° 0.45 ÐµÐ´Ð¸Ð½Ð¸Ñ†Ñ‹
 		openedPosition = transform.localPosition + new Vector3(0, 0, 0.45f);
 
 		IsDoorOpened = false;
@@ -25,7 +25,7 @@ public class DoorWardrobeDrawer : DoorAbstract
 
 	public override void Interact()
 	{
-		// Îñòàíàâëèâàåì ðàíåå çàïóùåííóþ êîðóòèíó, åñëè îíà ñóùåñòâóåò
+		// ÐžÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ñ€Ð°Ð½ÐµÐµ Ð·Ð°Ð¿ÑƒÑ‰ÐµÐ½Ð½ÑƒÑŽ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñƒ, ÐµÑÐ»Ð¸ Ð¾Ð½Ð° ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚
 		if (currentAnimation != null)
 		{
 			StopCoroutine(currentAnimation);
@@ -33,17 +33,17 @@ public class DoorWardrobeDrawer : DoorAbstract
 
 		if (!IsDoorOpened)
 		{
-			currentAnimation = StartCoroutine(OpenDrawer()); // Íà÷èíàåì íîâóþ êîðóòèíó
+			currentAnimation = StartCoroutine(OpenDrawer()); // ÐÐ°Ñ‡Ð¸Ð½Ð°ÐµÐ¼ Ð½Ð¾Ð²ÑƒÑŽ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñƒ
 		}
 		else
 		{
-			currentAnimation = StartCoroutine(CloseDrawer()); // Íà÷èíàåì íîâóþ êîðóòèíó
+			currentAnimation = StartCoroutine(CloseDrawer()); // ÐÐ°Ñ‡Ð¸Ð½Ð°ÐµÐ¼ Ð½Ð¾Ð²ÑƒÑŽ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñƒ
 		}
 	}
 
 	IEnumerator OpenDrawer()
 	{
-		Debug.Log($"Áûë îòêðûò {InteractionItemName}");
+		Debug.Log($"Ð‘Ñ‹Ð» Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ {InteractionItemName}");
 		IsDoorOpened = true;
 
 		while (Mathf.Abs(transform.localPosition.z - openedPosition.z) > 0.001f)
@@ -57,7 +57,7 @@ public class DoorWardrobeDrawer : DoorAbstract
 
 	IEnumerator CloseDrawer()
 	{
-		Debug.Log($"Áûë çàêðûò {InteractionItemName}");
+		Debug.Log($"Ð‘Ñ‹Ð» Ð·Ð°ÐºÑ€Ñ‹Ñ‚ {InteractionItemName}");
 		IsDoorOpened = false;
 
 		while (Mathf.Abs(transform.localPosition.z - closedPosition.z) > 0.001f)

@@ -1,4 +1,4 @@
-public abstract class PlayerCameraState
+﻿public abstract class PlayerCameraState
 {
 	protected PlayerCamera playerCamera;
 	public virtual void ChangePlayerCameraView()

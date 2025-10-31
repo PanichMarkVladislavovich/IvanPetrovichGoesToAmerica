@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System.Collections;
 
 public class SafeController : MonoBehaviour, IInteractable
@@ -21,7 +21,7 @@ public class SafeController : MonoBehaviour, IInteractable
 	private bool isInStartMethod;
 
 	public string InteractionItemName => null;
-	public string InteractionHint => "ŒÚÍ˚Ú¸ ÒÂÈÙ";
+	public string InteractionHint => "–û—Ç–∫—Ä—ã—Ç—å —Å–µ–π—Ñ";
 
 	void Start()
 	{

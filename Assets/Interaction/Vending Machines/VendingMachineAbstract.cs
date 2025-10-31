@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public abstract class VendingMachineAbstract : MonoBehaviour, IInteractable
 {
 
 	public virtual string InteractionItemName => gameObject.name;
-	public virtual string InteractionHint => $"Êóïèòü {GoodsName} â {InteractionItemName}?";
+	public virtual string InteractionHint => $"ÐšÑƒÐ¿Ð¸Ñ‚ÑŒ {GoodsName} Ð² {InteractionItemName}?";
 	public virtual string GoodsName => gameObject.name;
 
 

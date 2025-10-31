@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 public class ThirdPersonPlayerCameraState : PlayerCameraState
 {
 	public ThirdPersonPlayerCameraState(PlayerCamera playerCam)

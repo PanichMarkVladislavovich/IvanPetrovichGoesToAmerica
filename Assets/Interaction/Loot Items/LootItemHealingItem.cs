@@ -1,18 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class LootItemHealingItem : LootItemAbstract
 {
 
 	public override int MoneyValue { get; protected set; } = 0;
 
-	public override string InteractionItemName => "Ëå÷àùèé ïðåäìåò";
+	public override string InteractionItemName => "Ð›ÐµÑ‡Ð°Ñ‰Ð¸Ð¹ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚";
 
 
 	public override void Interact()
 	{
 		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
 		{
-			Debug.Log($"Âû ïîäíÿëè {InteractionItemName}");
+			Debug.Log($"Ð’Ñ‹ Ð¿Ð¾Ð´Ð½ÑÐ»Ð¸ {InteractionItemName}");
 			Destroy(gameObject);
 			PlayerHealthManager.Instance.AddHealingItem();
 		}

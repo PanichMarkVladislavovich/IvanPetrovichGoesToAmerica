@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class VendingMachineAmmo : VendingMachineAbstract
 {
@@ -6,24 +6,24 @@ public class VendingMachineAmmo : VendingMachineAbstract
 	public GameObject HealingItemModel;
 
 
-	public override string InteractionItemName => "Автомате по продаже патронов";
+	public override string InteractionItemName => "РђРІС‚РѕРјР°С‚Рµ РїРѕ РїСЂРѕРґР°Р¶Рµ РїР°С‚СЂРѕРЅРѕРІ";
 
-	public override string GoodsName => "Патроны";
+	public override string GoodsName => "РџР°С‚СЂРѕРЅС‹";
 
 	private int goodsPrice = 30;
 
 	private void Awake()
 	{
-		HealingItemModel = Resources.Load<GameObject>("HealingItem"); // Загружаем префаб револьвера
+		HealingItemModel = Resources.Load<GameObject>("HealingItem"); // Р—Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„Р°Р± СЂРµРІРѕР»СЊРІРµСЂР°
 
 	}
 	public override void Interact()
 	{
 		if (PlayerMoneyManager.Instance.PlayerMoney >= goodsPrice)
 		{
-			Vector3 spawnPosition = transform.position + new Vector3(-1f, 0.5f, 0f); // Сместили объект вверх на единицу
+			Vector3 spawnPosition = transform.position + new Vector3(-1f, 0.5f, 0f); // РЎРјРµСЃС‚РёР»Рё РѕР±СЉРµРєС‚ РІРІРµСЂС… РЅР° РµРґРёРЅРёС†Сѓ
 
-			Debug.Log($"Вы купили {GoodsName} в {InteractionItemName}");
+			Debug.Log($"Р’С‹ РєСѓРїРёР»Рё {GoodsName} РІ {InteractionItemName}");
 			Instantiate(HealingItemModel, spawnPosition, Quaternion.identity); 
 			PlayerMoneyManager.Instance.DeductMoney(-goodsPrice);
 		}

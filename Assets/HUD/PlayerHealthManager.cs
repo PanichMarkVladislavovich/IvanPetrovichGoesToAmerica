@@ -1,10 +1,10 @@
-using TMPro;
+п»їusing TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthManager : MonoBehaviour, IDataPersistence
 {
-	public static PlayerHealthManager Instance { get; private set; } // Статическое поле экземпляра
+	public static PlayerHealthManager Instance { get; private set; } // РЎС‚Р°С‚РёС‡РµСЃРєРѕРµ РїРѕР»Рµ СЌРєР·РµРјРїР»СЏСЂР°
 
 	public Slider HealthBarSlider;
     public Button HealingItemButton;
@@ -21,15 +21,15 @@ public class PlayerHealthManager : MonoBehaviour, IDataPersistence
 		
 		
 
-		// Паттерн Singleton: предотвращаем создание второго экземпляра
+		// РџР°С‚С‚РµСЂРЅ Singleton: РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµРј СЃРѕР·РґР°РЅРёРµ РІС‚РѕСЂРѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР°
 		if (Instance == null)
 		{
 			Instance = this;
-			//DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+			//DontDestroyOnLoad(gameObject); // РЎРѕС…СЂР°РЅСЏРµС‚СЃСЏ РїСЂРё СЃРјРµРЅРµ СѓСЂРѕРІРЅРµР№
 		}
 		else
 		{
-			Destroy(gameObject); // Уничтожаем лишние экземпляры
+			Destroy(gameObject); // РЈРЅРёС‡С‚РѕР¶Р°РµРј Р»РёС€РЅРёРµ СЌРєР·РµРјРїР»СЏСЂС‹
 		}
 
 

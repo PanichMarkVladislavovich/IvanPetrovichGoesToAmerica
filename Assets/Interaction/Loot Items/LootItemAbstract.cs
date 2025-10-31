@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using System;
 using Unity.IO.LowLevel.Unsafe;
 
@@ -8,18 +8,18 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 	//public virtual Quaternion LootItemRotation { get; protected set; }
 	public virtual string InteractionItemName => gameObject.name;
 
-	public virtual string InteractionHint => $"Поднять {InteractionItemName}";
+	public virtual string InteractionHint => $"РџРѕРґРЅСЏС‚СЊ {InteractionItemName}";
 
 	public virtual int MoneyValue { get; protected set; }
 
 	public virtual bool WasLootItemCollected { get; protected set; }
 	
 
-	// Поле для внутреннего индекса и хранения типа предмета
+	// РџРѕР»Рµ РґР»СЏ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РёРЅРґРµРєСЃР° Рё С…СЂР°РЅРµРЅРёСЏ С‚РёРїР° РїСЂРµРґРјРµС‚Р°
 	public int LootItemIndex { get; protected set; }
 	//public Type CollectableType { get; private set; }
 
-	// Универсальная процедура назначения индекса
+	// РЈРЅРёРІРµСЂСЃР°Р»СЊРЅР°СЏ РїСЂРѕС†РµРґСѓСЂР° РЅР°Р·РЅР°С‡РµРЅРёСЏ РёРЅРґРµРєСЃР°
 
 	/*
 	internal void AssignLootItemIndex(int index, Type type)

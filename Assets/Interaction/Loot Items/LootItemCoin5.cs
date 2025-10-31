@@ -1,15 +1,15 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class LootItemCoin5 : LootItemAbstract
 {
 	public override int MoneyValue { get; protected set; } = 5;
 
-	public override string InteractionItemName => "Монета 5 рублей";
+	public override string InteractionItemName => "РњРѕРЅРµС‚Р° 5 СЂСѓР±Р»РµР№";
 
 
 	public override void Interact()
 	{
-		Debug.Log($"Вы подняли {InteractionItemName}, получаете {MoneyValue} рублей");
+		Debug.Log($"Р’С‹ РїРѕРґРЅСЏР»Рё {InteractionItemName}, РїРѕР»СѓС‡Р°РµС‚Рµ {MoneyValue} СЂСѓР±Р»РµР№");
 		Destroy(gameObject);
 		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
 	}

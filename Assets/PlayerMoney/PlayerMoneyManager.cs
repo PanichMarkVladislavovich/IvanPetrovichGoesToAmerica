@@ -1,9 +1,9 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using TMPro;
 
 public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 {
-	public static PlayerMoneyManager Instance { get; private set; } // Статическое поле экземпляра
+	public static PlayerMoneyManager Instance { get; private set; } // РЎС‚Р°С‚РёС‡РµСЃРєРѕРµ РїРѕР»Рµ СЌРєР·РµРјРїР»СЏСЂР°
 	public PlayerInputsList playerInputsList;
 	public TMP_Text PlayerMoneyText;
 
@@ -11,15 +11,15 @@ public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 
 	private void Awake()
 	{
-		// Паттерн Singleton: предотвращаем создание второго экземпляра
+		// РџР°С‚С‚РµСЂРЅ Singleton: РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµРј СЃРѕР·РґР°РЅРёРµ РІС‚РѕСЂРѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР°
 		if (Instance == null)
 		{
 			Instance = this;
-			//DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+			//DontDestroyOnLoad(gameObject); // РЎРѕС…СЂР°РЅСЏРµС‚СЃСЏ РїСЂРё СЃРјРµРЅРµ СѓСЂРѕРІРЅРµР№
 		}
 		else
 		{
-			Destroy(gameObject); // Уничтожаем лишние экземпляры
+			Destroy(gameObject); // РЈРЅРёС‡С‚РѕР¶Р°РµРј Р»РёС€РЅРёРµ СЌРєР·РµРјРїР»СЏСЂС‹
 		}
 	}
 
@@ -27,7 +27,7 @@ public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 	private void Start()
 	{
 		playerInputsList = GetComponent<PlayerInputsList>();
-		UpdateMoneyDisplay(); // После изменения сразу обновить интерфейс
+		UpdateMoneyDisplay(); // РџРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёСЏ СЃСЂР°Р·Сѓ РѕР±РЅРѕРІРёС‚СЊ РёРЅС‚РµСЂС„РµР№СЃ
 	}
 
 	private void Update()
@@ -44,7 +44,7 @@ public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
         else
         {
             PlayerMoney += moneyAmmount;
-			UpdateMoneyDisplay(); // После изменения сразу обновить интерфейс
+			UpdateMoneyDisplay(); // РџРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёСЏ СЃСЂР°Р·Сѓ РѕР±РЅРѕРІРёС‚СЊ РёРЅС‚РµСЂС„РµР№СЃ
 		}
     }
 	public void DeductMoney(int moneyAmmount)
@@ -60,14 +60,14 @@ public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 		else
 		{
 			PlayerMoney += moneyAmmount;
-			UpdateMoneyDisplay(); // После изменения сразу обновить интерфейс
+			UpdateMoneyDisplay(); // РџРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёСЏ СЃСЂР°Р·Сѓ РѕР±РЅРѕРІРёС‚СЊ РёРЅС‚РµСЂС„РµР№СЃ
 		}
 	}
 	private void UpdateMoneyDisplay()
 	{
 		if (PlayerMoneyText != null)
 		{
-			PlayerMoneyText.text = PlayerMoney.ToString(); // Форматируем текст для вывода суммы
+			PlayerMoneyText.text = PlayerMoney.ToString(); // Р¤РѕСЂРјР°С‚РёСЂСѓРµРј С‚РµРєСЃС‚ РґР»СЏ РІС‹РІРѕРґР° СЃСѓРјРјС‹
 		}
 	}
 

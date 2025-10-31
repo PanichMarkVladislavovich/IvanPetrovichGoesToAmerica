@@ -1,4 +1,4 @@
-public interface IInteractable
+﻿public interface IInteractable
 {
 	string InteractionItemName { get; }
 	string InteractionHint { get; }

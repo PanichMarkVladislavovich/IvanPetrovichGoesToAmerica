@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using UnityEngine;
 
 public class GameInitiator : MonoBehaviour
@@ -31,32 +31,32 @@ public class GameInitiator : MonoBehaviour
 
 
 	/*
-	// Метод запуска игры
+	// РњРµС‚РѕРґ Р·Р°РїСѓСЃРєР° РёРіСЂС‹
 	private void Start()
 	{
 		StartCoroutine(StartGame());
 	}
 
-	// Асинхронный запуск игровых процессов
+	// РђСЃРёРЅС…СЂРѕРЅРЅС‹Р№ Р·Р°РїСѓСЃРє РёРіСЂРѕРІС‹С… РїСЂРѕС†РµСЃСЃРѕРІ
 	private IEnumerator StartGame()
 	{
-		Debug.Log("Начало инициализации...");
+		Debug.Log("РќР°С‡Р°Р»Рѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё...");
 
-		yield return StartCoroutine(BindObjects()); // Ждем окончания выполнения корутины
+		yield return StartCoroutine(BindObjects()); // Р–РґРµРј РѕРєРѕРЅС‡Р°РЅРёСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРѕСЂСѓС‚РёРЅС‹
 
-		Debug.Log("Инициализация закончена.");
+		Debug.Log("РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р·Р°РєРѕРЅС‡РµРЅР°.");
 	}
 
-	// Корутина выполняющая какую-то операцию
+	// РљРѕСЂСѓС‚РёРЅР° РІС‹РїРѕР»РЅСЏСЋС‰Р°СЏ РєР°РєСѓСЋ-С‚Рѕ РѕРїРµСЂР°С†РёСЋ
 	private IEnumerator BindObjects()
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			Debug.Log($"Выполняется операция {i}");
-			yield return new WaitForSeconds(1f); // Пауза на секунду
+			Debug.Log($"Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РѕРїРµСЂР°С†РёСЏ {i}");
+			yield return new WaitForSeconds(1f); // РџР°СѓР·Р° РЅР° СЃРµРєСѓРЅРґСѓ
 		}
 
-		Debug.Log("Операция выполнена успешно!");
+		Debug.Log("РћРїРµСЂР°С†РёСЏ РІС‹РїРѕР»РЅРµРЅР° СѓСЃРїРµС€РЅРѕ!");
 	}
 	*/
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using System.Collections;
 using System;
 public class PlayerMovementController : MonoBehaviour, IDataPersistence
@@ -141,7 +141,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		}
 		else PlayerWorldMovement.z = 0;
 
-		// короче тут проблема
+		// РєРѕСЂРѕС‡Рµ С‚СѓС‚ РїСЂРѕР±Р»РµРјР°
 		if (playerInputsList.GetKeyJump())
 		{
 			
@@ -226,7 +226,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 			//!!!!!!!!!!!!!!!!!!!!!!!!!!
 			// IsPLayerSliding == false 
 
-			// все еще sliding ОШИБКА!
+			// РІСЃРµ РµС‰Рµ sliding РћРЁРР‘РљРђ!
 			if (CurrentPlayerMovementStateType != "PlayerJumping")
 			{
 				PlayerRigidBody.linearVelocity = Vector3.zero;

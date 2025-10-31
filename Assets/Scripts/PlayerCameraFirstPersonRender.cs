@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 public class PlayerCameraFirstPersonRender : MonoBehaviour
 {
 	PlayerCamera playerCamera;
@@ -25,28 +25,28 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 		{
 			if (weaponController.RightHandWeapon != null)
 			{
-				ShowPlayerWeapon(weaponController.RightHandWeapon.FirstPersonWeaponModelInstance, false); // Первое лицо, оружие первого лица видно, без теней
-				HidePlayerWeapon(weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance, true);  // Третье лицо, оружие третьего лица скрыто, но отбрасывает тени
+				ShowPlayerWeapon(weaponController.RightHandWeapon.FirstPersonWeaponModelInstance, false); // РџРµСЂРІРѕРµ Р»РёС†Рѕ, РѕСЂСѓР¶РёРµ РїРµСЂРІРѕРіРѕ Р»РёС†Р° РІРёРґРЅРѕ, Р±РµР· С‚РµРЅРµР№
+				HidePlayerWeapon(weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance, true);  // РўСЂРµС‚СЊРµ Р»РёС†Рѕ, РѕСЂСѓР¶РёРµ С‚СЂРµС‚СЊРµРіРѕ Р»РёС†Р° СЃРєСЂС‹С‚Рѕ, РЅРѕ РѕС‚Р±СЂР°СЃС‹РІР°РµС‚ С‚РµРЅРё
 			}
 
 		    if (weaponController.LeftHandWeapon != null)
 			{
-			    ShowPlayerWeapon(weaponController.LeftHandWeapon.FirstPersonWeaponModelInstance, false);   // Вторая рука, оружие первого лица, аналогично первой руке
-			    HidePlayerWeapon(weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance, true);   // Вторая рука, оружие третьего лица, аналогично первой руке
+			    ShowPlayerWeapon(weaponController.LeftHandWeapon.FirstPersonWeaponModelInstance, false);   // Р’С‚РѕСЂР°СЏ СЂСѓРєР°, РѕСЂСѓР¶РёРµ РїРµСЂРІРѕРіРѕ Р»РёС†Р°, Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїРµСЂРІРѕР№ СЂСѓРєРµ
+			    HidePlayerWeapon(weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance, true);   // Р’С‚РѕСЂР°СЏ СЂСѓРєР°, РѕСЂСѓР¶РёРµ С‚СЂРµС‚СЊРµРіРѕ Р»РёС†Р°, Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїРµСЂРІРѕР№ СЂСѓРєРµ
 			}
 	    }
 		else
 		{
 			if (weaponController.RightHandWeapon != null)
 			{
-				ShowPlayerWeapon(weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance, true);  // Третье лицо, оружие третьего лица, показывает и отбрасывает тени
-				HidePlayerWeapon(weaponController.RightHandWeapon.FirstPersonWeaponModelInstance, false); // Первая рука, оружие первого лица, ничего не видно и нет теней
+				ShowPlayerWeapon(weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance, true);  // РўСЂРµС‚СЊРµ Р»РёС†Рѕ, РѕСЂСѓР¶РёРµ С‚СЂРµС‚СЊРµРіРѕ Р»РёС†Р°, РїРѕРєР°Р·С‹РІР°РµС‚ Рё РѕС‚Р±СЂР°СЃС‹РІР°РµС‚ С‚РµРЅРё
+				HidePlayerWeapon(weaponController.RightHandWeapon.FirstPersonWeaponModelInstance, false); // РџРµСЂРІР°СЏ СЂСѓРєР°, РѕСЂСѓР¶РёРµ РїРµСЂРІРѕРіРѕ Р»РёС†Р°, РЅРёС‡РµРіРѕ РЅРµ РІРёРґРЅРѕ Рё РЅРµС‚ С‚РµРЅРµР№
 			}
 
 			if (weaponController.LeftHandWeapon != null)
 			{
-				ShowPlayerWeapon(weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance, true);   // Левая рука, оружие третьего лица, аналогично правой руке
-				HidePlayerWeapon(weaponController.LeftHandWeapon.FirstPersonWeaponModelInstance, false);  // Левая рука, оружие первого лица, аналогично правой руке
+				ShowPlayerWeapon(weaponController.LeftHandWeapon.ThirdPersonWeaponModelInstance, true);   // Р›РµРІР°СЏ СЂСѓРєР°, РѕСЂСѓР¶РёРµ С‚СЂРµС‚СЊРµРіРѕ Р»РёС†Р°, Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїСЂР°РІРѕР№ СЂСѓРєРµ
+				HidePlayerWeapon(weaponController.LeftHandWeapon.FirstPersonWeaponModelInstance, false);  // Р›РµРІР°СЏ СЂСѓРєР°, РѕСЂСѓР¶РёРµ РїРµСЂРІРѕРіРѕ Р»РёС†Р°, Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїСЂР°РІРѕР№ СЂСѓРєРµ
 			}
 		}
 	}
@@ -108,10 +108,10 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 
 	public void ShowBodyPart(GameObject rootObj)
 	{
-		// Получаем все рендеры (включая дочерние объекты)
+		// РџРѕР»СѓС‡Р°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ (РІРєР»СЋС‡Р°СЏ РґРѕС‡РµСЂРЅРёРµ РѕР±СЉРµРєС‚С‹)
 		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
 
-		// Перебираем все рендеры и включаем отбрасывание теней
+		// РџРµСЂРµР±РёСЂР°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ Рё РІРєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 		foreach (Renderer renderer in renderers)
 		{
 			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
@@ -123,10 +123,10 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 
 	public void HideBodyPart(GameObject rootObj)
 	{
-		// Получаем все рендеры (включая дочерние объекты)
+		// РџРѕР»СѓС‡Р°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ (РІРєР»СЋС‡Р°СЏ РґРѕС‡РµСЂРЅРёРµ РѕР±СЉРµРєС‚С‹)
 		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
 
-		// Перебираем все рендеры и включаем отбрасывание теней
+		// РџРµСЂРµР±РёСЂР°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ Рё РІРєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 		foreach (Renderer renderer in renderers)
 		{
 			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
@@ -138,10 +138,10 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 
 	public void ShowFirstPersonHand(GameObject rootObj)
 	{
-		// Получаем все рендеры (включая дочерние объекты)
+		// РџРѕР»СѓС‡Р°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ (РІРєР»СЋС‡Р°СЏ РґРѕС‡РµСЂРЅРёРµ РѕР±СЉРµРєС‚С‹)
 		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
 
-		// Перебираем все рендеры и включаем отбрасывание теней
+		// РџРµСЂРµР±РёСЂР°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ Рё РІРєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 		foreach (Renderer renderer in renderers)
 		{
 			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
@@ -153,10 +153,10 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 
 	public void HideFirstPersonHand(GameObject rootObj)
 	{
-		// Получаем все рендеры (включая дочерние объекты)
+		// РџРѕР»СѓС‡Р°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ (РІРєР»СЋС‡Р°СЏ РґРѕС‡РµСЂРЅРёРµ РѕР±СЉРµРєС‚С‹)
 		Renderer[] renderers = rootObj.GetComponentsInChildren<Renderer>(true);
 
-		// Перебираем все рендеры и включаем отбрасывание теней
+		// РџРµСЂРµР±РёСЂР°РµРј РІСЃРµ СЂРµРЅРґРµСЂС‹ Рё РІРєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 		foreach (Renderer renderer in renderers)
 		{
 			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
@@ -174,15 +174,15 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 		{
 			if (renderer is MeshRenderer || renderer is SkinnedMeshRenderer)
 			{
-				renderer.enabled = true;                                   // Включаем рендер
+				renderer.enabled = true;                                   // Р’РєР»СЋС‡Р°РµРј СЂРµРЅРґРµСЂ
 
 				if (castShadows)
 				{
-					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;  // Включаем отбрасывание теней
+					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;  // Р’РєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 				}
 				else
 				{
-					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; // Отключаем отбрасывание теней
+					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; // РћС‚РєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 				}
 			}
 		}
@@ -207,11 +207,11 @@ public class PlayerCameraFirstPersonRender : MonoBehaviour
 
 				if (!allowShadows)
 				{
-					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; // Полностью отключаем отбрасывание теней
+					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; // РџРѕР»РЅРѕСЃС‚СЊСЋ РѕС‚РєР»СЋС‡Р°РµРј РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 				}
 				else
 				{
-					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly; // Оставляем только отбрасывание теней
+					renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly; // РћСЃС‚Р°РІР»СЏРµРј С‚РѕР»СЊРєРѕ РѕС‚Р±СЂР°СЃС‹РІР°РЅРёРµ С‚РµРЅРµР№
 				}
 				
 			}

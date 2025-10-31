@@ -1,10 +1,10 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class LootItemGoldBar : LootItemAbstract
 {
 	public override int MoneyValue { get; protected set; } = 20;
 
-	public override string InteractionItemName => "Золотой слиток";
+	public override string InteractionItemName => "Р—РѕР»РѕС‚РѕР№ СЃР»РёС‚РѕРє";
 
 	//private GameObject NewInstance;
 
@@ -12,7 +12,7 @@ public class LootItemGoldBar : LootItemAbstract
 	{
 		
 
-		Debug.Log($"Вы подняли {InteractionItemName}, получаете {MoneyValue} рублей");
+		Debug.Log($"Р’С‹ РїРѕРґРЅСЏР»Рё {InteractionItemName}, РїРѕР»СѓС‡Р°РµС‚Рµ {MoneyValue} СЂСѓР±Р»РµР№");
 		Destroy(gameObject);
 		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
 		WasLootItemCollected = true;
@@ -45,7 +45,7 @@ public class LootItemGoldBar : LootItemAbstract
 		if (data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected == true)
 		{
 			WasLootItemCollected = true;
-			Destroy(gameObject); // Если предмет собран, удаляем его
+			Destroy(gameObject); // Р•СЃР»Рё РїСЂРµРґРјРµС‚ СЃРѕР±СЂР°РЅ, СѓРґР°Р»СЏРµРј РµРіРѕ
 		}
 
 		/*
@@ -53,7 +53,7 @@ public class LootItemGoldBar : LootItemAbstract
 		{
 			if (NewInstance == null)
 			{
-				Destroy(gameObject); // Если предмет собран, удаляем его
+				Destroy(gameObject); // Р•СЃР»Рё РїСЂРµРґРјРµС‚ СЃРѕР±СЂР°РЅ, СѓРґР°Р»СЏРµРј РµРіРѕ
 			}
 			else
 			{

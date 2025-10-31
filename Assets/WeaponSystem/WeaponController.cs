@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
@@ -47,23 +47,23 @@ public class WeaponController : MonoBehaviour
 	{
 		bool isLeftHand = weaponWheelController.IsWeaponLeftHand;
 
-		// Проверяем, есть ли оружие в левой руке
+		// РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РѕСЂСѓР¶РёРµ РІ Р»РµРІРѕР№ СЂСѓРєРµ
 		if (weaponWheelController.IsWeaponLeftHand && LeftHandWeapon != null && LeftHandWeapon.GetType() == weaponType)
 		{
-			// Если текущее оружие совпадает с выбранным, ничего не делаем
+			// Р•СЃР»Рё С‚РµРєСѓС‰РµРµ РѕСЂСѓР¶РёРµ СЃРѕРІРїР°РґР°РµС‚ СЃ РІС‹Р±СЂР°РЅРЅС‹Рј, РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј
 			playerBehaviour.ArmPlayer();
 			return;
 		}
-		// Проверяем, есть ли оружие в правой руке
+		// РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РѕСЂСѓР¶РёРµ РІ РїСЂР°РІРѕР№ СЂСѓРєРµ
 		else if (!isLeftHand && RightHandWeapon != null && RightHandWeapon.GetType() == weaponType)
 		{
-			// Если текущее оружие совпадает с выбранным, ничего не делаем
+			// Р•СЃР»Рё С‚РµРєСѓС‰РµРµ РѕСЂСѓР¶РёРµ СЃРѕРІРїР°РґР°РµС‚ СЃ РІС‹Р±СЂР°РЅРЅС‹Рј, РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј
 			playerBehaviour.ArmPlayer();
 			return;
 		}
 		else
 		{
-			// Если оружие не найдено ни в одной руке, создаем новый экземпляр оружия
+			// Р•СЃР»Рё РѕСЂСѓР¶РёРµ РЅРµ РЅР°Р№РґРµРЅРѕ РЅРё РІ РѕРґРЅРѕР№ СЂСѓРєРµ, СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ РѕСЂСѓР¶РёСЏ
 			if (isLeftHand)
 			{
 				if (LeftHandWeapon != null)
@@ -75,10 +75,10 @@ public class WeaponController : MonoBehaviour
 					RemoveWeapon("right");
 				}
 
-				// Создаем новый экземпляр оружия
+				// РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ РѕСЂСѓР¶РёСЏ
 				LeftHandWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
 				weaponWheelController.ChangeWheaponWheelButtonColor("left");
-				LeftHandWeapon.InstantiateWeaponModel("left"); // Передаем флаг isLeftHand
+				LeftHandWeapon.InstantiateWeaponModel("left"); // РџРµСЂРµРґР°РµРј С„Р»Р°Рі isLeftHand
 				playerBehaviour.ArmPlayer();
 			}
 			else
@@ -92,10 +92,10 @@ public class WeaponController : MonoBehaviour
 					RemoveWeapon("left");
 				}
 
-				// Создаем новый экземпляр оружия
+				// РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ РѕСЂСѓР¶РёСЏ
 				RightHandWeapon = (WeaponClass)gameObject.AddComponent(weaponType);
 				weaponWheelController.ChangeWheaponWheelButtonColor("right");
-				RightHandWeapon.InstantiateWeaponModel("right"); // Передаем флаг isLeftHand
+				RightHandWeapon.InstantiateWeaponModel("right"); // РџРµСЂРµРґР°РµРј С„Р»Р°Рі isLeftHand
 				playerBehaviour.ArmPlayer();
 			}
 
@@ -143,14 +143,14 @@ public class WeaponController : MonoBehaviour
 	{
 		if (handType == "right")
 		{
-			RightHandWeapon.DestroyWeaponModel(); // Добавляем вызов Unequip()
-			Destroy(RightHandWeapon); // Уничтожаем предыдущее оружие
+			RightHandWeapon.DestroyWeaponModel(); // Р”РѕР±Р°РІР»СЏРµРј РІС‹Р·РѕРІ Unequip()
+			Destroy(RightHandWeapon); // РЈРЅРёС‡С‚РѕР¶Р°РµРј РїСЂРµРґС‹РґСѓС‰РµРµ РѕСЂСѓР¶РёРµ
 			RightHandWeapon = null;
 		}
 		else if (handType == "left")
 		{
-			LeftHandWeapon.DestroyWeaponModel(); // Добавляем вызов Unequip()
-			Destroy(LeftHandWeapon); // Уничтожаем предыдущее оружие
+			LeftHandWeapon.DestroyWeaponModel(); // Р”РѕР±Р°РІР»СЏРµРј РІС‹Р·РѕРІ Unequip()
+			Destroy(LeftHandWeapon); // РЈРЅРёС‡С‚РѕР¶Р°РµРј РїСЂРµРґС‹РґСѓС‰РµРµ РѕСЂСѓР¶РёРµ
 			LeftHandWeapon = null;
 		}
 	}

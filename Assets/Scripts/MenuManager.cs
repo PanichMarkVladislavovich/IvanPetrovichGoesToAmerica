@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
@@ -46,7 +46,7 @@ public class MenuManager : MonoBehaviour
 			CloseWeaponWheelMenu(true);
 		}
 
-		pauseMenuController.PauseMenuCanvas.gameObject.SetActive(true); // Скрываем Canvas
+		pauseMenuController.PauseMenuCanvas.gameObject.SetActive(true); // РЎРєСЂС‹РІР°РµРј Canvas
 
 		Debug.Log("PauseMenu opened");
 		OpenAnyMenu();
@@ -54,14 +54,14 @@ public class MenuManager : MonoBehaviour
         IsPlayerControllable = false;
 		IsPauseMenuOpened = true;
 
-		// Полностью останавливаем игру
+		// РџРѕР»РЅРѕСЃС‚СЊСЋ РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РёРіСЂСѓ
 		Time.timeScale = 0f;
 	}
 	public void ClosePauseMenu()
 	{
 		if (pauseMenuController.PauseMenuCanvas.gameObject.activeInHierarchy)
 		{
-			pauseMenuController.PauseMenuCanvas.gameObject.SetActive(false); // Скрываем Canvas
+			pauseMenuController.PauseMenuCanvas.gameObject.SetActive(false); // РЎРєСЂС‹РІР°РµРј Canvas
 
 			Debug.Log("PauseMenu closed");
 			CloseAnyMenu();
@@ -69,7 +69,7 @@ public class MenuManager : MonoBehaviour
 			IsPlayerControllable = true;
 			IsPauseMenuOpened = false;
 
-			// Возвращаем нормальное течение времени
+			// Р’РѕР·РІСЂР°С‰Р°РµРј РЅРѕСЂРјР°Р»СЊРЅРѕРµ С‚РµС‡РµРЅРёРµ РІСЂРµРјРµРЅРё
 			Time.timeScale = 1f;
 		}
 	}

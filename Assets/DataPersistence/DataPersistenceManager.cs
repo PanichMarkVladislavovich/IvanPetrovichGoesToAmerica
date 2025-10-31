@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
@@ -29,15 +29,15 @@ public class DataPersistenceManager : MonoBehaviour
 	{
 		Time.timeScale = 1.0f;
 
-		// Паттерн Singleton: предотвращаем создание второго экземпляра
+		// РџР°С‚С‚РµСЂРЅ Singleton: РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµРј СЃРѕР·РґР°РЅРёРµ РІС‚РѕСЂРѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР°
 		if (Instance == null)
 		{
 			Instance = this;
-			DontDestroyOnLoad(gameObject); // Сохраняется при смене уровней
+			DontDestroyOnLoad(gameObject); // РЎРѕС…СЂР°РЅСЏРµС‚СЃСЏ РїСЂРё СЃРјРµРЅРµ СѓСЂРѕРІРЅРµР№
 		}
 		else
 		{
-			Destroy(gameObject); // Уничтожаем лишние экземпляры
+			Destroy(gameObject); // РЈРЅРёС‡С‚РѕР¶Р°РµРј Р»РёС€РЅРёРµ СЌРєР·РµРјРїР»СЏСЂС‹
 		}
 
 		fileSaveDataName1 = "SAVEGAME1.json";

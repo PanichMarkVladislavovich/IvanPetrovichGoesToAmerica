@@ -1,20 +1,20 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class DoorWardrobe : DoorAbstract
 {
-	public override string InteractionItemName => "Äâåðü";
+	public override string InteractionItemName => "Ð”Ð²ÐµÑ€ÑŒ";
 
-	private float doorOpeningSpeed = 200f; // Ñêîðîñòü îòêðûòèÿ-çàêðûòèÿ
+	private float doorOpeningSpeed = 200f; // Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¸Ñ-Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ñ
 
-	private Coroutine currentAnimation;     // Ïåðåìåííàÿ äëÿ õðàíåíèÿ àêòèâíîé êîðóòèíû
+	private Coroutine currentAnimation;     // ÐŸÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð°Ñ Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¾Ð¹ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñ‹
 
-	private Quaternion openedRotation;       // Óãëîâîå ïîëîæåíèå îòêðûòîé äâåðè
-	private Quaternion closedRotation;     // Óãëîâîå ïîëîæåíèå çàêðûòîé äâåðè
+	private Quaternion openedRotation;       // Ð£Ð³Ð»Ð¾Ð²Ð¾Ðµ Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ð¹ Ð´Ð²ÐµÑ€Ð¸
+	private Quaternion closedRotation;     // Ð£Ð³Ð»Ð¾Ð²Ð¾Ðµ Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ð¹ Ð´Ð²ÐµÑ€Ð¸
 
 	void Start()
 	{
-		// Íàñòðîéêà ñîñòîÿíèé âðàùåíèÿ
+		// ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ° ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ð¹ Ð²Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ñ
 		Vector3 openedEulerAngles = new Vector3(0, 0, 90);
 		openedRotation = Quaternion.Euler(openedEulerAngles);
 
@@ -26,7 +26,7 @@ public class DoorWardrobe : DoorAbstract
 
 	public override void Interact()
 	{
-		// Îñòàíàâëèâàåì ðàíåå çàïóùåííóþ êîðóòèíó, åñëè îíà ñóùåñòâóåò
+		// ÐžÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ñ€Ð°Ð½ÐµÐµ Ð·Ð°Ð¿ÑƒÑ‰ÐµÐ½Ð½ÑƒÑŽ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñƒ, ÐµÑÐ»Ð¸ Ð¾Ð½Ð° ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚
 		if (currentAnimation != null)
 		{
 			StopCoroutine(currentAnimation);
@@ -34,11 +34,11 @@ public class DoorWardrobe : DoorAbstract
 
 		if (!IsDoorOpened)
 		{
-			currentAnimation = StartCoroutine(OpenDoor()); // Íà÷èíàåì íîâóþ êîðóòèíó
+			currentAnimation = StartCoroutine(OpenDoor()); // ÐÐ°Ñ‡Ð¸Ð½Ð°ÐµÐ¼ Ð½Ð¾Ð²ÑƒÑŽ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñƒ
 		}
 		else
 		{
-			currentAnimation = StartCoroutine(CloseDoor()); // Íà÷èíàåì íîâóþ êîðóòèíó
+			currentAnimation = StartCoroutine(CloseDoor()); // ÐÐ°Ñ‡Ð¸Ð½Ð°ÐµÐ¼ Ð½Ð¾Ð²ÑƒÑŽ ÐºÐ¾Ñ€ÑƒÑ‚Ð¸Ð½Ñƒ
 		}
 	}
 
@@ -49,7 +49,7 @@ public class DoorWardrobe : DoorAbstract
 
 	IEnumerator OpenDoor()
 	{
-		Debug.Log($"Áûëà îòêðûòà {InteractionItemName}");
+		Debug.Log($"Ð‘Ñ‹Ð»Ð° Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð° {InteractionItemName}");
 		IsDoorOpened = true;
 
 		while (Quaternion.Angle(transform.localRotation, openedRotation) > 0.1f)
@@ -63,7 +63,7 @@ public class DoorWardrobe : DoorAbstract
 
 	IEnumerator CloseDoor()
 	{
-		Debug.Log($"Áûëà çàêðûòà {InteractionItemName}");
+		Debug.Log($"Ð‘Ñ‹Ð»Ð° Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð° {InteractionItemName}");
 		IsDoorOpened = false;
 
 		while (Quaternion.Angle(transform.localRotation, closedRotation) > 0.1f)

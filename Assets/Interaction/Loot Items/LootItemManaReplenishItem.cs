@@ -1,18 +1,18 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class LootItemManaReplenishItem : LootItemAbstract
 {
 
 	public override int MoneyValue { get; protected set; } = 0;
 
-	public override string InteractionItemName => "œÂ‰ÏÂÚ ‚ÓÒÒÚ‡Ì‡ÎË‚‡ÂÚ Ï‡ÌÛ";
+	public override string InteractionItemName => "–ü—Ä–µ–¥–º–µ—Ç –≤–æ—Å—Å—Ç–∞–Ω–∞–ª–∏–≤–∞–µ—Ç –º–∞–Ω—É";
 
 
 	public override void Interact()
 	{
 		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
 		{
-			Debug.Log($"¬˚ ÔÓ‰ÌˇÎË {InteractionItemName}");
+			Debug.Log($"–í—ã –ø–æ–¥–Ω—è–ª–∏ {InteractionItemName}");
 			Destroy(gameObject);
 			PlayerManaManager.Instance.AddManaReplenishItem();
 		}

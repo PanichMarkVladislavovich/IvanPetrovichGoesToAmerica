@@ -1,10 +1,10 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class DontDestroyOnLoad : MonoBehaviour
 {
 	private void Awake()
 	{
-		// Запрещаем уничтожение объекта при загрузке новых сцен
+		// Р—Р°РїСЂРµС‰Р°РµРј СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ РѕР±СЉРµРєС‚Р° РїСЂРё Р·Р°РіСЂСѓР·РєРµ РЅРѕРІС‹С… СЃС†РµРЅ
 		//DontDestroyOnLoad(this.gameObject);
 	}
 }

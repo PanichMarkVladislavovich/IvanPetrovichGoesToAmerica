@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System;
 using Unity.IO.LowLevel.Unsafe;
 
@@ -8,8 +8,8 @@ public abstract class DoorAbstract : MonoBehaviour, IInteractable
 	//public virtual Quaternion LootItemRotation { get; protected set; }
 	public virtual string InteractionItemName => gameObject.name;
 
-	// —‚ÓÈÒÚ‚Ó ÔÓ‰ÒÍ‡ÁÍË ÚÂÔÂ¸ Û˜ËÚ˚‚‡ÂÚ ÒÓÒÚÓˇÌËÂ ‰‚ÂË
-	public virtual string InteractionHint => !IsDoorOpened ? $"ŒÚÍ˚Ú¸ {InteractionItemName}" : $"«‡Í˚Ú¸ {InteractionItemName}";
+	// –°–≤–æ–π—Å—Ç–≤–æ –ø–æ–¥—Å–∫–∞–∑–∫–∏ —Ç–µ–ø–µ—Ä—å —É—á–∏—Ç—ã–≤–∞–µ—Ç —Å–æ—Å—Ç–æ—è–Ω–∏–µ –¥–≤–µ—Ä–∏
+	public virtual string InteractionHint => !IsDoorOpened ? $"–û—Ç–∫—Ä—ã—Ç—å {InteractionItemName}" : $"–ó–∞–∫—Ä—ã—Ç—å {InteractionItemName}";
 
 	public virtual bool IsDoorOpened { get; protected set; }
 

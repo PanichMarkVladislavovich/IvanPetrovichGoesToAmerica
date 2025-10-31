@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public abstract class WeaponClass : MonoBehaviour
 {
@@ -6,26 +6,26 @@ public abstract class WeaponClass : MonoBehaviour
 	public string WeaponNameUI;
 	public float WeaponDamage;
 
-	public GameObject weaponModel; // Ссылка на 3D модель оружия
-	public GameObject FirstPersonWeaponModelInstance; // Ссылка на инстанцированную модель
-	public GameObject ThirdPersonWeaponModelInstance; // Ссылка на инстанцированную модель
+	public GameObject weaponModel; // РЎСЃС‹Р»РєР° РЅР° 3D РјРѕРґРµР»СЊ РѕСЂСѓР¶РёСЏ
+	public GameObject FirstPersonWeaponModelInstance; // РЎСЃС‹Р»РєР° РЅР° РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРЅСѓСЋ РјРѕРґРµР»СЊ
+	public GameObject ThirdPersonWeaponModelInstance; // РЎСЃС‹Р»РєР° РЅР° РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРЅСѓСЋ РјРѕРґРµР»СЊ
 
 	public MeshRenderer FirstPersonWeaponMeshRenderer;
 	public MeshRenderer ThirdPersonWeaponMeshRenderer;
 
-	// Теперь слот для рук задаётся через инспектор
-	public GameObject ThirdPersonLeftHandWeaponSlot; // Левый слот (кость руки)
-	public GameObject ThirdRightHandWeaponSlot; // Правый слот (кость руки)
-	public Transform ThirdLeftHandWeaponSlotTransform; // Левый слот (кость руки)
-	public Transform ThirdRightHandWeaponSlotTransform; // Правый слот (кость руки)
+	// РўРµРїРµСЂСЊ СЃР»РѕС‚ РґР»СЏ СЂСѓРє Р·Р°РґР°С‘С‚СЃСЏ С‡РµСЂРµР· РёРЅСЃРїРµРєС‚РѕСЂ
+	public GameObject ThirdPersonLeftHandWeaponSlot; // Р›РµРІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
+	public GameObject ThirdRightHandWeaponSlot; // РџСЂР°РІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
+	public Transform ThirdLeftHandWeaponSlotTransform; // Р›РµРІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
+	public Transform ThirdRightHandWeaponSlotTransform; // РџСЂР°РІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
 
-	// Теперь слот для рук задаётся через инспектор
-	public GameObject FirstPersonLeftHandWeaponSlot; // Левый слот (кость руки)
-	public GameObject FirstRightHandWeaponSlot; // Правый слот (кость руки)
+	// РўРµРїРµСЂСЊ СЃР»РѕС‚ РґР»СЏ СЂСѓРє Р·Р°РґР°С‘С‚СЃСЏ С‡РµСЂРµР· РёРЅСЃРїРµРєС‚РѕСЂ
+	public GameObject FirstPersonLeftHandWeaponSlot; // Р›РµРІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
+	public GameObject FirstRightHandWeaponSlot; // РџСЂР°РІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
 
 
-	public Transform FirstLeftHandWeaponSlotTransform; // Левый слот (кость руки)
-	public Transform FirstRightHandWeaponSlotTransform; // Правый слот (кость руки)
+	public Transform FirstLeftHandWeaponSlotTransform; // Р›РµРІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
+	public Transform FirstRightHandWeaponSlotTransform; // РџСЂР°РІС‹Р№ СЃР»РѕС‚ (РєРѕСЃС‚СЊ СЂСѓРєРё)
 
 	public virtual void WeaponAttack()
 	{
@@ -53,7 +53,7 @@ public abstract class WeaponClass : MonoBehaviour
 				FirstPersonWeaponModelInstance.transform.SetParent(FirstLeftHandWeaponSlotTransform, true);
 				//FirstPersonWeaponModelInstance.transform.localPosition = new Vector3(-0.35f, 1.25f, 0.5f);
 				//FirstPersonlModelInstance.transform.SetParent
-				//currentModelInstance.transform.localPosition = new Vector3(-0.35f, 1.75f, 0.5f); // Локальная позиция для левой руки
+				//currentModelInstance.transform.localPosition = new Vector3(-0.35f, 1.75f, 0.5f); // Р›РѕРєР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ РґР»СЏ Р»РµРІРѕР№ СЂСѓРєРё
 			}
 			else if(handType == "right")
 			{
@@ -64,9 +64,9 @@ public abstract class WeaponClass : MonoBehaviour
 				FirstLeftHandWeaponSlotTransform = GameObject.Find("Slot1.R").transform;
 				FirstPersonWeaponModelInstance.transform.SetParent(FirstLeftHandWeaponSlotTransform, true);
 				//FirstPersonWeaponModelInstance.transform.localPosition = new Vector3(0.35f, 1.25f, 0.5f);
-				//currentModelInstance.transform.localPosition = new Vector3(0.35f, 1.75f, 0.5f); // Локальная позиция для правой руки
+				//currentModelInstance.transform.localPosition = new Vector3(0.35f, 1.75f, 0.5f); // Р›РѕРєР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ РґР»СЏ РїСЂР°РІРѕР№ СЂСѓРєРё
 			}
-			// Обнуляем локальную позицию и ориентацию
+			// РћР±РЅСѓР»СЏРµРј Р»РѕРєР°Р»СЊРЅСѓСЋ РїРѕР·РёС†РёСЋ Рё РѕСЂРёРµРЅС‚Р°С†РёСЋ
 			FirstPersonWeaponModelInstance.transform.localPosition = Vector3.zero;
 			FirstPersonWeaponModelInstance.transform.localRotation = Quaternion.identity;
 			//FirstPersonWeaponModelInstance.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 public class PlayerCapluseCollider : MonoBehaviour
 {
     public Transform playerTransform;

@@ -1,4 +1,4 @@
-
+ï»¿
 using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
@@ -47,7 +47,7 @@ public class PlayerAnimationController : MonoBehaviour
 	{
 		if (playerCameraObject != null)
 		{
-			// ñ÷èòàåì ïîâîðîò êàìåðû X
+			// ÑÑ‡Ð¸Ñ‚Ð°ÐµÐ¼ Ð¿Ð¾Ð²Ð¾Ñ€Ð¾Ñ‚ ÐºÐ°Ð¼ÐµÑ€Ñ‹ X
 			float cameraRotationX = playerCameraObject.transform.rotation.eulerAngles.x;
 			if (cameraRotationX >= 0 && cameraRotationX < 180)
 			{
@@ -59,33 +59,33 @@ public class PlayerAnimationController : MonoBehaviour
 			}
 		}
 	
-		// èãðîê ñìîòðèò âíèç/ââåðõ êîãäà âîîðóæåí îò 3ãî ëèöà
+		// Ð¸Ð³Ñ€Ð¾Ðº ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚ Ð²Ð½Ð¸Ð·/Ð²Ð²ÐµÑ€Ñ… ÐºÐ¾Ð³Ð´Ð° Ð²Ð¾Ð¾Ñ€ÑƒÐ¶ÐµÐ½ Ð¾Ñ‚ 3Ð³Ð¾ Ð»Ð¸Ñ†Ð°
 		if (playerBehaviour.IsPlayerArmed == true && playerCamera.CurrentPlayerCameraStateType == "ThirdPerson")
 		{
-			// Øàã 1: Îïðåäåëÿåì íà÷àëüíîå çíà÷åíèå (òåêóùåå çíà÷åíèå ïàðàìåòðà)
+			// Ð¨Ð°Ð³ 1: ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ (Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°)
 			float startValue = playerAnimator.GetFloat("UpDown");
 
-			// Øàã 2: Ðàññ÷èòûâàåì öåëåâîå çíà÷åíèå íà îñíîâå óãëà êàìåðû
+			// Ð¨Ð°Ð³ 2: Ð Ð°ÑÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ Ñ†ÐµÐ»ÐµÐ²Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð½Ð° Ð¾ÑÐ½Ð¾Ð²Ðµ ÑƒÐ³Ð»Ð° ÐºÐ°Ð¼ÐµÑ€Ñ‹
 			float endValue = adjustedCameraAngle * 0.0153846f;
 
-			// Øàã 3: Èíòåðïîëèðóåì çíà÷åíèå
+			// Ð¨Ð°Ð³ 3: Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
 			float newValue = Mathf.Lerp(startValue, endValue, Time.deltaTime * 6);
 
-			// Øàã 4: Îáíîâëÿåì ïàðàìåòð â àíèìàòîðå
+			// Ð¨Ð°Ð³ 4: ÐžÐ±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ Ð² Ð°Ð½Ð¸Ð¼Ð°Ñ‚Ð¾Ñ€Ðµ
 			playerAnimator.SetFloat("UpDown", newValue);
 		}
 		else
 		{
-			// Øàã 1: Îïðåäåëÿåì íà÷àëüíîå çíà÷åíèå (òåêóùåå çíà÷åíèå ïàðàìåòðà)
+			// Ð¨Ð°Ð³ 1: ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ (Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°)
 			float startValue = playerAnimator.GetFloat("UpDown");
 
-			// Øàã 2: Öåëåâûì çíà÷åíèåì òåïåðü ñòàíîâèòñÿ íîëü
+			// Ð¨Ð°Ð³ 2: Ð¦ÐµÐ»ÐµÐ²Ñ‹Ð¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸ÐµÐ¼ Ñ‚ÐµÐ¿ÐµÑ€ÑŒ ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑÑ Ð½Ð¾Ð»ÑŒ
 			float endValue = 0f;
 
-			// Øàã 3: Èíòåðïîëèðóåì çíà÷åíèå îò òåêóùåãî äî íóëÿ
+			// Ð¨Ð°Ð³ 3: Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¾Ñ‚ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ Ð´Ð¾ Ð½ÑƒÐ»Ñ
 			float newValue = Mathf.Lerp(startValue, endValue, Time.deltaTime * 6);
 
-			// Øàã 4: Îáíîâëÿåì ïàðàìåòð â àíèìàòîðå
+			// Ð¨Ð°Ð³ 4: ÐžÐ±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ Ð² Ð°Ð½Ð¸Ð¼Ð°Ñ‚Ð¾Ñ€Ðµ
 			playerAnimator.SetFloat("UpDown", newValue);
 		}
 
@@ -96,7 +96,7 @@ public class PlayerAnimationController : MonoBehaviour
 
 
 
-			// àíèìàöèè PlayerMovement state ìàøèíû
+			// Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸Ð¸ PlayerMovement state Ð¼Ð°ÑˆÐ¸Ð½Ñ‹
 		if (playerMovementController.CurrentPlayerMovementStateType == "PlayerIdle")
 		{
 			
@@ -163,7 +163,7 @@ public class PlayerAnimationController : MonoBehaviour
 
 
 
-		// àíèìàöèè îðóæèÿ
+		// Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾Ñ€ÑƒÐ¶Ð¸Ñ
 		if (weaponController.RightHandWeapon != null)
 		{
 			if (weaponController.RightHandWeapon.ThirdPersonWeaponModelInstance.activeInHierarchy)
@@ -216,7 +216,7 @@ public class PlayerAnimationController : MonoBehaviour
 			}
 		}
 
-		//Àíèìàöèÿ àòàêè íîãîé
+		//ÐÐ½Ð¸Ð¼Ð°Ñ†Ð¸Ñ Ð°Ñ‚Ð°ÐºÐ¸ Ð½Ð¾Ð³Ð¾Ð¹
 		if (playerMovementController.IsPlayerLegKicking == true)
 		{
 			
@@ -224,12 +224,12 @@ public class PlayerAnimationController : MonoBehaviour
 
 			if (!wasPreviouslyKicking)
 			{
-				playerAnimator.Play("LegKick", 4, 0f); // òðåòèé àðãóìåíò ñáðàñûâàåò àíèìàöèþ íà íà÷àëî
+				playerAnimator.Play("LegKick", 4, 0f); // Ñ‚Ñ€ÐµÑ‚Ð¸Ð¹ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚ ÑÐ±Ñ€Ð°ÑÑ‹Ð²Ð°ÐµÑ‚ Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸ÑŽ Ð½Ð° Ð½Ð°Ñ‡Ð°Ð»Ð¾
 				//Debug.Log("LMAO");
 			}
 			
 			//wasPreviouslyKicking = true;
-			// Íà÷èíàåì àíèìàöèþ ñíà÷àëà
+			// ÐÐ°Ñ‡Ð¸Ð½Ð°ÐµÐ¼ Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸ÑŽ ÑÐ½Ð°Ñ‡Ð°Ð»Ð°
 			
 			//ChangePlayerLegKickAttackAnimation("LegKick");
 			playerAnimator.Play("LegKick");
