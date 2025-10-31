@@ -93,9 +93,10 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		
 	}
 
+	/*
 	void OnDrawGizmos()
 	{
-		/*
+		
 		Gizmos.color = Color.red;
 		
 		Gizmos.DrawRay(transform.position + new Vector3(0, PlayerDownRayYPosition, 0), Vector3.down * 0.3f);
@@ -109,8 +110,10 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		Gizmos.DrawCube(transform.position + transform.forward * 1.1f + new Vector3(0, 3, 0), new Vector3(1.25f, 2.25f, 1.25f));
 
 		Gizmos.DrawCube(transform.position + transform.forward * 1.1f + new Vector3(0, 2.5f, 0), new Vector3(1.25f, 1.25f, 1.25f));
-		*/
+		
 	}
+	*/
+
 	void Update()
 	{
 		// Player movement State Machine methods
@@ -219,10 +222,16 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		if (IsPlayerGrounded == true && IsPlayerOnSlope == true)
 		{
 			PlayerRigidBody.useGravity = false;
-			if (IsPLayerSliding == false)
+
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!
+			// IsPLayerSliding == false 
+
+			// ‚ÒÂ Â˘Â sliding Œÿ»¡ ¿!
+			if (CurrentPlayerMovementStateType != "PlayerJumping")
 			{
 				PlayerRigidBody.linearVelocity = Vector3.zero;
 			}
+		
 		}
         else
         {

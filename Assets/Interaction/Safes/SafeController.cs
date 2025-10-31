@@ -25,6 +25,9 @@ public class SafeController : MonoBehaviour, IInteractable
 
 	void Start()
 	{
+		//wasSafeOpened = true;
+
+
 		isInStartMethod = true;
 
 		safeDoorTransform = SafeDoor.GetComponent<Transform>();
@@ -36,12 +39,18 @@ public class SafeController : MonoBehaviour, IInteractable
 		Vector3 openedEulerAngles = new Vector3(0, -90, 0);
 		safeDoorOpenedRotation = Quaternion.Euler(openedEulerAngles);
 
-		CheckRotatorySectionCorrection();
-
 		if (wasSafeOpened == true)
 		{
 			safeDoorTransform.transform.localRotation = safeDoorOpenedRotation;
+			section1.SetSectionPositionToCorrect();
+			section2.SetSectionPositionToCorrect();
+			section3.SetSectionPositionToCorrect();
 		}
+
+
+		CheckRotatorySectionCorrection();
+
+		
 
 		isInStartMethod = false;
 	}
@@ -51,7 +60,6 @@ public class SafeController : MonoBehaviour, IInteractable
 		if (wasSafeOpened == false)
 		{
 			CheckRotatorySectionCorrection();
-		
 		}
 	}
 
@@ -86,9 +94,7 @@ public class SafeController : MonoBehaviour, IInteractable
 			section3.SetSectionPositionToCorrect();
 		}
 
-		if(section1.currentSectionPosition == section1.CorrectSectionPosition
-			&& section2.currentSectionPosition == section2.CorrectSectionPosition
-			&& section3.currentSectionPosition == section3.CorrectSectionPosition)
+		if(section1.IsSectionPositionCorrect && section2.IsSectionPositionCorrect && section3.IsSectionPositionCorrect)
 		{
 			if (isInStartMethod == false)
 			{
@@ -105,6 +111,24 @@ public class SafeController : MonoBehaviour, IInteractable
 			{
 				Debug.Log("SAFE FAILED");
 			}
+		}
+
+		if (wasSafeOpened == true)
+		{
+			float yAngle = section1.CorrectSectionPosition != 0 ? 360f / 10 * section1.CorrectSectionPosition : 0f;
+			Vector3 openedEulerAngles = new Vector3(0, yAngle, 0);
+			var sectionCorrectPositionRotation = Quaternion.Euler(openedEulerAngles);
+			section1.transform.localRotation = sectionCorrectPositionRotation;
+
+			yAngle = section2.CorrectSectionPosition != 0 ? 360f / 10 * section2.CorrectSectionPosition : 0f;
+			openedEulerAngles = new Vector3(0, yAngle, 0);
+			sectionCorrectPositionRotation = Quaternion.Euler(openedEulerAngles);
+			section2.transform.localRotation = sectionCorrectPositionRotation;
+
+			yAngle = section3.CorrectSectionPosition != 0 ? 360f / 10 * section3.CorrectSectionPosition : 0f;
+			openedEulerAngles = new Vector3(0, yAngle, 0);
+			sectionCorrectPositionRotation = Quaternion.Euler(openedEulerAngles);
+			section3.transform.localRotation = sectionCorrectPositionRotation;
 		}
 	}
 }
