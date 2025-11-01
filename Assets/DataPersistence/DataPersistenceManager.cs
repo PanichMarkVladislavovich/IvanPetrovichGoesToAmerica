@@ -125,7 +125,7 @@ public class DataPersistenceManager : MonoBehaviour
 
 		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
 		{
-			dataPersistenceObj.LoadData(gameData);
+			//dataPersistenceObj.LoadData(gameData);
 		}
 	}
 
@@ -134,7 +134,11 @@ public class DataPersistenceManager : MonoBehaviour
 		
 		this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
 
-		this.gameData = fileDataHandler.Load();
+		if (this.gameData != null)
+		{
+			this.gameData = new GameData();
+		}
+		else this.gameData = fileDataHandler.Load();
 
 		
 		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
@@ -146,7 +150,7 @@ public class DataPersistenceManager : MonoBehaviour
 		fileDataHandler.Save(gameData);
 
 		Debug.Log("TEMP Data rewritten to slot " + saveSlotNumber);
-
+		
 		
 		if (saveSlotNumber == 1)
         {
@@ -183,11 +187,7 @@ public class DataPersistenceManager : MonoBehaviour
 
 	public void LoadGame(int loadSlotNumber)
 	{
-		//if (loadSlotNumber == 0)
-		//{
-		//	this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
-		//	WhatSaveNumberWasLoaded = 1;
-		//}
+		
 		if (loadSlotNumber == 1)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
@@ -229,10 +229,11 @@ public class DataPersistenceManager : MonoBehaviour
 		}
 		else
 		{
-			string sceneName = SceneManager.GetActiveScene().name;
+			//GameSceneManager.Instance.LoadData(gameData);
+			//string sceneName = SceneManager.GetActiveScene().name;
 
-			SceneManager.LoadSceneAsync(sceneName);
-			Debug.Log($"Scene {sceneName} reloaded");
+			//SceneManager.LoadSceneAsync(sceneName);
+			//Debug.Log($"Scene {sceneName} reloaded");
 		}
 	}
 

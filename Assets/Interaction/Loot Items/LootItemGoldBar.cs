@@ -27,12 +27,12 @@ public class LootItemGoldBar : LootItemAbstract
 
 			if (WasLootItemCollected == true)
 			{
-				data.LootItemSCENE1DataGoldBar[LootItemIndex].WasLootItemCollected = true;
+				data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = true;
 			}
-			else data.LootItemSCENE1DataGoldBar[LootItemIndex].WasLootItemCollected = false;
+			else data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = false;
 
 
-			data.LootItemSCENE1DataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
+			data.LootItemSceneTESTDataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
 		
 
 
@@ -48,7 +48,7 @@ public class LootItemGoldBar : LootItemAbstract
 
 	public override void LoadData(GameData data)
 	{
-		if (data.LootItemSCENE1DataGoldBar[LootItemIndex].WasLootItemCollected == true)
+		if (data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected == true)
 		{
 			WasLootItemCollected = true;
 			Destroy(gameObject);

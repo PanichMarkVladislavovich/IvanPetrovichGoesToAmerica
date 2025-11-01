@@ -476,8 +476,8 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 	public void SaveData(ref GameData data)
 	{
 		data.CurrentPlayerMovementStateType = this.CurrentPlayerMovementStateType;
-		data.PlayerPosition = this.PlayerTransform.position;
-		data.PlayerRotation = this.PlayerTransform.rotation;
+		//data.PlayerPosition = this.PlayerTransform.position;
+		//data.PlayerRotation = this.PlayerTransform.rotation;
 	}
 
 	public void LoadData(GameData data)

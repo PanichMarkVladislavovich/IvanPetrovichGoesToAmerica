@@ -7,6 +7,8 @@
 
 public class GameData
 {
+	//CurrentScene
+	public string CurrentScene;
 
 	//Player Movement
 	public string CurrentPlayerMovementStateType;
@@ -33,13 +35,15 @@ public class GameData
 	public int ManaReplenishItems;
 
 	//Collectables
-	public LootItemData[] LootItemSCENE1DataGoldBar;
-	public LootItemData[] LootItemSCENE2DataGoldBar;
+	public LootItemData[] LootItemSceneTESTDataGoldBar;
+	public LootItemData[] LootItemScene1DataGoldBar;
 
 
 
 	public GameData()
 	{
+		CurrentScene = "SceneTEST";
+
 		CurrentPlayerMovementStateType = "PlayerIdle";
 		PlayerPosition = new Vector3(2, 0, 4);
 		PlayerRotation = new Quaternion(0, 0, 0, 0);
@@ -58,8 +62,8 @@ public class GameData
 		PlayerMana = 15;
 		ManaReplenishItems = 6;
 
-		LootItemSCENE1DataGoldBar = new LootItemData[10];
-		LootItemSCENE2DataGoldBar = new LootItemData[10];
+		LootItemSceneTESTDataGoldBar = new LootItemData[10];
+		LootItemScene1DataGoldBar = new LootItemData[10];
 
 	}
 
