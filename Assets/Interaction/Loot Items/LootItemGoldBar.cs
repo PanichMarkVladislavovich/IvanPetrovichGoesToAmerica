@@ -25,39 +25,54 @@ public class LootItemGoldBar : LootItemAbstract
 	{
 		
 
+		if (GameSceneManager.Instance.CurrentSceneName == "SceneTEST")
+		{
+			data.LootItemSceneTESTDataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
+
 			if (WasLootItemCollected == true)
 			{
 				data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = true;
 			}
 			else data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = false;
+			Debug.Log("IT IS SAVED");
 
+		}
 
-			data.LootItemSceneTESTDataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
-		
+		if (GameSceneManager.Instance.CurrentSceneName == "Scene1")
+		{
+			data.LootItemScene1DataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
 
+			if (WasLootItemCollected == true)
+			{
+				data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected = true;
+			}
+			else data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected = false;
+			Debug.Log("IT IS SAVED");
 
-
-		
-
-			//data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex = data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex;
-
-			//data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected = data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected;
+		}
 
 		
 	}
 
 	public override void LoadData(GameData data)
 	{
-		if (data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected == true)
+		if (GameSceneManager.Instance.CurrentSceneName == "SceneTEST")
 		{
-			WasLootItemCollected = true;
-			Destroy(gameObject);
+			if (data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected == true)
+			{
+				WasLootItemCollected = true;
+				Destroy(gameObject);
+			}
 		}
 
-		//data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex = data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex;
-
-		//data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected = data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected;
-
+		if (GameSceneManager.Instance.CurrentSceneName == "Scene1")
+		{
+			if (data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected == true)
+			{
+				WasLootItemCollected = true;
+				Destroy(gameObject);
+			}
+		}
 
 	}
 

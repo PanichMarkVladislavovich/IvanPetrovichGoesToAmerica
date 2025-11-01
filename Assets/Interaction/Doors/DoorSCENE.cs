@@ -6,23 +6,27 @@ public class DoorSCENE : DoorAbstract
 {
 	public override string InteractionItemName => "Дверь";
 
-	//private float doorOpeningSpeed = 200f; // Скорость открытия-закрытия
-
-	//private Coroutine currentAnimation;     // Переменная для хранения активной корутины
-
-	//private Quaternion openedRotation;       // Угловое положение открытой двери
-//	private Quaternion closedRotation;     // Угловое положение закрытой двери
+	
 
 	[SerializeField] private string goToSceneName;
 
 	public override void Interact()
 	{
-		//string sceneName = SceneManager.GetActiveScene().name;
-
-		SceneManager.LoadSceneAsync(goToSceneName);
+		StartCoroutine(SaveAndLoadScene());
 	}
 
-	
+	private IEnumerator SaveAndLoadScene()
+	{
+		// Начало сохранения игры
+		DataPersistenceManager.Instance.SaveGame(-1);
+
+		// Ждём завершения сохранения
+		yield return new WaitUntil(() => DataPersistenceManager.Instance.IsSavingFinished);
+
+		// После завершения сохранения начинаем загрузку новой сцены
+		SceneManager.LoadSceneAsync(goToSceneName);
+	}
+}
 
 	
-}
+

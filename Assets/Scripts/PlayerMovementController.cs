@@ -69,7 +69,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 
-
+		PlayerTransform = GetComponent<Transform>();
 
 		_playerPreviousFramePosition = transform.position;
 
