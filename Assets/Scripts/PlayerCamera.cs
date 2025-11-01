@@ -2,7 +2,7 @@
 using UnityEngine;
 public class PlayerCamera : MonoBehaviour, IDataPersistence
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	public PlayerMovementController playerMovementController;
 	public CapsuleCollider PlayerCollider;
 	public Transform PlayerTransform;
@@ -48,7 +48,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		CameraTransform = GetComponent<Transform>();
 
 		PlayerCameraDistanceX = -0.85f;
@@ -113,12 +113,12 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 		playerCameraState.PlayerCameraPosition();
 	
 
-		if (playerInputsList.GetKeyChangeCameraView())
+		if (InputManager.Instance.GetKeyChangeCameraView())
 		{
 			ChangePlayerCameraView();
 		}
 
-		if (playerInputsList.GetKeyEnterCutscene())
+		if (InputManager.Instance.GetKeyEnterCutscene())
 		{
 			if (_currentPlayerCameraType != PlayerCameraStateType.Cutscene.ToString())
 			{
@@ -130,7 +130,7 @@ public class PlayerCamera : MonoBehaviour, IDataPersistence
 			}
 		}
 
-		if (playerInputsList.GetKeyChangeCameraShoulder() && CurrentPlayerCameraStateType != "FirstPerson")
+		if (InputManager.Instance.GetKeyChangeCameraShoulder() && CurrentPlayerCameraStateType != "FirstPerson")
 		{
 			IsCameraShoulderRight = !IsCameraShoulderRight;
 		}

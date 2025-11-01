@@ -16,7 +16,7 @@ public class FallingPlayerMovementState : PlayerMovementState
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
 		}
 		
-		if (playerMovementController.IsPlayerFalling == false && playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyRun())
+		if (playerMovementController.IsPlayerFalling == false && playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
 		}
@@ -29,7 +29,7 @@ public class FallingPlayerMovementState : PlayerMovementState
 		//	playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		//}
 
-		if (playerMovementController.IsPlayerAbleToClimbLedge == true && playerMovementController.playerInputsList.GetKeyJumpBeingHeld())
+		if (playerMovementController.IsPlayerAbleToClimbLedge == true && InputManager.Instance.GetKeyJumpBeingHeld())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerLedgeClimbing);
 

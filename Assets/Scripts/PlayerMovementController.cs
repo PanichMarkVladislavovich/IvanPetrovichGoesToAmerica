@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 public class PlayerMovementController : MonoBehaviour, IDataPersistence
 {
-	public PlayerInputsList playerInputsList;
+	//public InputManager playerInputsList;
 
 	public PlayerMovementState playerMovementState;
 	public PlayerMovementStateType playerMovementStateType;
@@ -65,7 +65,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 	void Start()
 	{
 
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 
@@ -121,28 +121,28 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		playerMovementState.ChangePlayerMovementSpeed();
 
 		//
-		if (playerInputsList.GetKeyRight())
+		if (InputManager.Instance.GetKeyRight())
 		{
 			PlayerWorldMovement.x = 1;
 		}
-		else if (playerInputsList.GetKeyLeft())
+		else if (InputManager.Instance.GetKeyLeft())
 		{
 			PlayerWorldMovement.x = -1;
 		}
 		else PlayerWorldMovement.x = 0;
 
-		if (playerInputsList.GetKeyUp())
+		if (InputManager.Instance.GetKeyUp())
 		{
 			PlayerWorldMovement.z = 1;
 		}
-		else if (playerInputsList.GetKeyDown())
+		else if (InputManager.Instance.GetKeyDown())
 		{
 			PlayerWorldMovement.z = -1;
 		}
 		else PlayerWorldMovement.z = 0;
 
 		// короче тут проблема
-		if (playerInputsList.GetKeyJump())
+		if (InputManager.Instance.GetKeyJump())
 		{
 			
 			PlayerRigidBody.AddForce(transform.up * 5f, ForceMode.Impulse);
@@ -270,7 +270,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		}
 
 
-		if (playerInputsList.GetKeyLegKick() && IsPlayerLegKicking == false && CurrentPlayerMovementStateType != "PlayerJumping" &&
+		if (InputManager.Instance.GetKeyLegKick() && IsPlayerLegKicking == false && CurrentPlayerMovementStateType != "PlayerJumping" &&
 			CurrentPlayerMovementStateType != "PlayerFalling" && CurrentPlayerMovementStateType != "PlayerSliding" && CurrentPlayerMovementStateType != "PlayerLedgeClimbing")
 		{
 			StartCoroutine(LegKickAttack());

@@ -10,23 +10,23 @@ public class CrouchingWalkingPlayerMovementState : PlayerMovementState
 	}
 	public override void ChangePlayerMovementState()
 	{
-		if (playerMovementController.IsPlayerMoving == false && playerMovementController.playerInputsList.GetKeyCrouch() == false)
+		if (playerMovementController.IsPlayerMoving == false && InputManager.Instance.GetKeyCrouch() == false)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
 		}
-		if (playerMovementController.IsPlayerMoving == false && playerMovementController.playerInputsList.GetKeyCrouch() == true && playerMovementController.IsPlayerAbleToStandUp == true)
+		if (playerMovementController.IsPlayerMoving == false && InputManager.Instance.GetKeyCrouch() == true && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
 		}
-		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyCrouch() == true && playerMovementController.IsPlayerAbleToStandUp == true)
+		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyCrouch() == true && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerWalking);
 		}
-		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
+		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
 		}
-		if (playerMovementController.playerInputsList.GetKeyJump())
+		if (InputManager.Instance.GetKeyJump())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}

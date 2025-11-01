@@ -4,7 +4,7 @@ using TMPro;
 public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 {
 	public static PlayerMoneyManager Instance { get; private set; } // Статическое поле экземпляра
-	public PlayerInputsList playerInputsList;
+	public InputManager playerInputsList;
 	public TMP_Text PlayerMoneyText;
 
     public int PlayerMoney { get; private set; } = 200;
@@ -26,7 +26,7 @@ public class PlayerMoneyManager : MonoBehaviour, IDataPersistence
 
 	private void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		playerInputsList = GetComponent<InputManager>();
 		UpdateMoneyDisplay(); // После изменения сразу обновить интерфейс
 	}
 

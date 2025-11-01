@@ -6,24 +6,24 @@ public class LootItemGoldBar : LootItemAbstract
 
 	public override string InteractionItemName => "Золотой слиток";
 
-	
+
 
 	public override void Interact()
 	{
-		
+
 
 		Debug.Log($"Вы подняли {InteractionItemName}, получаете {MoneyValue} рублей");
 		Destroy(gameObject);
 		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
 		WasLootItemCollected = true;
-		
+
 	}
 
 
 
 	public override void SaveData(ref GameData data)
 	{
-		
+
 
 		if (GameSceneManager.Instance.CurrentSceneName == "SceneTEST")
 		{
@@ -34,7 +34,6 @@ public class LootItemGoldBar : LootItemAbstract
 				data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = true;
 			}
 			else data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = false;
-			//Debug.Log("IT IS SAVED");
 
 		}
 
@@ -47,11 +46,10 @@ public class LootItemGoldBar : LootItemAbstract
 				data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected = true;
 			}
 			else data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected = false;
-			//Debug.Log("IT IS SAVED");
 
 		}
 
-		
+
 	}
 
 	public override void LoadData(GameData data)
@@ -75,6 +73,8 @@ public class LootItemGoldBar : LootItemAbstract
 		}
 
 	}
+
+
 
 
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class LoadSubMenuController : MonoBehaviour
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	PauseMenuController pauseMenuController;
 
 	public Canvas LoadSubMenuCanvas;
@@ -17,7 +17,7 @@ public class LoadSubMenuController : MonoBehaviour
 	public Button LoadGame5Button;
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		pauseMenuController = GetComponent<PauseMenuController>();
 
 		CloseLoadSubMenuButton.onClick.AddListener(CloseLoadSubMenu);
@@ -31,7 +31,7 @@ public class LoadSubMenuController : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerInputsList.GetKeyPauseMenu() && LoadSubMenuCanvas.gameObject.activeInHierarchy)
+		if (InputManager.Instance.GetKeyPauseMenu() && LoadSubMenuCanvas.gameObject.activeInHierarchy)
 		{
 			CloseLoadSubMenu();
 		}

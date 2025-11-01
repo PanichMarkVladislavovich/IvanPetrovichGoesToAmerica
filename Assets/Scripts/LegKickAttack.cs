@@ -2,14 +2,14 @@
 
 public class LegKickAttack : MonoBehaviour
 {
-    PlayerInputsList playerInputsList;
+    InputManager playerInputsList;
     PlayerMovementController playerMovementController;
 
     public bool IsPlayerLegKicking;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerInputsList = GetComponent<PlayerInputsList>();
+        playerInputsList = GetComponent<InputManager>();
         playerMovementController = GetComponent<PlayerMovementController>();
     }
 

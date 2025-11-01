@@ -12,7 +12,7 @@ public class WeaponWheelsButtons : MonoBehaviour
     public Button WeaponButton;
     public WeaponController weaponController;
     public WeaponWheelController weaponWheelController;
-	public PlayerInputsList PlayerInputsList;
+	public InputManager PlayerInputsList;
 
     void Start()
     {

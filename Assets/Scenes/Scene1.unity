@@ -444,7 +444,6 @@ GameObject:
   - component: {fileID: 56045668}
   - component: {fileID: 56045667}
   - component: {fileID: 56045666}
-  - component: {fileID: 56045665}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -452,18 +451,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &56045665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56045663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4982fa9e0f97ea24e93a1d2cc579686d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &56045666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,6 +1682,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 205790670}
   m_CullTransparentMesh: 1
+--- !u!1 &210721045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 210721047}
+  - component: {fileID: 210721046}
+  m_Layer: 0
+  m_Name: 60FPS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &210721046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210721045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1a9f354a1cf6c4c96415cec7e502eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &210721047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210721045}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52754694, y: 1.7112658, z: 6.1378665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &212663644
 GameObject:
   m_ObjectHideFlags: 0
@@ -4057,6 +4088,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568212680}
   m_CullTransparentMesh: 1
+--- !u!1 &571179697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 571179699}
+  - component: {fileID: 571179698}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &571179698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571179697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4982fa9e0f97ea24e93a1d2cc579686d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementController: {fileID: 1903657298}
+--- !u!4 &571179699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571179697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52754694, y: 1.7112658, z: 6.1378665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &574344327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4665,7 +4741,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 1903657296}
   weaponWheelController: {fileID: 1903657295}
-  PlayerInputsList: {fileID: 1903657294}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &644670429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5604,7 +5680,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 1903657296}
   weaponWheelController: {fileID: 1903657295}
-  PlayerInputsList: {fileID: 1903657294}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &749238450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6972,6 +7048,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069840538}
   m_CullTransparentMesh: 1
+--- !u!1 &1074247548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074247550}
+  - component: {fileID: 1074247549}
+  m_Layer: 0
+  m_Name: LONG LOAD!
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1074247549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074247548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7460a589671bdcc459ff41a89264ecb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activationDelay: 5
+--- !u!4 &1074247550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074247548}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.03983201, y: 1.458873, z: 5.632184}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1102482791
 GameObject:
   m_ObjectHideFlags: 0
@@ -7910,7 +8031,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 1903657296}
   weaponWheelController: {fileID: 1903657295}
-  PlayerInputsList: {fileID: 1903657294}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &1298606700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9400,7 +9521,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 1903657296}
   weaponWheelController: {fileID: 1903657295}
-  PlayerInputsList: {fileID: 1903657294}
+  PlayerInputsList: {fileID: 0}
 --- !u!222 &1527333985
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9505,7 +9626,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 1903657296}
   weaponWheelController: {fileID: 1903657295}
-  PlayerInputsList: {fileID: 1903657294}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &1529522052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10211,7 +10332,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 1903657296}
   weaponWheelController: {fileID: 1903657295}
-  PlayerInputsList: {fileID: 1903657294}
+  PlayerInputsList: {fileID: 0}
 --- !u!222 &1642198122
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12130,7 +12251,6 @@ GameObject:
   - component: {fileID: 1903657297}
   - component: {fileID: 1903657299}
   - component: {fileID: 1903657310}
-  - component: {fileID: 1903657294}
   - component: {fileID: 1903657309}
   - component: {fileID: 1903657298}
   - component: {fileID: 1903657308}
@@ -12151,18 +12271,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1903657294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1903657293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4982fa9e0f97ea24e93a1d2cc579686d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1903657295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12223,7 +12331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38f093e19fd31e4986ae05464ca805b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputsList: {fileID: 0}
   playerMovementStateType: 0
   PlayerWorldMovement: {x: 0, y: 0, z: 0}
   playerCamera: {fileID: 56045666}
@@ -12384,7 +12491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5381ac9d5cca224186592e555c839e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputsList: {fileID: 0}
   playerMovementController: {fileID: 0}
   playerCamera: {fileID: 56045666}
   playerCameraObject: {fileID: 56045663}
@@ -13475,3 +13581,6 @@ SceneRoots:
   - {fileID: 588366982}
   - {fileID: 591910966}
   - {fileID: 1725851295}
+  - {fileID: 1074247550}
+  - {fileID: 210721047}
+  - {fileID: 571179699}

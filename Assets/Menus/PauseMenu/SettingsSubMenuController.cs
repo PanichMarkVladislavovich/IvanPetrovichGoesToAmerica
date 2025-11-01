@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SettingsSubMenuController : MonoBehaviour
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	PauseMenuController pauseMenuController;
 
 	public Canvas SettingsSubMenuCanvas;
@@ -11,7 +11,7 @@ public class SettingsSubMenuController : MonoBehaviour
 	public Button CloseSettingsSubMenuButton;
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		pauseMenuController = GetComponent<PauseMenuController>();
 
 		CloseSettingsSubMenuButton.onClick.AddListener(CloseSettingsSubMenu);
@@ -19,7 +19,7 @@ public class SettingsSubMenuController : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerInputsList.GetKeyPauseMenu() && SettingsSubMenuCanvas.gameObject.activeInHierarchy)
+		if (InputManager.Instance.GetKeyPauseMenu() && SettingsSubMenuCanvas.gameObject.activeInHierarchy)
 		{
 			CloseSettingsSubMenu();
 		}

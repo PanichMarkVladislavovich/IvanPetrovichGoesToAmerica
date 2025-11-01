@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ImagesSubMenuController : MonoBehaviour
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	PauseMenuController pauseMenuController;
 
 	public Canvas ImagesSubMenuCanvas;
@@ -11,7 +11,7 @@ public class ImagesSubMenuController : MonoBehaviour
 	public Button CloseImagesSubMenuButton;
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		pauseMenuController = GetComponent<PauseMenuController>();
 
 		CloseImagesSubMenuButton.onClick.AddListener(CloseImagesSubMenu);
@@ -19,7 +19,7 @@ public class ImagesSubMenuController : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerInputsList.GetKeyPauseMenu() && ImagesSubMenuCanvas.gameObject.activeInHierarchy)
+		if (InputManager.Instance.GetKeyPauseMenu() && ImagesSubMenuCanvas.gameObject.activeInHierarchy)
 		{
 			CloseImagesSubMenu();
 		}

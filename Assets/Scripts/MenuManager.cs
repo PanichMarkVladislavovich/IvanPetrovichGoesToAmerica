@@ -2,7 +2,7 @@
 
 public class MenuManager : MonoBehaviour
 {
-    PlayerInputsList playerInputsList;
+    //InputManager playerInputsList;
 	PauseMenuController pauseMenuController;
 
 	public static bool IsPlayerControllable { get; private set; }
@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
 	
 	void Start()
     {
-        playerInputsList = GetComponent<PlayerInputsList>();
+        //playerInputsList = GetComponent<InputManager>();
 		pauseMenuController = GetComponent<PauseMenuController>();
 
 		pauseMenuController.PauseMenuCanvas.gameObject.SetActive(false);
@@ -28,7 +28,7 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-		if (playerInputsList.GetKeyPauseMenu())
+		if (InputManager.Instance.GetKeyPauseMenu())
 		{
 			if (!IsPauseMenuOpened)
 			{

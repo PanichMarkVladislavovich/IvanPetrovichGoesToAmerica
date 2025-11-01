@@ -1737,6 +1737,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244945415}
   m_CullTransparentMesh: 1
+--- !u!1 &264480904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 264480906}
+  - component: {fileID: 264480905}
+  m_Layer: 0
+  m_Name: 60FPS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &264480905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264480904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1a9f354a1cf6c4c96415cec7e502eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &264480906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264480904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52754694, y: 1.7112658, z: 6.1378665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272036132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,7 +2777,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 693704270}
   weaponWheelController: {fileID: 693704269}
-  PlayerInputsList: {fileID: 693704265}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &319870582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2829,7 +2873,6 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -2983,18 +3026,6 @@ MonoBehaviour:
   PlayerCameraDistanceZ: 0
   CameraRotationY: 0
   transitionDelay: 0.5
---- !u!114 &330585549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4982fa9e0f97ea24e93a1d2cc579686d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &375170412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3163,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375170412}
   m_CullTransparentMesh: 1
+--- !u!1 &378426161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378426163}
+  - component: {fileID: 378426162}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &378426162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378426161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4982fa9e0f97ea24e93a1d2cc579686d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementController: {fileID: 693704264}
+--- !u!4 &378426163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378426161}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52754694, y: 1.7112658, z: 6.1378665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &391989328
 GameObject:
   m_ObjectHideFlags: 0
@@ -4359,7 +4435,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 693704270}
   weaponWheelController: {fileID: 693704269}
-  PlayerInputsList: {fileID: 693704265}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &564292735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5102,7 +5178,6 @@ GameObject:
   - component: {fileID: 693704261}
   - component: {fileID: 693704266}
   - component: {fileID: 693704262}
-  - component: {fileID: 693704265}
   - component: {fileID: 693704263}
   - component: {fileID: 693704264}
   - component: {fileID: 693704267}
@@ -5186,7 +5261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38f093e19fd31e4986ae05464ca805b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputsList: {fileID: 0}
   playerMovementStateType: 0
   PlayerWorldMovement: {x: 0, y: 0, z: 0}
   playerCamera: {fileID: 330585548}
@@ -5196,18 +5270,6 @@ MonoBehaviour:
   playerCapsuleCollider: {fileID: 1656739191}
   playerCapsuleColliderMesh: {fileID: 1656739194}
   IsPlayerLegKicking: 0
---- !u!114 &693704265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693704260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4982fa9e0f97ea24e93a1d2cc579686d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &693704266
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6554,7 +6616,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 693704270}
   weaponWheelController: {fileID: 693704269}
-  PlayerInputsList: {fileID: 693704265}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &883769905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8168,7 +8230,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 693704270}
   weaponWheelController: {fileID: 693704269}
-  PlayerInputsList: {fileID: 693704265}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &1200027714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9475,7 +9537,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 693704270}
   weaponWheelController: {fileID: 693704269}
-  PlayerInputsList: {fileID: 693704265}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &1415595842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11903,7 +11965,7 @@ MonoBehaviour:
   WeaponButton: {fileID: 0}
   weaponController: {fileID: 693704270}
   weaponWheelController: {fileID: 693704269}
-  PlayerInputsList: {fileID: 693704265}
+  PlayerInputsList: {fileID: 0}
 --- !u!114 &1951153787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16094,7 +16156,9 @@ SceneRoots:
   - {fileID: 763549966}
   - {fileID: 468122}
   - {fileID: 1703535506}
+  - {fileID: 378426163}
   - {fileID: 449002845}
+  - {fileID: 1136574251}
   - {fileID: 870955064}
   - {fileID: 4026864859331785775}
   - {fileID: 86909857}
@@ -16109,4 +16173,4 @@ SceneRoots:
   - {fileID: 832230488}
   - {fileID: 1427094245}
   - {fileID: 1161214814816958820}
-  - {fileID: 1136574251}
+  - {fileID: 264480906}

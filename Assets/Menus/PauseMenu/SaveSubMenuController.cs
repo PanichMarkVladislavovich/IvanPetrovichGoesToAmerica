@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SaveSubMenuController : MonoBehaviour
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	PauseMenuController pauseMenuController;
 
 	public Canvas SaveSubMenuCanvas;
@@ -17,7 +17,7 @@ public class SaveSubMenuController : MonoBehaviour
 	public Button SaveGame5Button;
 	void Start()
     {
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		pauseMenuController = GetComponent<PauseMenuController>();
 
 		CloseSaveSubMenuButton.onClick.AddListener(CloseSaveSubMenu);
@@ -32,7 +32,7 @@ public class SaveSubMenuController : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerInputsList.GetKeyPauseMenu() && SaveSubMenuCanvas.gameObject.activeInHierarchy)
+		if (InputManager.Instance.GetKeyPauseMenu() && SaveSubMenuCanvas.gameObject.activeInHierarchy)
 		{
 			CloseSaveSubMenu();
 		}

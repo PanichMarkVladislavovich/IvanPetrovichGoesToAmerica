@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
-public class PlayerInputsList : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
-	PlayerMovementController playerMovementController;
-	
-	
+	public PlayerMovementController playerMovementController;
+	//public GameObject Player;
+
+	public static InputManager Instance { get; private set; }
+
+
 	private KeyCode _keyUp;
 	private KeyCode _keyDown;
 	private KeyCode _keyRight;
@@ -31,10 +34,25 @@ public class PlayerInputsList : MonoBehaviour
 	private KeyCode _keyRightHandWeaponAttack;
 	private KeyCode _keyLeftHandWeaponAttack;
 
-	private KeyCode _keyPauseMenu; 
+	private KeyCode _keyPauseMenu;
+
+	private void Awake()
+	{
+		// Паттерн Singleton: предотвращаем создание второго экземпляра
+		if (Instance == null)
+		{
+			Instance = this;
+
+		}
+		else
+		{
+			Destroy(gameObject); // Уничтожаем лишние экземпляры
+		}
+	}
 	void Start()
 	{
-		playerMovementController = GetComponent<PlayerMovementController>();
+		
+		//playerMovementController = GetComponent<PlayerMovementController>();
 		
 
 		_keyUp = KeyCode.W;

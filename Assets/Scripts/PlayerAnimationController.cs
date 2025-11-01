@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-	public PlayerInputsList playerInputsList;
+	//public InputManager playerInputsList;
 	
 	public PlayerMovementController playerMovementController;
 
@@ -27,7 +27,7 @@ public class PlayerAnimationController : MonoBehaviour
 	private float adjustedCameraAngle;
 	void Start()
     {
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 
 		playerMovementController = GetComponent<PlayerMovementController>();
 
@@ -106,19 +106,19 @@ public class PlayerAnimationController : MonoBehaviour
 		{
 			if (playerBehaviour.IsPlayerArmed == true || (playerCamera.CurrentPlayerCameraStateType == "FirstPerson"))
 			{
-				if (playerInputsList.GetKeyUp())
+				if (InputManager.Instance.GetKeyUp())
 				{
 					ChangePlayerMovementAnimation("Walking Forward");
 				}
-				else if (playerInputsList.GetKeyDown())
+				else if (InputManager.Instance.GetKeyDown())
 				{
 					ChangePlayerMovementAnimation("Walking Backwards");
 				}
-				if (playerInputsList.GetKeyRight())
+				if (InputManager.Instance.GetKeyRight())
 				{
 					ChangePlayerMovementAnimation("Walking Right");
 				}
-				else if (playerInputsList.GetKeyLeft())
+				else if (InputManager.Instance.GetKeyLeft())
 				{
 					ChangePlayerMovementAnimation("Walking Left");
 				}

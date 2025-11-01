@@ -3,14 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	WeaponController weaponController;
 
 	public bool IsPlayerArmed { get; private set; } = false;
 
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		weaponController = GetComponent<WeaponController>();
 
 		
@@ -18,7 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Update()
 	{
-		if (playerInputsList.GetKeyShowWeapons())
+		if (InputManager.Instance.GetKeyShowWeapons())
 		{
 			if (!IsPlayerArmed && (weaponController.RightHandWeapon != null || weaponController.LeftHandWeapon != null))
 			{

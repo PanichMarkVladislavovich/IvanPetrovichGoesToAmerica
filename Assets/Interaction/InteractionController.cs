@@ -7,7 +7,7 @@ public class InteractionController : MonoBehaviour
 	public TextMeshProUGUI interactionText; // Подсказка (назначается вручную через Inspector)
 	public PlayerCamera playerCamera;
 	public GameObject PlayerCameraObject;
-	private PlayerInputsList playerInputsList; // Список кнопок ввода
+	//private PlayerInputsList playerInputsList; // Список кнопок ввода
 	private GameObject previousInteractableItem; // Переменная для хранения предыдущего объекта
 	private GameObject currentInteractableItem; // Текущий объект взаимодействия
 
@@ -16,7 +16,7 @@ public class InteractionController : MonoBehaviour
 
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>(); // Получаем список вводимых команд
+		//playerInputsList = GetComponent<PlayerInputsList>(); // Получаем список вводимых команд
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
 	}
 
@@ -63,10 +63,10 @@ public class InteractionController : MonoBehaviour
 				}
 
 				// Устанавливаем подсказку с нужной кнопкой
-				interactionText.text = $"{interactableObj.InteractionHint}\nНажмите {playerInputsList.GetNameOfKeyInteract()}";
+				interactionText.text = $"{interactableObj.InteractionHint}\nНажмите {InputManager.Instance.GetNameOfKeyInteract()}";
 
 				// Проверка на нажатие кнопки
-				if (playerInputsList.GetKeyInteract())
+				if (InputManager.Instance.GetKeyInteract())
 				{
 					interactableObj.Interact(); // Обработка события взаимодействия
 				}

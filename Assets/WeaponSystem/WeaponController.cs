@@ -10,7 +10,7 @@ public class WeaponController : MonoBehaviour
 	public bool IsPlungerCrossbowWeaponUnlocked { get; private set; }
 	public bool IsEugenicGenieWeaponUnlocked { get; private set; }
 
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	WeaponWheelController weaponWheelController;
 	PlayerBehaviour playerBehaviour;
 
@@ -25,19 +25,19 @@ public class WeaponController : MonoBehaviour
 		IsEugenicGenieWeaponUnlocked = true;
 		
 		
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		weaponWheelController = GetComponent<WeaponWheelController>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
 	}
 
 	private void Update()
 	{
-		if (playerInputsList.GetKeyRightHandWeaponAttack() && !MenuManager.IsAnyMenuOpened)
+		if (InputManager.Instance.GetKeyRightHandWeaponAttack() && !MenuManager.IsAnyMenuOpened)
 		{
 			RightWeaponAttack();
 		}
 
-		if (playerInputsList.GetKeyLeftHandWeaponAttack() && !MenuManager.IsAnyMenuOpened)
+		if (InputManager.Instance.GetKeyLeftHandWeaponAttack() && !MenuManager.IsAnyMenuOpened)
 		{
 			LeftWeaponAttack();
 		}

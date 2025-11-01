@@ -4,7 +4,7 @@ using TMPro;
 
 public class WeaponWheelController : MonoBehaviour
 {
-	PlayerInputsList playerInputsList;
+	//InputManager playerInputsList;
 	public Canvas WeaponWheelMenuCanvas; 
 
 	public Button PoliceBatonButton;
@@ -23,7 +23,7 @@ public class WeaponWheelController : MonoBehaviour
 
 	void Start()
 	{
-		playerInputsList = GetComponent<PlayerInputsList>();
+		//playerInputsList = GetComponent<InputManager>();
 		weaponController = GetComponent<WeaponController>();
 
 		PoliceBatonButton.onClick.AddListener(() => weaponController.SelectWeapon(typeof(WeaponPoliceBaton)));
@@ -34,8 +34,8 @@ public class WeaponWheelController : MonoBehaviour
 
 	void Update()
 	{
-		bool currentRightHandPressed = playerInputsList.GetKeyRightHandWeaponWheel();
-		bool currentLeftHandPressed = playerInputsList.GetKeyLeftHandWeaponWheel();
+		bool currentRightHandPressed = InputManager.Instance.GetKeyRightHandWeaponWheel();
+		bool currentLeftHandPressed = InputManager.Instance.GetKeyLeftHandWeaponWheel();
 		
 		// Обновляем состояние, только если изменилось нажатие кнопки
 		if (currentRightHandPressed != previousRightHandPressed || currentLeftHandPressed != previousLeftHandPressed)

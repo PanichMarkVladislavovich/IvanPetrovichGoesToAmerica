@@ -15,19 +15,19 @@ public class RunningPlayerMovementState : PlayerMovementState
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
 		}
-		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyRun() == false)
+		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() == false)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerWalking);
 		}
-		if (playerMovementController.IsPlayerFalling == true && playerMovementController.playerInputsList.GetKeyCrouch() == false)
+		if (playerMovementController.IsPlayerFalling == true && InputManager.Instance.GetKeyCrouch() == false)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerFalling);
 		}
-		if (playerMovementController.playerInputsList.GetKeyJump())
+		if (InputManager.Instance.GetKeyJump())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
-		if (playerMovementController.IsPlayerMoving == true && playerMovementController.IsPlayerFalling == false && playerMovementController.playerInputsList.GetKeyCrouch())
+		if (playerMovementController.IsPlayerMoving == true && playerMovementController.IsPlayerFalling == false && InputManager.Instance.GetKeyCrouch())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerSliding);
 		}

@@ -16,26 +16,26 @@ public class WalkingPlayerMovementState: PlayerMovementState
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
 		}
 		
-		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
+		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
 		}
 		
-		if (playerMovementController.IsPlayerFalling == true  && playerMovementController.playerInputsList.GetKeyCrouch() == false)
+		if (playerMovementController.IsPlayerFalling == true  && InputManager.Instance.GetKeyCrouch() == false)
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerFalling);
 		}
 		
-		if (playerMovementController.playerInputsList.GetKeyJump())
+		if (InputManager.Instance.GetKeyJump())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
-		if (playerMovementController.IsPlayerMoving == true && playerMovementController.playerInputsList.GetKeyCrouch())
+		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyCrouch())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingWalking);
 
 		}
-		if (playerMovementController.IsPlayerMoving == false && playerMovementController.playerInputsList.GetKeyCrouch())
+		if (playerMovementController.IsPlayerMoving == false && InputManager.Instance.GetKeyCrouch())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerCrouchingIdle);
 		}

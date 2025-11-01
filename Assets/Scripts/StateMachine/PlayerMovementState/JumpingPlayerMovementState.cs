@@ -16,7 +16,7 @@ public class JumpingPlayerMovementState : PlayerMovementState
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerFalling);
 		}
 
-		if (playerMovementController.IsPlayerAbleToClimbLedge == true && playerMovementController.playerInputsList.GetKeyJumpBeingHeld())
+		if (playerMovementController.IsPlayerAbleToClimbLedge == true && InputManager.Instance.GetKeyJumpBeingHeld())
 		{
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerLedgeClimbing);
 		}
