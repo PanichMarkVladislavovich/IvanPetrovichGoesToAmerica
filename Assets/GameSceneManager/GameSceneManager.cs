@@ -21,6 +21,8 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
 
 		CurrentSceneName = SceneManager.GetActiveScene().name;
 
+		Debug.Log($"Current scene is {CurrentSceneName}");
+
 	}
 
 
@@ -28,7 +30,6 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
     {
 
 
-		Debug.Log($"Current scene is {CurrentSceneName}");
     }
 
     // Update is called once per frame

@@ -34,7 +34,7 @@ public class LootItemGoldBar : LootItemAbstract
 				data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = true;
 			}
 			else data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected = false;
-			Debug.Log("IT IS SAVED");
+			//Debug.Log("IT IS SAVED");
 
 		}
 
@@ -47,7 +47,7 @@ public class LootItemGoldBar : LootItemAbstract
 				data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected = true;
 			}
 			else data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected = false;
-			Debug.Log("IT IS SAVED");
+			//Debug.Log("IT IS SAVED");
 
 		}
 
