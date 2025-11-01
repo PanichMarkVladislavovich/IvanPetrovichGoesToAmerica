@@ -7,13 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+	[SerializeField] private string fileSaveDataTEMP = "";
 	[SerializeField] private string fileSaveDataName1 = "";
 	[SerializeField] private string fileSaveDataName2 = "";
 	[SerializeField] private string fileSaveDataName3 = "";
 	[SerializeField] private string fileSaveDataName4 = "";
 	[SerializeField] private string fileSaveDataName5 = "";
-
-	//private string saveElsewhere = @"C:\Users\PanichMark\Desktop";
 
 	private GameData gameData;
 	private List<IDataPersistence> dataPersistenceObjects;
@@ -22,12 +21,13 @@ public class DataPersistenceManager : MonoBehaviour
 
     public static DataPersistenceManager Instance {  get; private set; }
 
-
-
-
 	private void Awake()
 	{
 		Time.timeScale = 1.0f;
+
+		//this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
+
+
 
 		// Паттерн Singleton: предотвращаем создание второго экземпляра
 		if (Instance == null)
@@ -40,11 +40,12 @@ public class DataPersistenceManager : MonoBehaviour
 			Destroy(gameObject); // Уничтожаем лишние экземпляры
 		}
 
-		fileSaveDataName1 = "SAVEGAME1.json";
-		fileSaveDataName2 = "SAVEGAME2.json";
-		fileSaveDataName3 = "SAVEGAME3.json";
-		fileSaveDataName4 = "SAVEGAME4.json";
-		fileSaveDataName5 = "SAVEGAME5.json";
+		fileSaveDataTEMP = "SaveGameTEMP.json";
+		fileSaveDataName1 = "SaveGame1.json";
+		fileSaveDataName2 = "SaveGame2.json";
+		fileSaveDataName3 = "SaveGame3.json";
+		fileSaveDataName4 = "SaveGame4.json";
+		fileSaveDataName5 = "SaveGame5.json";
 
 
 		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
@@ -107,10 +108,7 @@ public class DataPersistenceManager : MonoBehaviour
 
 	}
 
-	public void Update()
-	{
-		//Debug.Log(Time.timeScale);
-	}
+	
 
 
 	private void OnApplicationQuit()
@@ -133,7 +131,24 @@ public class DataPersistenceManager : MonoBehaviour
 
 	public void SaveGame(int saveSlotNumber)
 	{
-        if (saveSlotNumber == 1)
+		
+		this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
+
+		this.gameData = fileDataHandler.Load();
+
+		
+		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+		{
+			dataPersistenceObj.SaveData(ref gameData);
+		}
+		
+
+		fileDataHandler.Save(gameData);
+
+		Debug.Log("TEMP Data rewritten to slot " + saveSlotNumber);
+
+		
+		if (saveSlotNumber == 1)
         {
              this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
         }
@@ -160,12 +175,19 @@ public class DataPersistenceManager : MonoBehaviour
 		}
 
 		fileDataHandler.Save(gameData);
+		
 
 		Debug.Log("Data saved to slot " + saveSlotNumber);
+		
 	}
 
 	public void LoadGame(int loadSlotNumber)
 	{
+		//if (loadSlotNumber == 0)
+		//{
+		//	this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
+		//	WhatSaveNumberWasLoaded = 1;
+		//}
 		if (loadSlotNumber == 1)
 		{
 			this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataName1);
@@ -209,7 +231,7 @@ public class DataPersistenceManager : MonoBehaviour
 		{
 			string sceneName = SceneManager.GetActiveScene().name;
 
-			SceneManager.LoadScene(sceneName);
+			SceneManager.LoadSceneAsync(sceneName);
 			Debug.Log($"Scene {sceneName} reloaded");
 		}
 	}

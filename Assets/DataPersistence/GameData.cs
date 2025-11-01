@@ -33,9 +33,10 @@ public class GameData
 	public int ManaReplenishItems;
 
 	//Collectables
-	public LootItemData[] LootItemDataGoldBar;
+	public LootItemData[] LootItemSCENE1DataGoldBar;
+	public LootItemData[] LootItemSCENE2DataGoldBar;
 
-	//public int[] bruh;
+
 
 	public GameData()
 	{
@@ -57,12 +58,12 @@ public class GameData
 		PlayerMana = 15;
 		ManaReplenishItems = 6;
 
-		LootItemDataGoldBar = new LootItemData[10];
+		LootItemSCENE1DataGoldBar = new LootItemData[10];
+		LootItemSCENE2DataGoldBar = new LootItemData[10];
 
-		//bruh = new int[10];
 	}
 
-	
+
 
 }
 

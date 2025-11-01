@@ -6,7 +6,7 @@ public class LootItemGoldBar : LootItemAbstract
 
 	public override string InteractionItemName => "Золотой слиток";
 
-	//private GameObject NewInstance;
+	
 
 	public override void Interact()
 	{
@@ -19,60 +19,44 @@ public class LootItemGoldBar : LootItemAbstract
 		
 	}
 
-	private void Update()
-	{
-		//Debug.Log(gameObject);
-		//Debug.Log(LootItemIndex);
-		//Debug.Log(LootItemPosition);
-	}
+
 
 	public override void SaveData(ref GameData data)
 	{
-		if (WasLootItemCollected == true)
-		{
-			data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected = true;
-		}
-		else data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected = false;
+		
 
-		//data.LootItemDataGoldBar[LootItemIndex].LootItemPosition = transform.position;
-		//data.LootItemDataGoldBar[LootItemIndex].LootItemRotation = transform.rotation;
+			if (WasLootItemCollected == true)
+			{
+				data.LootItemSCENE1DataGoldBar[LootItemIndex].WasLootItemCollected = true;
+			}
+			else data.LootItemSCENE1DataGoldBar[LootItemIndex].WasLootItemCollected = false;
 
-		data.LootItemDataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
+
+			data.LootItemSCENE1DataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
+		
+
+
+
+		
+
+			//data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex = data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex;
+
+			//data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected = data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected;
+
+		
 	}
 
 	public override void LoadData(GameData data)
 	{
-		if (data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected == true)
+		if (data.LootItemSCENE1DataGoldBar[LootItemIndex].WasLootItemCollected == true)
 		{
 			WasLootItemCollected = true;
-			Destroy(gameObject); // Если предмет собран, удаляем его
+			Destroy(gameObject);
 		}
 
-		/*
-		if (data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected == true && WasLootItemCollected == false)
-		{
-			if (NewInstance == null)
-			{
-				Destroy(gameObject); // Если предмет собран, удаляем его
-			}
-			else
-			{
-				Destroy(NewInstance);
-			}
+		//data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex = data.LootItemSCENE2DataGoldBar[LootItemIndex].LootItemIndex;
 
-			WasLootItemCollected= true;
-		}
-		
-		else if (data.LootItemDataGoldBar[LootItemIndex].WasLootItemCollected == false && WasLootItemCollected == true)
-		{
-			LootItemIndex = data.LootItemDataGoldBar[LootItemIndex].LootItemIndex;
-
-			NewInstance = Instantiate(Resources.Load<GameObject>("GoldBar"), data.LootItemDataGoldBar[LootItemIndex].LootItemPosition,
-			data.LootItemDataGoldBar[LootItemIndex].LootItemRotation);
-
-			WasLootItemCollected = false;
-		}
-		*/
+		//data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected = data.LootItemSCENE2DataGoldBar[LootItemIndex].WasLootItemCollected;
 
 
 	}
