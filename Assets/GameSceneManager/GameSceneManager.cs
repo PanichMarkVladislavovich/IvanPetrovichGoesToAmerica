@@ -21,13 +21,13 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
 
 		CurrentSceneName = SceneManager.GetActiveScene().name;
 
-		Debug.Log($"Current scene is {CurrentSceneName}");
 
 	}
 
 
 	void Start()
     {
+		Debug.Log($"Current scene is {CurrentSceneName}");
 
 
     }

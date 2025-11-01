@@ -169,10 +169,11 @@ public class DataPersistenceManager : MonoBehaviour
 	}
 
 
-
+	/*
 	public void NewGame()
 	{
 		this.gameData = new GameData();
+		//Debug.Log(gameData.HealingItems);
 		whatSaveNumberWasLoaded = 0;
 		SaveGame(-1);
 
@@ -182,6 +183,29 @@ public class DataPersistenceManager : MonoBehaviour
 			dataPersistenceObj.LoadData(gameData);
 		}
 	}
+	*/
+	public void NewGame()
+	{
+		// Шаг 1: Создание нового объекта GameData с начальными значениями
+		this.gameData = new GameData();
+
+		// Шаг 2: Настройка обработки файла для временного хранилища
+		this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
+
+		// Шаг 3: Сохранение текущего состояния в временный файл
+		fileDataHandler.Save(this.gameData);
+
+		// Шаг 4: Теперь обновляем каждый объект, реализующий IDataPersistence,
+		// используя ранее созданные данные из временного файла
+		foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+		{
+			dataPersistenceObj.LoadData(this.gameData);
+		}
+
+		Debug.Log("A new game has been started!");
+	}
+
+
 
 	public void SaveGame(int saveSlotNumber)
 	{

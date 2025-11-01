@@ -10,11 +10,11 @@ public class PlayerManaManager : MonoBehaviour, IDataPersistence
 	public Button ManaReplenishtemButton;
 	public TextMeshProUGUI ManaReplenishItemNumber;
 	public int MaxPlayerMana { get; private set; } = 100;
-	public int CurrentPlayerMana { get; private set; } = 30;
+	public int CurrentPlayerMana { get; private set; }
 
 	public int MaxManaReplenishItemsNumber { get; private set; } = 9;
 
-	public int CurrentManaReplenishItemsNumber { get; private set; } = 5;
+	public int CurrentManaReplenishItemsNumber { get; private set; }
 
 	private void Awake()
 	{

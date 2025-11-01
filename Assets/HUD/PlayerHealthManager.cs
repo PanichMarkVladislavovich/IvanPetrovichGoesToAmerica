@@ -10,11 +10,11 @@ public class PlayerHealthManager : MonoBehaviour, IDataPersistence
     public Button HealingItemButton;
     public TextMeshProUGUI HealingItemNumber;
     public int MaxPlayerHealth { get; private set; } = 100;
-    public int CurrentPlayerHealth { get; private set; } = 30;
+    public int CurrentPlayerHealth { get; private set; }
 
     public int MaxHealingItemsNumber { get; private set; } = 9;
 
-	public int CurrentHealingItemsNumber { get; private set; } = 5;
+	public int CurrentHealingItemsNumber { get; private set; }
 
 	private void Awake()
 	{
