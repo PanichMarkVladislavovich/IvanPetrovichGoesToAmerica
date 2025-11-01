@@ -14,6 +14,10 @@ public class DataPersistenceManager : MonoBehaviour
 	[SerializeField] private string fileSaveDataName4 = "";
 	[SerializeField] private string fileSaveDataName5 = "";
 
+	public static bool firstTimeLoaded = true; // Флаг для первой загрузки
+
+
+
 	private GameData gameData;
 	//public GameData GameDataGet => gameData;
 	public bool IsSavingFinished { get; private set; }
@@ -27,7 +31,12 @@ public class DataPersistenceManager : MonoBehaviour
 
 	private void Awake()
 	{
-		
+		// Только при первой загрузке игры выполняем перезагрузку
+		if (firstTimeLoaded && Application.isPlaying)
+		{
+			ReloadCurrentScene();
+			firstTimeLoaded = false; // Меняем флаг, чтобы предотвратить последующую перезагрузку
+		}
 
 		//this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileSaveDataTEMP);
 
@@ -58,7 +67,25 @@ public class DataPersistenceManager : MonoBehaviour
 
 
 
+		this.dataPersistenceObjects = FindAllDataPersistenceObjects();
 
+
+
+
+	}
+
+	private void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	private void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
 
 
 		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
@@ -71,19 +98,19 @@ public class DataPersistenceManager : MonoBehaviour
 		//Debug.Log("BRUH!");
 
 
-
-
-
-
-
-
-
-
-
 		this.dataPersistenceObjects = FindAllDataPersistenceObjects();
 
 
-	
+
+
+
+
+
+
+
+
+
+
 
 		if (whatSaveNumberWasLoaded != 0)
 		{
@@ -93,7 +120,7 @@ public class DataPersistenceManager : MonoBehaviour
 				this.gameData = fileDataHandler.Load();
 			}
 
-				string fileSaveDataName = null;
+			string fileSaveDataName = null;
 			if (whatSaveNumberWasLoaded == 1)
 			{
 				fileSaveDataName = fileSaveDataName1;
@@ -119,12 +146,12 @@ public class DataPersistenceManager : MonoBehaviour
 
 			whatSaveNumberWasLoaded = 0;
 		}
-		
 
 
 
 
-	
+
+
 		if (this.gameData != null)
 		{
 			foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
@@ -141,13 +168,8 @@ public class DataPersistenceManager : MonoBehaviour
 			NewGame();
 		}
 
-		
-
-
 	}
 
-
-	
 
 	private void Update()
 	{
@@ -285,6 +307,14 @@ public class DataPersistenceManager : MonoBehaviour
 			Debug.Log($"Scene {sceneName} loaded");
 		}
 	}
+
+
+	private void ReloadCurrentScene()
+	{
+		Scene currentScene = SceneManager.GetActiveScene();
+		SceneManager.LoadSceneAsync(currentScene.name);
+	}
+
 
 	private List<IDataPersistence> FindAllDataPersistenceObjects()
 	{

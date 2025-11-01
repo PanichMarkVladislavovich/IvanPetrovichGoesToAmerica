@@ -483,8 +483,8 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 	public void LoadData(GameData data)
 	{
 		this.CurrentPlayerMovementStateType = data.CurrentPlayerMovementStateType;
-		this.PlayerTransform.position = data.PlayerPosition;
-		this.PlayerTransform.rotation = data.PlayerRotation;
+		//this.PlayerTransform.position = data.PlayerPosition;
+		//this.PlayerTransform.rotation = data.PlayerRotation;
 
 		playerMovementStateType = (PlayerMovementStateType)Enum.Parse(typeof(PlayerMovementStateType), CurrentPlayerMovementStateType);
 		SetPlayerMovementState(playerMovementStateType);
