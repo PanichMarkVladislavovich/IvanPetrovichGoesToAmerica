@@ -336,38 +336,39 @@ public class DataPersistenceManager : MonoBehaviour
 		SceneManager.LoadSceneAsync(currentScene);
 	}
 
-	// Метод для извлечения данных о сохранениях
-	public string[] GetSaveInfo()
+	// Расширенный метод, возвращающий имя уровня и сумму денег
+	public Tuple<string, int>[] GetExtendedSaveInfo()
 	{
-		List<string> info = new List<string>();
-		info.Add(GetSaveDataForFile(fileSaveDataName1)); // Имя первого слота
-		info.Add(GetSaveDataForFile(fileSaveDataName2)); // Имя второго слота
-		info.Add(GetSaveDataForFile(fileSaveDataName3)); // Имя третьего слота
-		info.Add(GetSaveDataForFile(fileSaveDataName4)); // Имя четвёртого слота
-		info.Add(GetSaveDataForFile(fileSaveDataName5)); // Имя пятого слота
+		List<Tuple<string, int>> extendedInfo = new List<Tuple<string, int>>();
 
-		return info.ToArray(); // Возвращаем массив с информацией о каждом слоте
+		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName1));
+		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName2));
+		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName3));
+		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName4));
+		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName5));
+
+		return extendedInfo.ToArray();
 	}
 
-	// Вспомогательная функция для получения данных из конкретного файла
-	private string GetSaveDataForFile(string fileName)
+	// Вспомогательный метод для получения расширённой информации
+	private Tuple<string, int> GetExtendedSaveDataForFile(string fileName)
 	{
 		try
 		{
 			GameData gameData = fileDataHandler.LoadFromFile(fileName);
 			if (gameData != null)
 			{
-				return gameData.CurrentLevelNameUI; // Возвращаем имя уровня из файла
+				return new Tuple<string, int>(gameData.CurrentLevelNameUI, gameData.PlayerMoney);
 			}
 			else
 			{
-				return "<Empty Slot>"; // Если файл пуст или отсутствует
+				return new Tuple<string, int>(null, 0); // Стандартное значение, если данных нет
 			}
 		}
 		catch (Exception e)
 		{
 			Debug.LogWarning($"Ошибка при чтении файла '{fileName}'\n{e.Message}");
-			return "<Invalid Slot>";
+			return new Tuple<string, int>(null, 0); // Безопасное значение по умолчанию
 		}
 	}
 
