@@ -16,7 +16,7 @@ public class DoorSCENE : DoorAbstract
 	}
 
 
-	/*
+	
 	private IEnumerator SaveAndLoadScene()
 	{
 		// Начало сохранения игры
@@ -30,8 +30,9 @@ public class DoorSCENE : DoorAbstract
 		// После завершения сохранения начинаем загрузку новой сцены
 		SceneManager.LoadSceneAsync(goToSceneName);
 	}
-	*/
+	
 
+	/*
 	private IEnumerator SaveAndLoadScene()
 	{
 		// Останавливаем время игры
@@ -60,6 +61,7 @@ public class DoorSCENE : DoorAbstract
 		// Восстанавливаем нормальный ход времени
 		//Time.timeScale = 1.0f;
 	}
+	*/
 }
 
 	

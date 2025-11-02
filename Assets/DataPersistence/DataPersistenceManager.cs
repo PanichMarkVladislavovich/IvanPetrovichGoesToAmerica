@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine.SceneManagement;
+using System;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -321,7 +322,7 @@ public class DataPersistenceManager : MonoBehaviour
 		else
 		{
 
-			string sceneName = gameData.CurrentScene;
+			string sceneName = gameData.CurrentSceneSystemName;
 
 			SceneManager.LoadSceneAsync(sceneName);
 			Debug.Log($"Scene {sceneName} loaded");
@@ -333,6 +334,41 @@ public class DataPersistenceManager : MonoBehaviour
 	{
 		string currentScene = SceneManager.GetActiveScene().name;
 		SceneManager.LoadSceneAsync(currentScene);
+	}
+
+	// Метод для извлечения данных о сохранениях
+	public string[] GetSaveInfo()
+	{
+		List<string> info = new List<string>();
+		info.Add(GetSaveDataForFile(fileSaveDataName1)); // Имя первого слота
+		info.Add(GetSaveDataForFile(fileSaveDataName2)); // Имя второго слота
+		info.Add(GetSaveDataForFile(fileSaveDataName3)); // Имя третьего слота
+		info.Add(GetSaveDataForFile(fileSaveDataName4)); // Имя четвёртого слота
+		info.Add(GetSaveDataForFile(fileSaveDataName5)); // Имя пятого слота
+
+		return info.ToArray(); // Возвращаем массив с информацией о каждом слоте
+	}
+
+	// Вспомогательная функция для получения данных из конкретного файла
+	private string GetSaveDataForFile(string fileName)
+	{
+		try
+		{
+			GameData gameData = fileDataHandler.LoadFromFile(fileName);
+			if (gameData != null)
+			{
+				return gameData.CurrentLevelNameUI; // Возвращаем имя уровня из файла
+			}
+			else
+			{
+				return "<Empty Slot>"; // Если файл пуст или отсутствует
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.LogWarning($"Ошибка при чтении файла '{fileName}'\n{e.Message}");
+			return "<Invalid Slot>";
+		}
 	}
 
 

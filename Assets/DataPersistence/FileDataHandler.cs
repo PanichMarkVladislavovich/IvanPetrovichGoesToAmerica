@@ -7,19 +7,19 @@ using System.IO;
 public class FileDataHandler
 {
 
-	private string dataDirPAth = "";
+	private string dataDirPath = "";
 
 	private string dataFileName = "";
 
 	public FileDataHandler(string dataDirPath, string dataFileName)
 	{
-		this.dataDirPAth = dataDirPath;
+		this.dataDirPath = dataDirPath;
 		this.dataFileName = dataFileName;
 	}
 
 	public GameData Load()
 	{
-		string fullPath = Path.Combine(dataDirPAth, dataFileName);
+		string fullPath = Path.Combine(dataDirPath, dataFileName);
 		GameData loadedData = null;
 		if (File.Exists(fullPath))
 		{
@@ -36,7 +36,7 @@ public class FileDataHandler
 				loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
 
 			}
-			catch (Exception e) 
+			catch (Exception e)
 			{
 				Debug.LogError("Loading error: " + fullPath + "/n" + e);
 			}
@@ -46,7 +46,7 @@ public class FileDataHandler
 
 	public void Save(GameData data)
 	{
-		string fullPath = Path.Combine(dataDirPAth, dataFileName);
+		string fullPath = Path.Combine(dataDirPath, dataFileName);
 		try
 		{
 			Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
@@ -65,5 +65,32 @@ public class FileDataHandler
 		{
 			Debug.LogError("Saving error: " + fullPath + "/n" + e);
 		}
+	}
+
+	// Новый метод для специфической загрузки отдельных файлов
+	public GameData LoadFromFile(string fileName)
+	{
+		string fullPath = Path.Combine(dataDirPath, fileName);
+		GameData loadedData = null;
+		if (File.Exists(fullPath))
+		{
+			try
+			{
+				string dataToLoad = "";
+				using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+				{
+					using (StreamReader reader = new StreamReader(stream))
+					{
+						dataToLoad = reader.ReadToEnd();
+					}
+				}
+				loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+			}
+			catch (Exception e)
+			{
+				Debug.LogError("Loading error: " + fullPath + "\n" + e);
+			}
+		}
+		return loadedData;
 	}
 }

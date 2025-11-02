@@ -8,7 +8,8 @@
 public class GameData
 {
 	//CurrentScene
-	public string CurrentScene;
+	public string CurrentSceneSystemName;
+	public string CurrentLevelNameUI;
 
 	//Player Movement
 	public string CurrentPlayerMovementStateType;
@@ -42,7 +43,8 @@ public class GameData
 
 	public GameData()
 	{
-		CurrentScene = "SceneTEST";
+		CurrentSceneSystemName = "SceneTEST";
+		CurrentLevelNameUI = "Тестовая сцена";
 
 		CurrentPlayerMovementStateType = "PlayerIdle";
 		PlayerPosition = new Vector3(2, 0, 4);

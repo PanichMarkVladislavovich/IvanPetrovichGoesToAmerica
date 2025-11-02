@@ -3,7 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour, IDataPersistence
 {
-	public string CurrentSceneName {  get; private set; }
+	public string CurrentSceneSystemName {  get; private set; }
+
+	public string CurrentLevelNameUI { get; private set; }
 	public static GameSceneManager Instance { get; private set; }
 
 	private void Awake()
@@ -19,7 +21,7 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
 			Destroy(gameObject); // Уничтожаем лишние экземпляры
 		}
 
-		CurrentSceneName = SceneManager.GetActiveScene().name;
+		CurrentSceneSystemName = SceneManager.GetActiveScene().name;
 
 
 	}
@@ -27,25 +29,40 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
 
 	void Start()
     {
-		Debug.Log($"Current scene is {CurrentSceneName}");
+		Debug.Log($"Current scene name is {CurrentSceneSystemName}");
 
-
-    }
+		if (SceneManager.GetActiveScene().name == "SceneTEST")
+		{
+			CurrentLevelNameUI = "Тестовая сцена";
+		}
+		else if (SceneManager.GetActiveScene().name == "Scene1")
+		{
+			CurrentLevelNameUI = "Сцена 1";
+		}
+	}
 
     // Update is called once per frame
     void Update()
     {
-		//Debug.Log(CurrentSceneName);
+		//Debug.Log(CurrentLevelNameUI);
     }
 
 	public void SaveData(ref GameData data)
 	{
-		data.CurrentScene = SceneManager.GetActiveScene().name;
+		data.CurrentSceneSystemName = SceneManager.GetActiveScene().name;
+
+		if (SceneManager.GetActiveScene().name == "SceneTEST")
+		{
+			data.CurrentLevelNameUI = "Тестовая сцена";
+		}
+		else if (SceneManager.GetActiveScene().name == "Scene1")
+			{
+				data.CurrentLevelNameUI = "Сцена 1";
+			}
 	}
 
 	public void LoadData(GameData data)
 	{
-		//SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-		//SceneManager.LoadSceneAsync(data.CurrentScene);
+		this.CurrentLevelNameUI = data.CurrentLevelNameUI;
 	}
 }

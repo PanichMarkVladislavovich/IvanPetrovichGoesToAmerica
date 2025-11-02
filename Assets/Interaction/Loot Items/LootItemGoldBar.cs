@@ -25,7 +25,7 @@ public class LootItemGoldBar : LootItemAbstract
 	{
 
 
-		if (GameSceneManager.Instance.CurrentSceneName == "SceneTEST")
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "SceneTEST")
 		{
 			data.LootItemSceneTESTDataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
 
@@ -37,7 +37,7 @@ public class LootItemGoldBar : LootItemAbstract
 
 		}
 
-		if (GameSceneManager.Instance.CurrentSceneName == "Scene1")
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "Scene1")
 		{
 			data.LootItemScene1DataGoldBar[LootItemIndex].LootItemIndex = LootItemIndex;
 
@@ -54,7 +54,7 @@ public class LootItemGoldBar : LootItemAbstract
 
 	public override void LoadData(GameData data)
 	{
-		if (GameSceneManager.Instance.CurrentSceneName == "SceneTEST")
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "SceneTEST")
 		{
 			if (data.LootItemSceneTESTDataGoldBar[LootItemIndex].WasLootItemCollected == true)
 			{
@@ -63,7 +63,7 @@ public class LootItemGoldBar : LootItemAbstract
 			}
 		}
 
-		if (GameSceneManager.Instance.CurrentSceneName == "Scene1")
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "Scene1")
 		{
 			if (data.LootItemScene1DataGoldBar[LootItemIndex].WasLootItemCollected == true)
 			{

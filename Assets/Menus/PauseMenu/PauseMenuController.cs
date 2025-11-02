@@ -52,6 +52,7 @@ public class PauseMenuController : MonoBehaviour
 		Debug.Log("PauseMenu closed");
 
 		loadSubMenuController.LoadSubMenuCanvas.gameObject.SetActive(true);
+		loadSubMenuController.RefreshLoadButtonLabels(); // Всегда обновляем информацию при открытии меню
 		Debug.Log("LoadSubMenu opened");
 	}
 
