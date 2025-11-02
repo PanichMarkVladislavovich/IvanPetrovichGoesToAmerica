@@ -89,25 +89,53 @@ public class LoadSubMenuController : MonoBehaviour
 
 		for (int i = 0; i < extendedSaveInfos.Length; i++)
 		{
-			var (levelName, playerMoney) = extendedSaveInfos[i];
+			var (levelName, playerMoney, sceneName) = extendedSaveInfos[i];
 
-			if (!string.IsNullOrEmpty(levelName)) // Если данные есть
+			if (!string.IsNullOrEmpty(sceneName)) // Проверяем наличие сцены
 			{
 				// Формирование имени файла иконки
-				string iconName = $"{levelName}";
+				string iconName = $"{sceneName}";
 
-				Debug.Log(iconName);
+				//Debug.Log($"Название сцены {iconName}");
+
 				// Загрузка спрайта иконки
-				//Sprite sprite = Resources.Load<Sprite>($"Sprites/{iconName}");
-				Sprite sprite = Resources.Load<Sprite>("Sprites/Scene1");
+				Sprite sprite = Resources.Load<Sprite>($"Sprites/{iconName}");
+				//Sprite sprite = Resources.Load<Sprite>($"Sprites/Scene1");
 
+				//Debug.Log($"Загрузили sprite {sprite}");
 
 				if (sprite != null)
 				{
-					// Устанавливаем иконку на компонент Image в Level_Image
-					LoadGame4Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+					// Определяем нужную кнопку через if-else
+					if (i == 0)
+					{
+						LoadGame1Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+					}
+					else if (i == 1)
+					{
+						LoadGame2Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+					}
+					else if (i == 2)
+					{
+						LoadGame3Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+					}
+					else if (i == 3)
+					{
+						LoadGame4Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+					}
+					else if (i == 4)
+					{
+						LoadGame5Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+					}
+					else
+					{
+						Debug.LogError("Превышено максимальное количество слотов сохранения");
+					}
 				}
-				else Debug.Log("Sprite EMPTY");
+				else
+				{
+					Debug.LogError("Не удалось загрузить иконку для сцены");
+				}
 
 				// Обновляем текстовую информацию
 				levelNameTexts[i].text = levelName;                 // Название уровня
