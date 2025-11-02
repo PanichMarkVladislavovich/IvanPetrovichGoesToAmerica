@@ -1,5 +1,4 @@
 ﻿using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,8 +17,11 @@ public class LoadSubMenuController : MonoBehaviour
 	public Button LoadGame5Button;
 
 	// Массив компонентов текста кнопок
-	private Text[] levelNameTexts;
-	private Text[] moneyTexts;
+
+
+	private Text[] currentDateAndTimeTexts;
+
+	private Text[] currentSceneNameUITexts;
 	private Text[] emptySlotTexts;
 	void Start()
 	{
@@ -32,35 +34,34 @@ public class LoadSubMenuController : MonoBehaviour
 		LoadGame3Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(3));
 		LoadGame4Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(4));
 		LoadGame5Button.onClick.AddListener(() => DataPersistenceManager.Instance.LoadGame(5));
+
 		// Формируем массивы текстовых компонентов
-        levelNameTexts = new Text[]
+		currentDateAndTimeTexts = new Text[]
         {
-            LoadGame1Button.transform.Find("Text_CurrentLevelNameUI")?.GetComponent<Text>(), // Название уровня
-            LoadGame2Button.transform.Find("Text_CurrentLevelNameUI")?.GetComponent<Text>(),
-            LoadGame3Button.transform.Find("Text_CurrentLevelNameUI")?.GetComponent<Text>(),
-            LoadGame4Button.transform.Find("Text_CurrentLevelNameUI")?.GetComponent<Text>(),
-            LoadGame5Button.transform.Find("Text_CurrentLevelNameUI")?.GetComponent<Text>()
+            LoadGame1Button.transform.Find("Text_CurrentDateAndTime")?.GetComponent<Text>(),
+            LoadGame2Button.transform.Find("Text_CurrentDateAndTime")?.GetComponent<Text>(),
+            LoadGame3Button.transform.Find("Text_CurrentDateAndTime")?.GetComponent<Text>(),
+            LoadGame4Button.transform.Find("Text_CurrentDateAndTime")?.GetComponent<Text>(),
+            LoadGame5Button.transform.Find("Text_CurrentDateAndTime")?.GetComponent<Text>()
         };
 
-        moneyTexts = new Text[]
+        currentSceneNameUITexts = new Text[]
         {
-            LoadGame1Button.transform.Find("Text_PlayerMoney")?.GetComponent<Text>(), // Деньги игрока
-            LoadGame2Button.transform.Find("Text_PlayerMoney")?.GetComponent<Text>(),
-            LoadGame3Button.transform.Find("Text_PlayerMoney")?.GetComponent<Text>(),
-            LoadGame4Button.transform.Find("Text_PlayerMoney")?.GetComponent<Text>(),
-            LoadGame5Button.transform.Find("Text_PlayerMoney")?.GetComponent<Text>()
+            LoadGame1Button.transform.Find("Text_CurrentSceneNameUI")?.GetComponent<Text>(),
+            LoadGame2Button.transform.Find("Text_CurrentSceneNameUI")?.GetComponent<Text>(),
+            LoadGame3Button.transform.Find("Text_CurrentSceneNameUI")?.GetComponent<Text>(),
+            LoadGame4Button.transform.Find("Text_CurrentSceneNameUI")?.GetComponent<Text>(),
+            LoadGame5Button.transform.Find("Text_CurrentSceneNameUI")?.GetComponent<Text>()
         };
 
         emptySlotTexts = new Text[]
         {
-            LoadGame1Button.transform.Find("Text_EmptySlot")?.GetComponent<Text>(), // Слот пуст
+            LoadGame1Button.transform.Find("Text_EmptySlot")?.GetComponent<Text>(),
             LoadGame2Button.transform.Find("Text_EmptySlot")?.GetComponent<Text>(),
             LoadGame3Button.transform.Find("Text_EmptySlot")?.GetComponent<Text>(),
             LoadGame4Button.transform.Find("Text_EmptySlot")?.GetComponent<Text>(),
             LoadGame5Button.transform.Find("Text_EmptySlot")?.GetComponent<Text>()
         };
-		// Сразу обновляем надписи кнопок
-		//RefreshLoadButtonLabels();
 	}
 
 	private void Update()
@@ -80,79 +81,93 @@ public class LoadSubMenuController : MonoBehaviour
 		Debug.Log("LoadSubMenu closed");
 	}
 
-	// Метод обновления подписей кнопок загрузки
-	// Метод для обновления информации на кнопках
-	// Метод для обновления информации на кнопках
 	public void RefreshLoadButtonLabels()
 	{
 		var extendedSaveInfos = DataPersistenceManager.Instance.GetExtendedSaveInfo();
 
 		for (int i = 0; i < extendedSaveInfos.Length; i++)
 		{
-			var (levelName, playerMoney, sceneName) = extendedSaveInfos[i];
+			var (currentDataAndTime, currentSceneNameUI, currentSceneNameSystem) = extendedSaveInfos[i];
 
-			if (!string.IsNullOrEmpty(sceneName)) // Проверяем наличие сцены
+			if (!string.IsNullOrEmpty(currentSceneNameSystem)) // Проверяем наличие сцены
 			{
-				// Формирование имени файла иконки
-				string iconName = $"{sceneName}";
+				// Обновляем текстовую информацию
+				currentSceneNameUITexts[i].text = currentDataAndTime;                
+				currentDateAndTimeTexts[i].text = currentSceneNameUI;        
 
-				//Debug.Log($"Название сцены {iconName}");
+				// Включаем компоненты
+				currentSceneNameUITexts[i].gameObject.SetActive(true);
+				currentDateAndTimeTexts[i].gameObject.SetActive(true);
+				emptySlotTexts[i].gameObject.SetActive(false);
+
+				// Формирование имени файла иконки
+				string currentSceneBackgroundImage = $"{currentSceneNameSystem}";
 
 				// Загрузка спрайта иконки
-				Sprite sprite = Resources.Load<Sprite>($"Sprites/{iconName}");
-				//Sprite sprite = Resources.Load<Sprite>($"Sprites/Scene1");
-
-				//Debug.Log($"Загрузили sprite {sprite}");
+				Sprite sprite = Resources.Load<Sprite>($"Sprites/{currentSceneBackgroundImage}");
 
 				if (sprite != null)
 				{
 					// Определяем нужную кнопку через if-else
 					if (i == 0)
 					{
+						LoadGame1Button.transform.Find("Level_Image").gameObject.SetActive(true);
 						LoadGame1Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
 					}
 					else if (i == 1)
 					{
+						LoadGame2Button.transform.Find("Level_Image").gameObject.SetActive(true);
 						LoadGame2Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
 					}
 					else if (i == 2)
 					{
+						LoadGame3Button.transform.Find("Level_Image").gameObject.SetActive(true);
 						LoadGame3Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
 					}
 					else if (i == 3)
 					{
+						LoadGame4Button.transform.Find("Level_Image").gameObject.SetActive(true);
 						LoadGame4Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
 					}
 					else if (i == 4)
 					{
+						LoadGame5Button.transform.Find("Level_Image").gameObject.SetActive(true);
 						LoadGame5Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
-					}
-					else
-					{
-						Debug.LogError("Превышено максимальное количество слотов сохранения");
 					}
 				}
 				else
 				{
-					Debug.LogError("Не удалось загрузить иконку для сцены");
+					Debug.LogError("Failed to load Scene Backgound Image");
 				}
-
-				// Обновляем текстовую информацию
-				levelNameTexts[i].text = levelName;                 // Название уровня
-				moneyTexts[i].text = playerMoney.ToString();        // Деньги
-
-				// Включаем компоненты
-				levelNameTexts[i].gameObject.SetActive(true);
-				moneyTexts[i].gameObject.SetActive(true);
-				emptySlotTexts[i].gameObject.SetActive(false);
 			}
 			else
 			{
 				// Данные не найдены, показываем текст "Слот пуст"
-				levelNameTexts[i].gameObject.SetActive(false);
-				moneyTexts[i].gameObject.SetActive(false);
+				currentSceneNameUITexts[i].gameObject.SetActive(false);
+				currentDateAndTimeTexts[i].gameObject.SetActive(false);
 				emptySlotTexts[i].text = $"Слот {i + 1} пуст";
 				emptySlotTexts[i].gameObject.SetActive(true);
+
+				if (i == 0)
+				{
+					LoadGame1Button.transform.Find("Level_Image").gameObject.SetActive(false);
+				}
+				else if (i == 1)
+				{
+					LoadGame2Button.transform.Find("Level_Image").gameObject.SetActive(false);
+				}
+				else if (i == 2)
+				{
+					LoadGame3Button.transform.Find("Level_Image").gameObject.SetActive(false);
+				}
+				else if (i == 3)
+				{
+					LoadGame4Button.transform.Find("Level_Image").gameObject.SetActive(false);
+				}
+				else if (i == 4)
+				{
+					LoadGame5Button.transform.Find("Level_Image").gameObject.SetActive(false);
+				}
 			}
 		}
 	}

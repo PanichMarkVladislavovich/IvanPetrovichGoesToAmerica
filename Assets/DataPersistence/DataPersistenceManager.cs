@@ -322,7 +322,7 @@ public class DataPersistenceManager : MonoBehaviour
 		else
 		{
 
-			string sceneName = gameData.CurrentSceneSystemName;
+			string sceneName = gameData.CurrentSceneNameSystem;
 
 			SceneManager.LoadSceneAsync(sceneName);
 			Debug.Log($"Scene {sceneName} loaded");
@@ -337,9 +337,9 @@ public class DataPersistenceManager : MonoBehaviour
 	}
 
 	// Расширенный метод, возвращающий имя уровня, сумму денег и имя сцены
-	public Tuple<string, int, string>[] GetExtendedSaveInfo()
+	public Tuple<string, string, string>[] GetExtendedSaveInfo()
 	{
-		List<Tuple<string, int, string>> extendedInfo = new List<Tuple<string, int, string>>();
+		List<Tuple<string, string, string>> extendedInfo = new List<Tuple<string, string, string>>();
 
 		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName1));
 		extendedInfo.Add(GetExtendedSaveDataForFile(fileSaveDataName2));
@@ -351,28 +351,31 @@ public class DataPersistenceManager : MonoBehaviour
 	}
 
 	// Вспомогательный метод для получения расширённой информации
-	private Tuple<string, int, string> GetExtendedSaveDataForFile(string fileName)
+	private Tuple<string, string, string> GetExtendedSaveDataForFile(string fileName)
 	{
 		try
 		{
 			GameData gameData = fileDataHandler.LoadFromFile(fileName);
 			if (gameData != null)
 			{
-				return new Tuple<string, int, string>(
-					gameData.CurrentLevelNameUI,       // Название уровня
-					gameData.PlayerMoney,              // Деньги
-					gameData.CurrentSceneSystemName    // Имя сцены
+				return new Tuple<string, string, string>(
+
+					gameData.CurrentDateAndTime, 
+					gameData.CurrentSceneNameUI,       
+					gameData.CurrentSceneNameSystem  
+					
+
 				);
 			}
 			else
 			{
-				return new Tuple<string, int, string>(null, 0, null); // Значения по умолчанию, если данных нет
+				return new Tuple<string, string, string>(null, null, null); // Значения по умолчанию, если данных нет
 			}
 		}
 		catch (Exception e)
 		{
 			Debug.LogWarning($"Ошибка при чтении файла '{fileName}'\n{e.Message}");
-			return new Tuple<string, int, string>(null, 0, null); // Безопасное значение по умолчанию
+			return new Tuple<string, string, string>(null, null, null); // Безопасное значение по умолчанию
 		}
 	}
 

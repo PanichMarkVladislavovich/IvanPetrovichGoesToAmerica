@@ -6,6 +6,7 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
 	public string CurrentSceneSystemName {  get; private set; }
 
 	public string CurrentLevelNameUI { get; private set; }
+	public string CurrentDateAndTime { get; private set; }
 	public static GameSceneManager Instance { get; private set; }
 
 	private void Awake()
@@ -49,20 +50,24 @@ public class GameSceneManager : MonoBehaviour, IDataPersistence
 
 	public void SaveData(ref GameData data)
 	{
-		data.CurrentSceneSystemName = SceneManager.GetActiveScene().name;
+		data.CurrentSceneNameSystem = SceneManager.GetActiveScene().name;
 
 		if (SceneManager.GetActiveScene().name == "SceneTEST")
 		{
-			data.CurrentLevelNameUI = "Тестовая сцена";
+			data.CurrentSceneNameUI = "Тестовая сцена";
 		}
 		else if (SceneManager.GetActiveScene().name == "Scene1")
 			{
-				data.CurrentLevelNameUI = "Сцена 1";
+				data.CurrentSceneNameUI = "Сцена 1";
 			}
+
+		data.CurrentDateAndTime = CurrentDateAndTime;
 	}
 
 	public void LoadData(GameData data)
 	{
-		this.CurrentLevelNameUI = data.CurrentLevelNameUI;
+		this.CurrentLevelNameUI = data.CurrentSceneNameUI;
+
+		CurrentDateAndTime = data.CurrentDateAndTime;
 	}
 }

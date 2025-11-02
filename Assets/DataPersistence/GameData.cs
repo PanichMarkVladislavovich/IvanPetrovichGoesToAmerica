@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 [System.Serializable]
@@ -8,8 +9,11 @@
 public class GameData
 {
 	//CurrentScene
-	public string CurrentSceneSystemName;
-	public string CurrentLevelNameUI;
+	public string CurrentSceneNameSystem;
+	public string CurrentSceneNameUI;
+
+	//Date&Time
+	public string CurrentDateAndTime;
 
 	//Player Movement
 	public string CurrentPlayerMovementStateType;
@@ -43,8 +47,10 @@ public class GameData
 
 	public GameData()
 	{
-		CurrentSceneSystemName = "SceneTEST";
-		CurrentLevelNameUI = "Тестовая сцена";
+		CurrentSceneNameSystem = "SceneTEST";
+		CurrentSceneNameUI = "Тестовая сцена";
+
+		CurrentDateAndTime = DateTime.Now.ToString();
 
 		CurrentPlayerMovementStateType = "PlayerIdle";
 		PlayerPosition = new Vector3(2, 0, 4);
