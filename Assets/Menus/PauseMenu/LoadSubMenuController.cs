@@ -91,20 +91,36 @@ public class LoadSubMenuController : MonoBehaviour
 		{
 			var (levelName, playerMoney) = extendedSaveInfos[i];
 
-			if (!string.IsNullOrEmpty(levelName)) // Если есть данные
+			if (!string.IsNullOrEmpty(levelName)) // Если данные есть
 			{
-				// Устанавливаем информацию на активные компоненты
-				levelNameTexts[i].text = levelName;               // Уровень
-				moneyTexts[i].text = playerMoney.ToString();      // Деньги
+				// Формирование имени файла иконки
+				string iconName = $"{levelName}";
 
-				// Включаем соответствующие компоненты
+				Debug.Log(iconName);
+				// Загрузка спрайта иконки
+				//Sprite sprite = Resources.Load<Sprite>($"Sprites/{iconName}");
+				Sprite sprite = Resources.Load<Sprite>("Sprites/Scene1");
+
+
+				if (sprite != null)
+				{
+					// Устанавливаем иконку на компонент Image в Level_Image
+					LoadGame4Button.transform.Find("Level_Image").GetComponent<Image>().sprite = sprite;
+				}
+				else Debug.Log("Sprite EMPTY");
+
+				// Обновляем текстовую информацию
+				levelNameTexts[i].text = levelName;                 // Название уровня
+				moneyTexts[i].text = playerMoney.ToString();        // Деньги
+
+				// Включаем компоненты
 				levelNameTexts[i].gameObject.SetActive(true);
 				moneyTexts[i].gameObject.SetActive(true);
 				emptySlotTexts[i].gameObject.SetActive(false);
 			}
 			else
 			{
-				// Данные отсутствуют, показываем текст "Слот пуст"
+				// Данные не найдены, показываем текст "Слот пуст"
 				levelNameTexts[i].gameObject.SetActive(false);
 				moneyTexts[i].gameObject.SetActive(false);
 				emptySlotTexts[i].text = $"Слот {i + 1} пуст";
