@@ -5,7 +5,7 @@ public class InteractionController : MonoBehaviour
 {
 	private float interactionRange = 50f; // Диапазон взаимодействия
 	public TextMeshProUGUI interactionText; // Подсказка (назначается вручную через Inspector)
-	public PlayerCamera playerCamera;
+	public PlayerCameraController playerCamera;
 	public GameObject PlayerCameraObject;
 	//private PlayerInputsList playerInputsList; // Список кнопок ввода
 	private GameObject previousInteractableItem; // Переменная для хранения предыдущего объекта
@@ -17,7 +17,7 @@ public class InteractionController : MonoBehaviour
 	void Start()
 	{
 		//playerInputsList = GetComponent<PlayerInputsList>(); // Получаем список вводимых команд
-		playerCamera = PlayerCameraObject.GetComponent<PlayerCamera>();
+		playerCamera = PlayerCameraObject.GetComponent<PlayerCameraController>();
 	}
 
 	void Update()

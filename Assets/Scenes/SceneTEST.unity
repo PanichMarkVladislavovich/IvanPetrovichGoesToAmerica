@@ -3065,7 +3065,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -3192,7 +3192,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &330585548
+--- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3201,13 +3201,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b83efb1cb5041c4891e54f086b03ece, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bd2291651ad56141a0aa5670164876a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovementController: {fileID: 693704264}
   PlayerCollider: {fileID: 1656739191}
   PlayerTransform: {fileID: 693704261}
-  CameraTransform: {fileID: 0}
   playerCameraStateType: 0
   MouseRotation: {x: 0, y: 0}
   MouseScrollWheel: {x: 0, y: 0}
@@ -5819,7 +5818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovementStateType: 0
   PlayerWorldMovement: {x: 0, y: 0, z: 0}
-  playerCamera: {fileID: 330585548}
+  playerCamera: {fileID: 0}
   PlayerCameraObject: {fileID: 330585543}
   PlayerTransform: {fileID: 693704261}
   PlayerRigidBody: {fileID: 693704266}
@@ -5885,7 +5884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovementController: {fileID: 0}
-  playerCamera: {fileID: 330585548}
+  playerCamera: {fileID: 0}
   playerCameraObject: {fileID: 330585543}
   playerBehaviour: {fileID: 0}
   weaponController: {fileID: 0}
@@ -6030,7 +6029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionText: {fileID: 936685664}
-  playerCamera: {fileID: 330585548}
+  playerCamera: {fileID: 0}
   PlayerCameraObject: {fileID: 330585543}
 --- !u!1 &712947351
 GameObject:
@@ -15126,6 +15125,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 650335068}
     m_Modifications:
+    - target: {fileID: 765162315031395508, guid: 0694a3c1529e34841a23ce420c628125, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2721654924155113918, guid: 0694a3c1529e34841a23ce420c628125, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.05
@@ -15169,6 +15172,10 @@ PrefabInstance:
     - target: {fileID: 7148807071726978935, guid: 0694a3c1529e34841a23ce420c628125, type: 3}
       propertyPath: m_Name
       value: Door SCENE
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031986547328454540, guid: 0694a3c1529e34841a23ce420c628125, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
