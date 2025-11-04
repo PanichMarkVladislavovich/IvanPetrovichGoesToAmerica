@@ -86,10 +86,10 @@ public class DataPersistenceManager : MonoBehaviour
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		LootItemGoldBar[] goldBars = FindObjectsOfType<LootItemGoldBar>();
-		for (int i = 0; i < goldBars.Length; i++)
+		LootItemAbstract[] lootItems = FindObjectsOfType<LootItemAbstract>();
+		for (int i = 0; i < lootItems.Length; i++)
 		{
-			goldBars[i].AssignLootItemIndex(i);
+			lootItems[i].AssignLootItemIndex(i);
 		}
 
 

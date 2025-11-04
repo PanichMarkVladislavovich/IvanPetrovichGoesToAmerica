@@ -4,12 +4,18 @@ using Unity.IO.LowLevel.Unsafe;
 
 public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPersistence
 {
-	
-	public virtual string InteractionItemName => gameObject.name;
+
+	[SerializeField]
+	private string _interactionItemName;
+	public virtual string InteractionItemName => _interactionItemName;
 
 	public virtual string InteractionHint => $"Поднять {InteractionItemName}";
 
-	public virtual int MoneyValue { get; protected set; }
+
+	[SerializeField]
+	private int _moneyValue;
+
+	public virtual int MoneyValue => _moneyValue;
 
 	public virtual bool WasLootItemCollected { get; protected set; }
 	

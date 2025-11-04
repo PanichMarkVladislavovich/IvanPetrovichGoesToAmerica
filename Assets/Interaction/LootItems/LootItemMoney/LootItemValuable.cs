@@ -1,24 +1,13 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
-public class LootItemHealingItem : LootItemAbstract
+public class LootItemValuable : LootItemAbstract
 {
-
-	public override int MoneyValue => 0;
-
-	public override string InteractionItemName => "Ð›ÐµÑ‡Ð°Ñ‰Ð¸Ð¹ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚";
-
-
 	public override void Interact()
 	{
-		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
-		{
-			Debug.Log($"Ð’Ñ‹ Ð¿Ð¾Ð´Ð½ÑÐ»Ð¸ {InteractionItemName}");
-			Destroy(gameObject);
-			PlayerHealthManager.Instance.AddHealingItem();
-			WasLootItemCollected = true;
-		}
-		else Debug.Log("Can't pick up more Healing Items");
-
+		Debug.Log($"Âû ïîäíÿëè {InteractionItemName}, ïîëó÷àåòå {MoneyValue} ðóáëåé");
+		Destroy(gameObject);
+		PlayerMoneyManager.Instance.AddMoney(MoneyValue);
+		WasLootItemCollected = true;
 	}
 
 	public override void SaveData(ref GameData data)

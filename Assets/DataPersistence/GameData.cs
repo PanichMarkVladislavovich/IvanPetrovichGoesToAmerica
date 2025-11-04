@@ -40,8 +40,8 @@ public class GameData
 	public int ManaReplenishItems;
 
 	//Collectables
-	public LootItemData[] LootItemSceneTESTDataGoldBar;
-	public LootItemData[] LootItemScene1DataGoldBar;
+	public LootItemData[] LootItemSceneTEST;
+	public LootItemData[] LootItemScene1;
 
 
 
@@ -70,8 +70,8 @@ public class GameData
 		PlayerMana = 15;
 		ManaReplenishItems = 6;
 
-		LootItemSceneTESTDataGoldBar = new LootItemData[10];
-		LootItemScene1DataGoldBar = new LootItemData[10];
+		LootItemSceneTEST = new LootItemData[20];
+		LootItemScene1 = new LootItemData[20];
 
 	}
 

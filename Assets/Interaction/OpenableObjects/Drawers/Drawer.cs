@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Drawer : OpenableObject
+public class Drawer : OpenableObjectAbstract
 {
 	
 

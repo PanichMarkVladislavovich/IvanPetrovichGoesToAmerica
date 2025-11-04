@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Door : OpenableObject
+public class Door : OpenableObjectAbstract
 {
 	//public override string InteractionItemName => "Дверь";
 

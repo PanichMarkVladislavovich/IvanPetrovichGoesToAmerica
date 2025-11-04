@@ -2,7 +2,7 @@
 using System;
 using Unity.IO.LowLevel.Unsafe;
 
-public abstract class OpenableObject : MonoBehaviour, IInteractable
+public abstract class OpenableObjectAbstract : MonoBehaviour, IInteractable
 {
 	//public virtual Vector3 LootItemPosition { get; protected set; }
 	//public virtual Quaternion LootItemRotation { get; protected set; }
