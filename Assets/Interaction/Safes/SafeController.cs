@@ -3,6 +3,9 @@ using System.Collections;
 
 public class SafeController : MonoBehaviour, IInteractable
 {
+	
+	public virtual string InteractionObjectNameSystem => null;
+
 	public GameObject SafeDoor;
 	private Transform safeDoorTransform;
 
@@ -20,7 +23,7 @@ public class SafeController : MonoBehaviour, IInteractable
 
 	private bool isInStartMethod;
 
-	public string InteractionItemNameUI => null;
+	public string InteractionObjectNameUI => null;
 	public string InteractionHint => "Открыть сейф";
 
 	void Start()

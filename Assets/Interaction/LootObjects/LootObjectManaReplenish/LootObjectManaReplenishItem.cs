@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 
-public class LootItemManaReplenishItem : LootItemAbstract
+public class LootObjectManaReplenishItem : LootObjectAbstract
 {
 
 	public override int MoneyValue => 0;
 
-	public override string InteractionItemNameSystem => "ManaReplenishItem";
-	public override string InteractionItemNameUI => "Предмет восстаналивает ману";
+	public override string InteractionObjectNameSystem => "ManaReplenishItem";
+	public override string InteractionObjectNameUI => "Предмет восстаналивает ману";
 
 
 	public override void Interact()
 	{
 		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
 		{
-			Debug.Log($"Вы подняли {InteractionItemNameUI}");
+			Debug.Log($"Вы подняли {InteractionObjectNameUI}");
 			Destroy(gameObject);
 			PlayerManaManager.Instance.AddManaReplenishItem();
 			WasLootItemCollected = true;

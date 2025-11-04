@@ -44,7 +44,7 @@ public class Drawer : OpenableObjectAbstract
 
 	IEnumerator OpenDrawer()
 	{
-		Debug.Log($"Был открыт {InteractionItemNameUI}");
+		Debug.Log($"Был открыт {InteractionObjectNameUI}");
 		IsDoorOpened = true;
 
 		while (Mathf.Abs(transform.localPosition.z - openedPosition.z) > 0.001f)
@@ -58,7 +58,7 @@ public class Drawer : OpenableObjectAbstract
 
 	IEnumerator CloseDrawer()
 	{
-		Debug.Log($"Был закрыт {InteractionItemNameUI}");
+		Debug.Log($"Был закрыт {InteractionObjectNameUI}");
 		IsDoorOpened = false;
 
 		while (Mathf.Abs(transform.localPosition.z - closedPosition.z) > 0.001f)

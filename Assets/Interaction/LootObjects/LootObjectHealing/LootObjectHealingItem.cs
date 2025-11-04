@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 
-public class LootItemHealingItem : LootItemAbstract
+public class LootObjectHealingItem : LootObjectAbstract
 {
 
 	public override int MoneyValue => 0;
 
-	public override string InteractionItemNameSystem => "HealingItem";
-	public override string InteractionItemNameUI => "Лечащий предмет";
+	public override string InteractionObjectNameSystem => "HealingItem";
+	public override string InteractionObjectNameUI => "Лечащий предмет";
 
 
 	public override void Interact()
 	{
 		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
 		{
-			Debug.Log($"Вы подняли {InteractionItemNameUI}");
+			Debug.Log($"Вы подняли {InteractionObjectNameUI}");
 			Destroy(gameObject);
 			PlayerHealthManager.Instance.AddHealingItem();
 			WasLootItemCollected = true;

@@ -6,7 +6,7 @@ public class VendingMachineAmmo : VendingMachineAbstract
 	public GameObject HealingItemModel;
 
 
-	public override string InteractionItemNameUI => "Автомате по продаже патронов";
+	public override string InteractionObjectNameUI => "Автомате по продаже патронов";
 
 	public override string GoodsName => "Патроны";
 
@@ -23,7 +23,7 @@ public class VendingMachineAmmo : VendingMachineAbstract
 		{
 			Vector3 spawnPosition = transform.position + new Vector3(-1f, 0.5f, 0f); // Сместили объект вверх на единицу
 
-			Debug.Log($"Вы купили {GoodsName} в {InteractionItemNameUI}");
+			Debug.Log($"Вы купили {GoodsName} в {InteractionObjectNameUI}");
 			Instantiate(HealingItemModel, spawnPosition, Quaternion.identity); 
 			PlayerMoneyManager.Instance.DeductMoney(-goodsPrice);
 		}

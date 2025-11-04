@@ -2,18 +2,18 @@
 using System;
 using Unity.IO.LowLevel.Unsafe;
 
-public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPersistence
+public abstract class LootObjectAbstract : MonoBehaviour, IInteractable, IDataPersistence
 {
 	[SerializeField]
 	private string _interactionItemNameSystem;
-	public virtual string InteractionItemNameSystem => _interactionItemNameSystem;
+	public virtual string InteractionObjectNameSystem => _interactionItemNameSystem;
 
 
 	[SerializeField]
 	private string _interactionItemNameUI;
-	public virtual string InteractionItemNameUI => _interactionItemNameUI;
+	public virtual string InteractionObjectNameUI => _interactionItemNameUI;
 
-	public virtual string InteractionHint => $"Поднять {InteractionItemNameUI}";
+	public virtual string InteractionHint => $"Поднять {InteractionObjectNameUI}";
 
 
 	[SerializeField]
@@ -41,7 +41,7 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 		if (GameSceneManager.Instance.CurrentSceneSystemName == "SceneTEST")
 		{
 			data.LootItemsSceneTEST[LootItemIndex].LootItemIndex = LootItemIndex;
-			data.LootItemsSceneTEST[LootItemIndex].LootItemName = InteractionItemNameSystem;
+			data.LootItemsSceneTEST[LootItemIndex].LootItemName = InteractionObjectNameSystem;
 
 			if (WasLootItemCollected == true)
 			{
@@ -54,7 +54,7 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 		if (GameSceneManager.Instance.CurrentSceneSystemName == "Scene1")
 		{
 			data.LootItemsScene1[LootItemIndex].LootItemIndex = LootItemIndex;
-			data.LootItemsScene1[LootItemIndex].LootItemName = InteractionItemNameSystem;
+			data.LootItemsScene1[LootItemIndex].LootItemName = InteractionObjectNameSystem;
 
 			if (WasLootItemCollected == true)
 			{
