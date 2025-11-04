@@ -1683,7 +1683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "25 \u0440\u0443\u0431\u043B\u0435\u0439"
+  _interactionItemNameSystem: 25Rubles
+  _interactionItemNameUI: "25 \u0440\u0443\u0431\u043B\u0435\u0439"
   _moneyValue: 25
 --- !u!1 &235670801
 GameObject:
@@ -8217,7 +8218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "5 \u0440\u0443\u0431\u043B\u0435\u0439"
+  _interactionItemNameSystem: 5Rubles
+  _interactionItemNameUI: "5 \u0440\u0443\u0431\u043B\u0435\u0439"
   _moneyValue: 5
 --- !u!1 &1093754058
 GameObject:
@@ -10120,7 +10122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "2 \u0440\u0443\u0431\u043B\u044F"
+  _interactionItemNameSystem: 2Rubles
+  _interactionItemNameUI: "2 \u0440\u0443\u0431\u043B\u044F"
   _moneyValue: 2
 --- !u!1 &1282774113
 GameObject:
@@ -10730,7 +10733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "50 \u0440\u0443\u0431\u043B\u0435\u0439"
+  _interactionItemNameSystem: 50Rubles
+  _interactionItemNameUI: "50 \u0440\u0443\u0431\u043B\u0435\u0439"
   _moneyValue: 50
 --- !u!1 &1392307065
 GameObject:
@@ -10838,7 +10842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "\u0437\u043E\u043B\u043E\u0442\u043E\u0439 \u0441\u043B\u0438\u0442\u043E\u043A"
+  _interactionItemNameSystem: GoldBar
+  _interactionItemNameUI: "\u0417\u043E\u043B\u043E\u0442\u043E\u0439 \u0441\u043B\u0438\u0442\u043E\u043A"
   _moneyValue: 20
 --- !u!1 &1395758364
 GameObject:
@@ -13031,7 +13036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "1 \u0440\u0443\u0431\u043B\u044C"
+  _interactionItemNameSystem: 1Ruble
+  _interactionItemNameUI: "1 \u0440\u0443\u0431\u043B\u044C"
   _moneyValue: 1
 --- !u!1 &1703535504
 GameObject:
@@ -13179,7 +13185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "100 \u0440\u0443\u0431\u043B\u0435\u0439"
+  _interactionItemNameSystem: 100Rubles
+  _interactionItemNameUI: "100 \u0440\u0443\u0431\u043B\u0435\u0439"
   _moneyValue: 100
 --- !u!4 &1721492905 stripped
 Transform:
@@ -14642,7 +14649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aac234cc20c13049ad71a24f7780e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemName: "10 \u0440\u0443\u0431\u043B\u0435\u0439"
+  _interactionItemNameSystem: 10Rubles
+  _interactionItemNameUI: "10 \u0440\u0443\u0431\u043B\u0435\u0439"
   _moneyValue: 10
 --- !u!1 &2033221782
 GameObject:

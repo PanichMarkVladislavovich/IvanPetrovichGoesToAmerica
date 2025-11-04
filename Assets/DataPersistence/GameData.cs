@@ -1,11 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-
 [System.Serializable]
-
-
-
 public class GameData
 {
 	//CurrentScene
@@ -40,10 +36,8 @@ public class GameData
 	public int ManaReplenishItems;
 
 	//Collectables
-	public LootItemData[] LootItemSceneTEST;
-	public LootItemData[] LootItemScene1;
-
-
+	public LootItemsData[] LootItemsSceneTEST;
+	public LootItemsData[] LootItemsScene1;
 
 	public GameData()
 	{
@@ -70,20 +64,17 @@ public class GameData
 		PlayerMana = 15;
 		ManaReplenishItems = 6;
 
-		LootItemSceneTEST = new LootItemData[20];
-		LootItemScene1 = new LootItemData[20];
+		LootItemsSceneTEST = new LootItemsData[20];
+		LootItemsScene1 = new LootItemsData[20];
 
 	}
-
-
-
 }
 
 [System.Serializable]
-public struct LootItemData
-	{
-		public int LootItemIndex;        // Целое число
-		public bool WasLootItemCollected;      // Булевое значение
-		//public Vector3 LootItemPosition;   // Трёхмерный вектор
-		//public Quaternion LootItemRotation; // Кватернион
-	}
+public struct LootItemsData
+{
+	public int LootItemIndex;
+	public string LootItemName;
+	public bool WasLootItemCollected;     
+		
+}

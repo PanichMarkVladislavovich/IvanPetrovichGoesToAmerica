@@ -4,12 +4,16 @@ using Unity.IO.LowLevel.Unsafe;
 
 public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPersistence
 {
+	[SerializeField]
+	private string _interactionItemNameSystem;
+	public virtual string InteractionItemNameSystem => _interactionItemNameSystem;
+
 
 	[SerializeField]
-	private string _interactionItemName;
-	public virtual string InteractionItemName => _interactionItemName;
+	private string _interactionItemNameUI;
+	public virtual string InteractionItemNameUI => _interactionItemNameUI;
 
-	public virtual string InteractionHint => $"Поднять {InteractionItemName}";
+	public virtual string InteractionHint => $"Поднять {InteractionItemNameUI}";
 
 
 	[SerializeField]
@@ -18,11 +22,11 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 	public virtual int MoneyValue => _moneyValue;
 
 	public virtual bool WasLootItemCollected { get; protected set; }
-	
+
 
 	// Поле для внутреннего индекса и хранения типа предмета
 	public int LootItemIndex { get; protected set; }
-	
+
 	internal void AssignLootItemIndex(int index)
 	{
 		LootItemIndex = index;
@@ -30,9 +34,57 @@ public abstract class LootItemAbstract : MonoBehaviour, IInteractable, IDataPers
 
 	public abstract void Interact();
 
-	public abstract void LoadData(GameData data);
+	public void SaveData(ref GameData data)
+	{
 
 
-	public abstract void SaveData(ref GameData data);
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "SceneTEST")
+		{
+			data.LootItemsSceneTEST[LootItemIndex].LootItemIndex = LootItemIndex;
+			data.LootItemsSceneTEST[LootItemIndex].LootItemName = InteractionItemNameSystem;
 
+			if (WasLootItemCollected == true)
+			{
+				data.LootItemsSceneTEST[LootItemIndex].WasLootItemCollected = true;
+			}
+			else data.LootItemsSceneTEST[LootItemIndex].WasLootItemCollected = false;
+
+		}
+
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "Scene1")
+		{
+			data.LootItemsScene1[LootItemIndex].LootItemIndex = LootItemIndex;
+			data.LootItemsScene1[LootItemIndex].LootItemName = InteractionItemNameSystem;
+
+			if (WasLootItemCollected == true)
+			{
+				data.LootItemsScene1[LootItemIndex].WasLootItemCollected = true;
+			}
+			else data.LootItemsScene1[LootItemIndex].WasLootItemCollected = false;
+
+		}
+
+
+	}
+
+	public void LoadData(GameData data)
+	{
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "SceneTEST")
+		{
+			if (data.LootItemsSceneTEST[LootItemIndex].WasLootItemCollected == true)
+			{
+				WasLootItemCollected = true;
+				Destroy(gameObject);
+			}
+		}
+
+		if (GameSceneManager.Instance.CurrentSceneSystemName == "Scene1")
+		{
+			if (data.LootItemsScene1[LootItemIndex].WasLootItemCollected == true)
+			{
+				WasLootItemCollected = true;
+				Destroy(gameObject);
+			}
+		}
+	}
 }

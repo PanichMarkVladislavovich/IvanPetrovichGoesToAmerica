@@ -12,8 +12,8 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 	private float sectionRotationSpeed = 0.15f;
 	private Coroutine sectionCoroutine; // Переменная для хранения текущей корутины
 
-	public string InteractionItemName => safeSectionSlotNumber.ToString();
-	public virtual string InteractionHint => $"Повернуть ячейку #{InteractionItemName}";
+	public string InteractionItemNameUI => safeSectionSlotNumber.ToString();
+	public virtual string InteractionHint => $"Повернуть ячейку #{InteractionItemNameUI}";
 
 	public void Interact()
 	{
@@ -48,12 +48,12 @@ public class SafeRotatorySection : MonoBehaviour, IInteractable
 			yield return null;
 		}
 
-		Debug.Log($"Section #{InteractionItemName} new position is {currentSectionPosition}");
+		Debug.Log($"Section #{InteractionItemNameUI} new position is {currentSectionPosition}");
 
 		if (currentSectionPosition == correctSectionPosition)
 		{
 			IsSectionPositionCorrect = true;
-			Debug.Log($"Section #{InteractionItemName} CORRECT");
+			Debug.Log($"Section #{InteractionItemNameUI} CORRECT");
 		}
 		else
 		{

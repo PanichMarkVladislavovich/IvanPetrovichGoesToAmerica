@@ -6,7 +6,7 @@ public class VendingMachineDoctorPoppels : VendingMachineAbstract
 	public GameObject ManaReplenishItemModel;
 
 
-	public override string InteractionItemName => "Автомате по продаже Сиропа";
+	public override string InteractionItemNameUI => "Автомате по продаже Сиропа";
 
 	public override string GoodsName => "Сироп";
 
@@ -23,7 +23,7 @@ public class VendingMachineDoctorPoppels : VendingMachineAbstract
 		{
 			Vector3 spawnPosition = transform.position + new Vector3(-1f, 0.5f, 0f); // Сместили объект вверх на единицу
 
-			Debug.Log($"Вы купили {GoodsName} в {InteractionItemName}");
+			Debug.Log($"Вы купили {GoodsName} в {InteractionItemNameUI}");
 			Instantiate(ManaReplenishItemModel, spawnPosition, Quaternion.identity);
 			PlayerMoneyManager.Instance.DeductMoney(-goodsPrice);
 		}

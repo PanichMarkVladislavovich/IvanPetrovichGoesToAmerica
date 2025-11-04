@@ -10,10 +10,10 @@ public abstract class OpenableObjectAbstract : MonoBehaviour, IInteractable
 	// Приватное поле, видимое в инспекторе
 	[SerializeField]
 	private string _interactionItemName;
-	public virtual string InteractionItemName => _interactionItemName;
+	public virtual string InteractionItemNameUI => _interactionItemName;
 
 	// Свойство подсказки теперь учитывает состояние двери
-	public virtual string InteractionHint => !IsDoorOpened ? $"Открыть {InteractionItemName}" : $"Закрыть {InteractionItemName}";
+	public virtual string InteractionHint => !IsDoorOpened ? $"Открыть {InteractionItemNameUI}" : $"Закрыть {InteractionItemNameUI}";
 
 	public virtual bool IsDoorOpened { get; protected set; }
 

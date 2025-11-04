@@ -51,7 +51,7 @@ public class Door : OpenableObjectAbstract
 
 	IEnumerator OpenDoor()
 	{
-		Debug.Log($"Была открыта {InteractionItemName}");
+		Debug.Log($"Была открыта {InteractionItemNameUI}");
 		IsDoorOpened = true;
 
 		while (Quaternion.Angle(transform.localRotation, openedRotation) > 0.1f)
@@ -65,7 +65,7 @@ public class Door : OpenableObjectAbstract
 
 	IEnumerator CloseDoor()
 	{
-		Debug.Log($"Была закрыта {InteractionItemName}");
+		Debug.Log($"Была закрыта {InteractionItemNameUI}");
 		IsDoorOpened = false;
 
 		while (Quaternion.Angle(transform.localRotation, closedRotation) > 0.1f)

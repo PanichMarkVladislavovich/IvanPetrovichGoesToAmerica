@@ -20,7 +20,7 @@ public class SafeController : MonoBehaviour, IInteractable
 
 	private bool isInStartMethod;
 
-	public string InteractionItemName => null;
+	public string InteractionItemNameUI => null;
 	public string InteractionHint => "Открыть сейф";
 
 	void Start()
