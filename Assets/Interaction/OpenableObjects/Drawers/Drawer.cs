@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DoorWardrobeDrawer : DoorAbstract
+public class Drawer : OpenableObject
 {
-	public override string InteractionItemName => "Выдвижной ящик";
+	
 
 	private float drawerOpeningSpeed = 3f; // Скорость открытия-закрытия ящика
 
@@ -11,6 +11,7 @@ public class DoorWardrobeDrawer : DoorAbstract
 
 	private Vector3 openedPosition;        // Открытое положение ящика
 	private Vector3 closedPosition;        // Закрытое положение ящика
+	[SerializeField] private float drawerOpenLength;
 
 	void Start()
 	{
@@ -18,7 +19,7 @@ public class DoorWardrobeDrawer : DoorAbstract
 		closedPosition = transform.localPosition;
 
 		// Открываем ящик вперёд по оси Z на 0.45 единицы
-		openedPosition = transform.localPosition + new Vector3(0, 0, 0.45f);
+		openedPosition = transform.localPosition + new Vector3(0, 0, drawerOpenLength);
 
 		IsDoorOpened = false;
 	}

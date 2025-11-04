@@ -25,7 +25,6 @@ public class SafeController : MonoBehaviour, IInteractable
 
 	void Start()
 	{
-		//wasSafeOpened = true;
 
 
 		isInStartMethod = true;

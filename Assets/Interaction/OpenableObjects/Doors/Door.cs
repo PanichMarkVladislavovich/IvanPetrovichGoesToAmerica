@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DoorWardrobe : DoorAbstract
+public class Door : OpenableObject
 {
-	public override string InteractionItemName => "Дверь";
+	//public override string InteractionItemName => "Дверь";
 
 	private float doorOpeningSpeed = 200f; // Скорость открытия-закрытия
 
@@ -11,11 +11,13 @@ public class DoorWardrobe : DoorAbstract
 
 	private Quaternion openedRotation;       // Угловое положение открытой двери
 	private Quaternion closedRotation;     // Угловое положение закрытой двери
+	[SerializeField] private int doorOpenAngle;
+	
 
 	void Start()
 	{
 		// Настройка состояний вращения
-		Vector3 openedEulerAngles = new Vector3(0, 0, 90);
+		Vector3 openedEulerAngles = new Vector3(0, 0, doorOpenAngle);
 		openedRotation = Quaternion.Euler(openedEulerAngles);
 
 		Vector3 closedEulerAngles = new Vector3(0, 0, 0);

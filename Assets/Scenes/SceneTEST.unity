@@ -11660,6 +11660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c688555cb5f2445a1cf75a53809cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactionItemName: "\u044F\u0449\u0438\u0447\u043A\u0430"
+  drawerOpenLength: 0.45
 --- !u!65 &1580010570
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16279,6 +16281,18 @@ PrefabInstance:
     - target: {fileID: 1003135665565903149, guid: f1ad9788051b61748a4efe1567ba269a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097644892465436317, guid: f1ad9788051b61748a4efe1567ba269a, type: 3}
+      propertyPath: DoorOpenAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097644892465436317, guid: f1ad9788051b61748a4efe1567ba269a, type: 3}
+      propertyPath: doorOpenAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097644892465436317, guid: f1ad9788051b61748a4efe1567ba269a, type: 3}
+      propertyPath: _interactionItemName
+      value: "\u0434\u0432\u0435\u0440\u0446\u0430"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

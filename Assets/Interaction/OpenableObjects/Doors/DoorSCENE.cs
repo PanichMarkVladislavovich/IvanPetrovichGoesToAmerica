@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class DoorSCENE : DoorAbstract
+public class DoorSCENE : OpenableObject
 {
-	public override string InteractionItemName => "Дверь";
+	//public override string InteractionItemName => "Дверь";
 
 	
 
