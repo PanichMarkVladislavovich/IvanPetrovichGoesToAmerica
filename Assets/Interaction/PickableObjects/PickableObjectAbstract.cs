@@ -2,7 +2,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using System.Collections;
 
-public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDataPersistence
+public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDataPersistence, IPickable
 {
 	GameObject _cachedPlayer;
 
@@ -14,7 +14,6 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 	public virtual string InteractionObjectNameSystem => _interactionItemNameSystem;
 
 
-
 	// Приватное поле, видимое в инспекторе
 	[SerializeField]
 	private string _interactionItemNameUI;
@@ -22,7 +21,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 
 	public string InteractionHint => $"Поднять {InteractionObjectNameUI}?";
 
-	private bool isObjectPickedUp;
+	public bool IsObjectPickedUp { get; private set; }
 
 	void Start()
 	{
@@ -31,19 +30,61 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 		_cachedPlayer = GameObject.Find("Player");
 	}
 
+	
 	private void Update()
 	{
-		if (isObjectPickedUp && InputManager.Instance.GetKeyInteract())
+		if (IsObjectPickedUp && InputManager.Instance.GetKeyInteract())
 		{
+			DropOffObject();
+		}
+	}
+	
+
+	public void Interact()
+	{
+		PickUpObject();
+	}
+
+	public void PickUpObject()
+	{
+		if (!IsObjectPickedUp)
+		{
+			if (_cachedPlayer != null)
+			{
+				Debug.Log("Interact");
+
+				gameObject.tag = "Untagged";
+				boxCollider.enabled = false;
+				rigidBody.isKinematic = true;
+
+				// Начинаем плавное перемещение
+				StartCoroutine(MoveTowardsTarget());
+
+				// Другие настройки остаются такими же
+				transform.parent = _cachedPlayer.transform;
+				transform.rotation = Quaternion.Euler(0, _cachedPlayer.transform.localEulerAngles.y, 0);
+				IsObjectPickedUp = true;
+			}
+			else
+			{
+				Debug.Log("Player not found!");
+			}
+		}
+	}
+
+
+	public virtual void DropOffObject()
+	{
+			Debug.Log("DropOff");
 			gameObject.tag = "Interactable";
 			boxCollider.enabled = true;
 			rigidBody.isKinematic = false;
-			isObjectPickedUp = false;
+			IsObjectPickedUp = false;
 
 			// Отцепляем объект от игрока
 			transform.parent = null;
+
 		
-		}
 	}
 
 	IEnumerator MoveTowardsTarget()
@@ -52,7 +93,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 		while (true)
 		{
 			// Рассчитываем новую целевую позицию каждый кадр
-			Vector3 targetPosition = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 1f + Vector3.up * 1f;
+			Vector3 targetPosition = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 0.5f + Vector3.up * 1f;
 
 			// Перемещаем объект к новой позиции
 			transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
@@ -67,67 +108,9 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 		}
 
 		// Установим последнюю позицию на случай погрешности
-		transform.position = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 1f + Vector3.up * 1f;
+		transform.position = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 0.5f + Vector3.up * 1f;
 	}
 
-	public void Interact()
-	{
-		if (!isObjectPickedUp)
-		{
-			if (_cachedPlayer != null)
-			{
-				gameObject.tag = "Untagged";
-				boxCollider.enabled = false;
-				rigidBody.isKinematic = true;
-
-				// Начинаем плавное перемещение
-				StartCoroutine(MoveTowardsTarget());
-
-				// Другие настройки остаются такими же
-				transform.parent = _cachedPlayer.transform;
-				transform.rotation = Quaternion.Euler(0, _cachedPlayer.transform.localEulerAngles.y, 0);
-				isObjectPickedUp = true;
-			}
-			else
-			{
-				Debug.LogError("Player not found!");
-			}
-		}
-	}
-
-
-
-
-
-	/*
-	public void Interact()
-	{
-		if (!isObjectPickedUp)
-		{
-			if (_cachedPlayer != null)
-			{
-				gameObject.tag = "Untagged";
-
-				rigidBody.isKinematic = true;
-
-				// Перемещаем объект к позиции игрока
-				transform.position = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 1f + Vector3.up * 1f;
-
-				// Устанавливаем объект как дочерний элемент игрока
-				transform.parent = _cachedPlayer.transform;
-
-				// Выравниваем вращение объекта (устанавливаем в ноль по всем осям)
-				transform.rotation = Quaternion.Euler(0, _cachedPlayer.transform.localEulerAngles.y, 0);
-
-				isObjectPickedUp = true;
-			}
-			else
-			{
-				Debug.LogError("Player not found!");
-			}
-		}
-	}
-	*/
 
 	public void SaveData(ref GameData data)
 	{
