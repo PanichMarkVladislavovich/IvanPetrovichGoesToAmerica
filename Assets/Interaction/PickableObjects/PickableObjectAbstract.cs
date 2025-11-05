@@ -21,6 +21,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 
 	public string InteractionHint => $"Поднять {InteractionObjectNameUI}?";
 
+
 	public bool IsObjectPickedUp { get; protected set; }
 
 	void Start()

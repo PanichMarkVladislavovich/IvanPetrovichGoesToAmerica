@@ -5,14 +5,16 @@ public class PlayerBehaviour : MonoBehaviour
 {
 	//InputManager playerInputsList;
 	WeaponController weaponController;
+	InteractionController interactionController;
 
-	public bool IsPlayerArmed { get; private set; } = false;
+	public bool WasPlayerArmed { get; private set; }
+	public bool IsPlayerArmed { get; private set; }
 
 	void Start()
 	{
 		//playerInputsList = GetComponent<InputManager>();
 		weaponController = GetComponent<WeaponController>();
-
+		interactionController = GetComponent<InteractionController>();
 		
 	}
 
@@ -27,16 +29,23 @@ public class PlayerBehaviour : MonoBehaviour
 			else DisarmPlayer();
 		}
 
+		if (interactionController.CurrentPickableObject != null)
+		{
+			DisarmPlayer();
+		}
+
+		//Debug.Log("was armed: " + WasPlayerArmed);
+		//Debug.Log("is " +IsPlayerArmed);
 		
 	}
 	
 
 	public void ArmPlayer()
 	{
-		if (!IsPlayerArmed)
+		if (!IsPlayerArmed && interactionController.CurrentPickableObject == null)
 		{
-			IsPlayerArmed = !IsPlayerArmed;
-
+			IsPlayerArmed = true;
+			WasPlayerArmed = false;
 
 			if (weaponController.RightHandWeapon != null)
 			{
@@ -57,7 +66,12 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (IsPlayerArmed)
 		{
-			IsPlayerArmed = !IsPlayerArmed;
+			IsPlayerArmed = false;
+
+			if (interactionController.CurrentPickableObject != null)
+			{
+				WasPlayerArmed = true;
+			}
 
 			if (weaponController.RightHandWeapon != null)
 			{

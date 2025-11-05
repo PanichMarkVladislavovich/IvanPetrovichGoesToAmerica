@@ -8,21 +8,24 @@ public class InteractionController : MonoBehaviour
 	public PlayerCameraController playerCamera;
 	public GameObject PlayerCameraObject;
 
+	public PlayerBehaviour playerBehaviour;
+
 	private RaycastHit hitInfo;
 	private bool isHit;
 
 	private GameObject previousInteractableObject; // Переменная для хранения предыдущего объекта
 	private GameObject currentInteractableObject; // Текущий объект взаимодействия
-	private GameObject currentPickableObject;     // Объект, который находится в руках игрока
+	public GameObject CurrentPickableObject { get; private set; }
 
 	void Start()
 	{
 		playerCamera = PlayerCameraObject.GetComponent<PlayerCameraController>();
+		playerBehaviour = GetComponent<PlayerBehaviour>();
 	}
 
 	void Update()
 	{
-		//Debug.Log(currentPickableObject);
+		//Debug.Log(CurrentPickableObject);
 
 
 
@@ -40,10 +43,10 @@ public class InteractionController : MonoBehaviour
 		}
 
 		// Если у нас есть захваченный объект, запрещаем любое другое взаимодействие
-		if (currentPickableObject != null)
+		if (CurrentPickableObject != null)
 		{
-			var pickableObj = currentPickableObject.GetComponent<IPickable>();
-			var throwableObj = currentPickableObject.GetComponent<IThrowable>();
+			var pickableObj = CurrentPickableObject.GetComponent<IPickable>();
+			var throwableObj = CurrentPickableObject.GetComponent<IThrowable>();
 			if (pickableObj != null && pickableObj.IsObjectPickedUp)
 			{
 				// Сообщаем, что игрок держит объект
@@ -57,20 +60,28 @@ public class InteractionController : MonoBehaviour
 					interactionText.text = $"Отпустить на {InputManager.Instance.GetNameOfKeyInteract()}";
 				}
 
-				
+
 
 				// При нажатии кнопки освобождаем объект
 				if (InputManager.Instance.GetKeyInteract())
 				{
 					pickableObj.DropOffObject();
-					currentPickableObject = null;
+					CurrentPickableObject = null;
+					if (playerBehaviour.WasPlayerArmed == true)
+					{
+						playerBehaviour.ArmPlayer();
+					}
 				}
 
 
 				if (throwableObj != null && InputManager.Instance.GetKeyLeftHandWeaponAttack())
 				{
 					throwableObj.ThrowObject();
-					currentPickableObject = null;
+					CurrentPickableObject = null;
+					if (playerBehaviour.WasPlayerArmed == true)
+					{
+						playerBehaviour.ArmPlayer();
+					}
 				}
 
 				return; // Завершаем цикл обработки, не реагируя на другие объекты
@@ -117,9 +128,9 @@ public class InteractionController : MonoBehaviour
 				}
 
 				// Если это захватываемый объект, добавляем его в кэш
-				if (pickableObj != null && !pickableObj.IsObjectPickedUp)
+				if (pickableObj != null && pickableObj.IsObjectPickedUp)
 				{
-					currentPickableObject = renderer;
+					CurrentPickableObject = renderer;
 				}
 			}
 			else
