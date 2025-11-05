@@ -43,11 +43,19 @@ public class InteractionController : MonoBehaviour
 		if (currentPickableObject != null)
 		{
 			var pickableObj = currentPickableObject.GetComponent<IPickable>();
+			var throwableObj = currentPickableObject.GetComponent<IThrowable>();
 			if (pickableObj != null && pickableObj.IsObjectPickedUp)
 			{
 				// Сообщаем, что игрок держит объект
-				//interactionText.text = $"{interactableObj.InteractionHint}\nНажмите {InputManager.Instance.GetNameOfKeyInteract()}";
-				interactionText.text = $"Отпустить на {InputManager.Instance.GetNameOfKeyInteract()}";
+
+				if (throwableObj != null)
+				{
+					interactionText.text = $"Отпустить {InputManager.Instance.GetNameOfKeyInteract()}\nБросить {InputManager.Instance.GetNameOfKeyLeftHandWeaponAttack()}";
+				}
+				else
+				{
+					interactionText.text = $"Отпустить на {InputManager.Instance.GetNameOfKeyInteract()}";
+				}
 
 				
 
@@ -55,9 +63,14 @@ public class InteractionController : MonoBehaviour
 				if (InputManager.Instance.GetKeyInteract())
 				{
 					pickableObj.DropOffObject();
-					//Debug.Log("1111");
 					currentPickableObject = null;
-					//Debug.Log("2222");
+				}
+
+
+				if (throwableObj != null && InputManager.Instance.GetKeyLeftHandWeaponAttack())
+				{
+					throwableObj.ThrowObject();
+					currentPickableObject = null;
 				}
 
 				return; // Завершаем цикл обработки, не реагируя на другие объекты

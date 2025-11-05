@@ -4,10 +4,10 @@ using System.Collections;
 
 public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDataPersistence, IPickable
 {
-	GameObject _cachedPlayer;
+	public GameObject CachedPlayer {  get; protected set; }
 
-	private BoxCollider boxCollider;
-	private Rigidbody rigidBody;
+	public BoxCollider BoxCollider {  get; protected set; }
+	public Rigidbody RigidBody { get; protected set; }
 
 	[SerializeField]
 	private string _interactionItemNameSystem;
@@ -21,13 +21,13 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 
 	public string InteractionHint => $"Поднять {InteractionObjectNameUI}?";
 
-	public bool IsObjectPickedUp { get; private set; }
+	public bool IsObjectPickedUp { get; protected set; }
 
 	void Start()
 	{
-		boxCollider = GetComponent<BoxCollider>();
-		rigidBody = GetComponent<Rigidbody>();
-		_cachedPlayer = GameObject.Find("Player");
+		BoxCollider = GetComponent<BoxCollider>();
+		RigidBody = GetComponent<Rigidbody>();
+		CachedPlayer = GameObject.Find("Player");
 	}
 
 	
@@ -43,20 +43,20 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 	{
 		if (!IsObjectPickedUp)
 		{
-			if (_cachedPlayer != null)
+			if (CachedPlayer != null)
 			{
 				Debug.Log($"Picked up {InteractionObjectNameSystem}");
 
 				gameObject.tag = "Untagged";
-				boxCollider.enabled = false;
-				rigidBody.isKinematic = true;
+				BoxCollider.enabled = false;
+				RigidBody.isKinematic = true;
 
 				// Начинаем плавное перемещение
 				StartCoroutine(MoveTowardsTarget());
 
 				// Другие настройки остаются такими же
-				transform.parent = _cachedPlayer.transform;
-				transform.rotation = Quaternion.Euler(0, _cachedPlayer.transform.localEulerAngles.y, 0);
+				transform.parent = CachedPlayer.transform;
+				transform.rotation = Quaternion.Euler(0, CachedPlayer.transform.localEulerAngles.y, 0);
 				IsObjectPickedUp = true;
 			}
 			else
@@ -71,8 +71,8 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 	{
 			Debug.Log($"Dropped off {InteractionObjectNameSystem}");
 			gameObject.tag = "Interactable";
-			boxCollider.enabled = true;
-			rigidBody.isKinematic = false;
+			BoxCollider.enabled = true;
+			RigidBody.isKinematic = false;
 			IsObjectPickedUp = false;
 
 			// Отцепляем объект от игрока
@@ -87,7 +87,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 		while (true)
 		{
 			// Рассчитываем новую целевую позицию каждый кадр
-			Vector3 targetPosition = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 0.5f + Vector3.up * 1f;
+			Vector3 targetPosition = CachedPlayer.transform.position + CachedPlayer.transform.forward * 0.5f + Vector3.up * 1f;
 
 			// Перемещаем объект к новой позиции
 			transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
@@ -102,7 +102,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 		}
 
 		// Установим последнюю позицию на случай погрешности
-		transform.position = _cachedPlayer.transform.position + _cachedPlayer.transform.forward * 0.5f + Vector3.up * 1f;
+		transform.position = CachedPlayer.transform.position + CachedPlayer.transform.forward * 0.5f + Vector3.up * 1f;
 	}
 
 

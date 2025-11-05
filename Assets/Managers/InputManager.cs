@@ -267,6 +267,11 @@ public class InputManager : MonoBehaviour
 		else return false;
 	}
 
+	public string GetNameOfKeyLeftHandWeaponAttack()
+	{
+		return _keyLeftHandWeaponAttack.ToString();
+	}
+
 	public bool GetKeyPauseMenu()
 	{
 		if (Input.GetKeyDown(_keyPauseMenu))
