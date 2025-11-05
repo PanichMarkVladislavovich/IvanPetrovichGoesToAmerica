@@ -6028,8 +6028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac08c443357b8944a092d14157c74a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionItemNameSystem: Box
-  _interactionItemNameUI: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430"
+  _interactionItemNameSystem: Box2
+  _interactionItemNameUI: "\u041A\u043E\u0440\u043E\u0431\u043A\u04302"
 --- !u!65 &661110506
 BoxCollider:
   m_ObjectHideFlags: 0

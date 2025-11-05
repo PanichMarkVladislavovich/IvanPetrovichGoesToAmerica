@@ -31,13 +31,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 	}
 
 	
-	private void Update()
-	{
-		if (IsObjectPickedUp && InputManager.Instance.GetKeyInteract())
-		{
-			DropOffObject();
-		}
-	}
+
 	
 
 	public void Interact()
@@ -51,7 +45,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 		{
 			if (_cachedPlayer != null)
 			{
-				Debug.Log("Interact");
+				Debug.Log($"Picked up {InteractionObjectNameSystem}");
 
 				gameObject.tag = "Untagged";
 				boxCollider.enabled = false;
@@ -75,7 +69,7 @@ public abstract class PickableObjectAbstract : MonoBehaviour, IInteractable, IDa
 
 	public virtual void DropOffObject()
 	{
-			Debug.Log("DropOff");
+			Debug.Log($"Dropped off {InteractionObjectNameSystem}");
 			gameObject.tag = "Interactable";
 			boxCollider.enabled = true;
 			rigidBody.isKinematic = false;

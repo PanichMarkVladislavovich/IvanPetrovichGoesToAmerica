@@ -11,8 +11,8 @@ public class InteractionController : MonoBehaviour
 	private RaycastHit hitInfo;
 	private bool isHit;
 
-	private GameObject previousInteractableItem; // Переменная для хранения предыдущего объекта
-	private GameObject currentInteractableItem; // Текущий объект взаимодействия
+	private GameObject previousInteractableObject; // Переменная для хранения предыдущего объекта
+	private GameObject currentInteractableObject; // Текущий объект взаимодействия
 	private GameObject currentPickableObject;     // Объект, который находится в руках игрока
 
 	void Start()
@@ -22,6 +22,10 @@ public class InteractionController : MonoBehaviour
 
 	void Update()
 	{
+		//Debug.Log(currentPickableObject);
+
+
+
 		if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
 			interactionRange = 2.5f;
 		else if (playerCamera.CurrentPlayerCameraStateType == "ThirdPerson")
@@ -45,11 +49,15 @@ public class InteractionController : MonoBehaviour
 				//interactionText.text = $"{interactableObj.InteractionHint}\nНажмите {InputManager.Instance.GetNameOfKeyInteract()}";
 				interactionText.text = $"Отпустить на {InputManager.Instance.GetNameOfKeyInteract()}";
 
+				
 
 				// При нажатии кнопки освобождаем объект
 				if (InputManager.Instance.GetKeyInteract())
 				{
 					pickableObj.DropOffObject();
+					//Debug.Log("1111");
+					currentPickableObject = null;
+					//Debug.Log("2222");
 				}
 
 				return; // Завершаем цикл обработки, не реагируя на другие объекты
@@ -71,19 +79,19 @@ public class InteractionController : MonoBehaviour
 				if (renderer != null)
 				{
 					// Подсветка текущего объекта
-					currentInteractableItem = renderer;
+					currentInteractableObject = renderer;
 
 					// Если сменился объект, меняем слои для правильного рендеринга
-					if (previousInteractableItem != null && previousInteractableItem != currentInteractableItem)
+					if (previousInteractableObject != null && previousInteractableObject != currentInteractableObject)
 					{
-						previousInteractableItem.layer = LayerMask.NameToLayer("Default");
+						previousInteractableObject.layer = LayerMask.NameToLayer("Default");
 					}
 
 					// Применяем новый слой Outline
-					currentInteractableItem.layer = LayerMask.NameToLayer("Outline");
+					currentInteractableObject.layer = LayerMask.NameToLayer("Outline");
 				}
 
-				if (currentPickableObject != null)
+				if (currentInteractableObject != null)
 				{
 					// Подсказка для взаимодействия
 					interactionText.text = $"{interactableObj.InteractionHint}\nНажмите {InputManager.Instance.GetNameOfKeyInteract()}";
@@ -109,15 +117,15 @@ public class InteractionController : MonoBehaviour
 		else
 		{
 			// Очистка текущих объектов
-			if (currentInteractableItem != null)
+			if (currentInteractableObject != null)
 			{
-				currentInteractableItem.layer = LayerMask.NameToLayer("Default");
+				currentInteractableObject.layer = LayerMask.NameToLayer("Default");
 			}
 
-			currentInteractableItem = null;
+			currentInteractableObject = null;
 		}
 
 		// Помечаем текущий объект как предыдущий
-		previousInteractableItem = currentInteractableItem;
+		previousInteractableObject = currentInteractableObject;
 	}
 }
