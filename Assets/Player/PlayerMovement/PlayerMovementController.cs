@@ -269,14 +269,7 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, PlayerRotateWhereCameraIsLooking, PlayerRotationSpeed * Time.deltaTime);
 		}
 
-
-		if (InputManager.Instance.GetKeyLegKick() && IsPlayerLegKicking == false && CurrentPlayerMovementStateType != "PlayerJumping" &&
-			CurrentPlayerMovementStateType != "PlayerFalling" && CurrentPlayerMovementStateType != "PlayerSliding" && CurrentPlayerMovementStateType != "PlayerLedgeClimbing")
-		{
-			StartCoroutine(LegKickAttack());
-		}
-
-		//Debug.Log(IsPlayerLegKicking);
+		
 	}
 
 	private void FixedUpdate()
@@ -456,13 +449,11 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 		StartCoroutine(PlayerLedgeClimbingCourutine());
 	}
 
-	IEnumerator LegKickAttack()
+	public IEnumerator DisablePlayerMovementDuringLegKickAttack()
 	{
-		Debug.Log("Leg Kick Attack");
+		//Debug.Log("Leg Kick Attack");
 
 		IsPlayerLegKicking = true;
-
-		//SetPlayerMovementState(PlayerMovementStateType.PlayerIdle);
 
 		IsPlayerAbleToMove = false;
 

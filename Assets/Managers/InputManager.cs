@@ -211,7 +211,8 @@ public class InputManager : MonoBehaviour
 
 	public bool GetKeyLegKick()
 	{
-		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyLegKick))
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyLegKick) && playerMovementController.IsPlayerGrounded
+			&& !playerMovementController.IsPLayerSliding && playerMovementController.CurrentPlayerMovementStateType != "PlayerLedgeClimbing")
 		{
 			return true;
 		}
