@@ -34,8 +34,8 @@ public class PlayerBehaviour : MonoBehaviour
 		//	DisarmPlayer();
 		}
 
-		Debug.Log("was armed: " + WasPlayerArmed);
-		Debug.Log("is " +IsPlayerArmed);
+		//Debug.Log("was armed: " + WasPlayerArmed);
+		//Debug.Log("is " +IsPlayerArmed);
 		
 	}
 	
@@ -69,13 +69,12 @@ public class PlayerBehaviour : MonoBehaviour
 			IsPlayerArmed = false;
 
 			
-			if (interactionController.CurrentPickableObject == null)
-			{
-				WasPlayerArmed = true;
-			}
+			
+			WasPlayerArmed = true;
 			
 
-			
+		
+
 
 			if (weaponController.RightHandWeapon != null)
 			{
@@ -89,7 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			Debug.Log("PlayerDisarmed");
 		}
-		
+		else WasPlayerArmed = false;
 	}
 
 }

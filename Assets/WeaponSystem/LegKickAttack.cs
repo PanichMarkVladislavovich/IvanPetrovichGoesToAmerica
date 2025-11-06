@@ -4,6 +4,7 @@ using System.Collections;
 public class LegKickAttack : MonoBehaviour
 {
 	PlayerMovementController playerMovementController;
+	InteractionController interactionController;
 
 	public bool IsPlayerLegKicking { get; private set; }
 
@@ -15,6 +16,7 @@ public class LegKickAttack : MonoBehaviour
 	void Start()
 	{
 		playerMovementController = GetComponent<PlayerMovementController>();
+		interactionController = GetComponent<InteractionController>();
 
 		CapsuleHeight = 1.8f;      // Высота капсулы (примерное расстояние вдоль оси Y)
 		CapsuleRadius = 0.3f;      // Радиус капсулы
@@ -41,7 +43,7 @@ public class LegKickAttack : MonoBehaviour
 
 	void Update()
 	{
-		if (InputManager.Instance.GetKeyLegKick() && !IsPlayerLegKicking)
+		if (InputManager.Instance.GetKeyLegKick() && !IsPlayerLegKicking && interactionController.CurrentPickableObject == null)
 		{ 
 			LegKick();
 		}
