@@ -6486,6 +6486,7 @@ MonoBehaviour:
   interactionText: {fileID: 936685664}
   playerCamera: {fileID: 330585549}
   PlayerCameraObject: {fileID: 330585543}
+  playerBehaviour: {fileID: 0}
 --- !u!1 &712947351
 GameObject:
   m_ObjectHideFlags: 0
@@ -8028,6 +8029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionItemNameSystem: Bottle
   _interactionItemNameUI: "\u0411\u0443\u0442\u044B\u043B\u044C"
+  _health: 70
 --- !u!54 &1008954232
 Rigidbody:
   m_ObjectHideFlags: 0

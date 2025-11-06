@@ -1,12 +1,33 @@
 using UnityEngine;
 
-public class PickableObjectThrowable : PickableObjectAbstract, IThrowable
+public class PickableObjectThrowable : PickableObjectAbstract, IThrowable, IDamageable
 {
-	//private bool _wasObjectDestroyed;
+	private bool _wasObjectDestroyed;
 
 	private bool _canObjectBeDestroyedOnImpact;
 
 	public float ObjectThrowPower => 10f;
+
+	// Поле для здоровья, регулируемое в инспекторе, min=0
+	[SerializeField, Min(0)]
+	private float _health;
+
+	public float Health
+	{
+		get => _health;
+		set
+		{
+			_health = value;
+			if (_health <= 0)
+				Die(); // Вызываем метод уничтожения, если здоровье стало <= 0
+		}
+	}
+
+	// Внутреннее скрытое поле для состояния разрушения
+
+
+	// Соответствует интерфейсу IDamageable
+	public bool WasObjectDestroyed => _wasObjectDestroyed;
 
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -14,8 +35,9 @@ public class PickableObjectThrowable : PickableObjectAbstract, IThrowable
 		{
 			RigidBody.isKinematic = true;
 
-			//_wasObjectDestroyed = true;
+			_wasObjectDestroyed = true;
 			Destroy(gameObject);
+			Debug.Log($"{InteractionObjectNameSystem} was destroyed on impact!");
 		}
 	}
 
@@ -34,5 +56,21 @@ public class PickableObjectThrowable : PickableObjectAbstract, IThrowable
 		transform.parent = null;
 
 		RigidBody.AddForce(CachedPlayer.transform.forward * ObjectThrowPower, ForceMode.Impulse);
+	}
+
+	public void TakeDamage(float amount)
+	{
+
+		Debug.Log($"{InteractionObjectNameSystem} was damaged by {amount}, current health {Health - amount}");
+
+		Health -= amount; // Уменьшаем здоровье на указанное количество единиц
+
+	}
+
+	public void Die()
+	{
+		Debug.Log($"{InteractionObjectNameSystem} was destroyed!");
+		_wasObjectDestroyed = true; // Устанавливаем флаг, что объект разрушен
+		Destroy(gameObject); // Уничтожаем объект
 	}
 }

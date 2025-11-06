@@ -4,7 +4,7 @@ public abstract class WeaponClass : MonoBehaviour
 {
 	public string WeaponNameSystem;
 	public string WeaponNameUI;
-	public float WeaponDamage;
+	public virtual float WeaponDamage {  get; protected set; }
 
 	public GameObject weaponModel; // Ссылка на 3D модель оружия
 	public GameObject FirstPersonWeaponModelInstance; // Ссылка на инстанцированную модель
@@ -43,7 +43,7 @@ public abstract class WeaponClass : MonoBehaviour
 			FirstPersonWeaponMeshRenderer = FirstPersonWeaponModelInstance.GetComponent<MeshRenderer>();
 			ThirdPersonWeaponMeshRenderer = ThirdPersonWeaponModelInstance.GetComponent<MeshRenderer>();
 			FirstPersonWeaponModelInstance.transform.parent = transform;
-			//currentModelInstance.transform.parent = transform;
+		
 			if (handType == "left")
 			{
 				ThirdLeftHandWeaponSlotTransform = GameObject.Find("Slot.L").transform;
@@ -51,9 +51,7 @@ public abstract class WeaponClass : MonoBehaviour
 
 				FirstLeftHandWeaponSlotTransform = GameObject.Find("Slot1.L").transform;
 				FirstPersonWeaponModelInstance.transform.SetParent(FirstLeftHandWeaponSlotTransform, true);
-				//FirstPersonWeaponModelInstance.transform.localPosition = new Vector3(-0.35f, 1.25f, 0.5f);
-				//FirstPersonlModelInstance.transform.SetParent
-				//currentModelInstance.transform.localPosition = new Vector3(-0.35f, 1.75f, 0.5f); // Локальная позиция для левой руки
+
 			}
 			else if(handType == "right")
 			{
@@ -63,8 +61,7 @@ public abstract class WeaponClass : MonoBehaviour
 
 				FirstLeftHandWeaponSlotTransform = GameObject.Find("Slot1.R").transform;
 				FirstPersonWeaponModelInstance.transform.SetParent(FirstLeftHandWeaponSlotTransform, true);
-				//FirstPersonWeaponModelInstance.transform.localPosition = new Vector3(0.35f, 1.25f, 0.5f);
-				//currentModelInstance.transform.localPosition = new Vector3(0.35f, 1.75f, 0.5f); // Локальная позиция для правой руки
+
 			}
 			// Обнуляем локальную позицию и ориентацию
 			FirstPersonWeaponModelInstance.transform.localPosition = Vector3.zero;
