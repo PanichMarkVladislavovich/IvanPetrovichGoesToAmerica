@@ -13,6 +13,7 @@ public class WeaponController : MonoBehaviour
 	//InputManager playerInputsList;
 	WeaponWheelController weaponWheelController;
 	PlayerBehaviour playerBehaviour;
+	InteractionController interactionController;
 
 	public WeaponClass LeftHandWeapon {  get; private set; }
 	public WeaponClass RightHandWeapon {  get; private set; }
@@ -28,6 +29,7 @@ public class WeaponController : MonoBehaviour
 		//playerInputsList = GetComponent<InputManager>();
 		weaponWheelController = GetComponent<WeaponWheelController>();
 		playerBehaviour = GetComponent<PlayerBehaviour>();
+		interactionController = GetComponent<InteractionController>();
 	}
 
 	private void Update()
@@ -48,17 +50,17 @@ public class WeaponController : MonoBehaviour
 		bool isLeftHand = weaponWheelController.IsWeaponLeftHand;
 
 		// Проверяем, есть ли оружие в левой руке
-		if (weaponWheelController.IsWeaponLeftHand && LeftHandWeapon != null && LeftHandWeapon.GetType() == weaponType)
+		if (isLeftHand && LeftHandWeapon != null && LeftHandWeapon.GetType() == weaponType)
 		{
 			// Если текущее оружие совпадает с выбранным, ничего не делаем
-			playerBehaviour.ArmPlayer();
+			//Debug.Log("Same left");
 			return;
 		}
 		// Проверяем, есть ли оружие в правой руке
 		else if (!isLeftHand && RightHandWeapon != null && RightHandWeapon.GetType() == weaponType)
 		{
 			// Если текущее оружие совпадает с выбранным, ничего не делаем
-			playerBehaviour.ArmPlayer();
+			//Debug.Log("Same right");
 			return;
 		}
 		else
@@ -80,6 +82,12 @@ public class WeaponController : MonoBehaviour
 				weaponWheelController.ChangeWheaponWheelButtonColor("left");
 				LeftHandWeapon.InstantiateWeaponModel("left"); // Передаем флаг isLeftHand
 				playerBehaviour.ArmPlayer();
+
+				if (interactionController.CurrentPickableObject != null)
+				{
+					playerBehaviour.DisarmPlayer();
+					//Debug.Log("DISARM");
+				}
 			}
 			else
 			{
@@ -97,6 +105,12 @@ public class WeaponController : MonoBehaviour
 				weaponWheelController.ChangeWheaponWheelButtonColor("right");
 				RightHandWeapon.InstantiateWeaponModel("right"); // Передаем флаг isLeftHand
 				playerBehaviour.ArmPlayer();
+
+				if (interactionController.CurrentPickableObject != null)
+				{
+					playerBehaviour.DisarmPlayer();
+					//Debug.Log("DISARM");
+				}
 			}
 
 			if (LeftHandWeapon != null && RightHandWeapon != null && RightHandWeapon.WeaponNameSystem == LeftHandWeapon.WeaponNameSystem)

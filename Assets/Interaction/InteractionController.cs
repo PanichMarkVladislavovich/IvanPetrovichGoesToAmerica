@@ -26,7 +26,7 @@ public class InteractionController : MonoBehaviour
 	void Update()
 	{
 		//Debug.Log(CurrentPickableObject);
-
+		
 
 
 		if (playerCamera.CurrentPlayerCameraStateType == "FirstPerson")
@@ -124,7 +124,18 @@ public class InteractionController : MonoBehaviour
 				// Если это стандартный объект IInteractable, обрабатываем нажатие
 				if (InputManager.Instance.GetKeyInteract())
 				{
+					//Debug.Log("bruh11111111");
+
+					
+
 					interactableObj.Interact();
+
+					if (pickableObj != null)
+					{
+						//Debug.Log("bruh222222222");
+						playerBehaviour.DisarmPlayer();
+					}
+					//playerBehaviour.DisarmPlayer();
 				}
 
 				// Если это захватываемый объект, добавляем его в кэш

@@ -31,11 +31,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if (interactionController.CurrentPickableObject != null)
 		{
-			DisarmPlayer();
+		//	DisarmPlayer();
 		}
 
-		//Debug.Log("was armed: " + WasPlayerArmed);
-		//Debug.Log("is " +IsPlayerArmed);
+		Debug.Log("was armed: " + WasPlayerArmed);
+		Debug.Log("is " +IsPlayerArmed);
 		
 	}
 	
@@ -64,14 +64,18 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void DisarmPlayer()
 	{
-		if (IsPlayerArmed)
+		if (IsPlayerArmed || interactionController.CurrentPickableObject != null)
 		{
 			IsPlayerArmed = false;
 
-			if (interactionController.CurrentPickableObject != null)
+			
+			if (interactionController.CurrentPickableObject == null)
 			{
 				WasPlayerArmed = true;
 			}
+			
+
+			
 
 			if (weaponController.RightHandWeapon != null)
 			{
