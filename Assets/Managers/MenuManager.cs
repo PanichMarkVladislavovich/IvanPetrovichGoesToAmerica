@@ -5,6 +5,7 @@ public class MenuManager : MonoBehaviour
     //InputManager playerInputsList;
 	PauseMenuController pauseMenuController;
 
+	
 	public static bool IsPlayerControllable { get; private set; }
 	public static bool IsPauseMenuOpened { get; private set; }
 	public static bool IsWeaponWheelMenuOpened { get; private set; }
@@ -26,7 +27,8 @@ public class MenuManager : MonoBehaviour
 		IsAnyMenuOpened = false;
 	}
 
-    void Update()
+	
+	void Update()
     {
 		if (InputManager.Instance.GetKeyPauseMenu())
 		{
