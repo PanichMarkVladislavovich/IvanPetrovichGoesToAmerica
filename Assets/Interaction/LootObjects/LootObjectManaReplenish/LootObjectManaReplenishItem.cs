@@ -11,14 +11,14 @@ public class LootObjectManaReplenishItem : LootObjectAbstract
 
 	public override void Interact()
 	{
-		if (PlayerHealthManager.Instance.CurrentHealingItemsNumber < 9)
+		if (PlayerManaManager.Instance.CurrentManaReplenishItemsNumber < 9)
 		{
 			Debug.Log($"Вы подняли {InteractionObjectNameUI}");
 			Destroy(gameObject);
 			PlayerManaManager.Instance.AddManaReplenishItem();
 			WasLootItemCollected = true;
 		}
-		else Debug.Log("Can't pick up more ManaReplenish Items");
+		//else Debug.Log("Can't pick up more ManaReplenish Items");
 
 	}
 

@@ -18,7 +18,7 @@ public class LootObjectHealingItem : LootObjectAbstract
 			PlayerHealthManager.Instance.AddHealingItem();
 			WasLootItemCollected = true;
 		}
-		else Debug.Log("Can't pick up more Healing Items");
+		//else Debug.Log("Can't pick up more Healing Items");
 
 	}
 

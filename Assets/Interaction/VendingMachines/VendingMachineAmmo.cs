@@ -19,7 +19,7 @@ public class VendingMachineAmmo : VendingMachineAbstract
 	}
 	public override void Interact()
 	{
-		goodsPrice = 30;
+		
 		/*
 		if (PlayerMoneyManager.Instance.PlayerMoney >= goodsPrice)
 		{

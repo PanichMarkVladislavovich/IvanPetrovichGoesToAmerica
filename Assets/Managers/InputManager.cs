@@ -17,6 +17,8 @@ public class InputManager : MonoBehaviour
 
 	private KeyCode _keyShowWeapons;
 
+	private KeyCode _keyReload;
+
 	private KeyCode _keyEnterCutscene;
 
 	private KeyCode _keyRun;
@@ -65,6 +67,8 @@ public class InputManager : MonoBehaviour
 
 		_keyShowWeapons = KeyCode.X;
 
+		_keyReload = KeyCode.R;
+
 		///////////////////
 		_keyEnterCutscene = KeyCode.Z;
 
@@ -75,9 +79,7 @@ public class InputManager : MonoBehaviour
 
 		_keyLegKick = KeyCode.Mouse2;
 
-
 		_keyInteract = KeyCode.F;
-
 
 		_keyRightHandWeaponWheel = KeyCode.E;
 		_keyLeftHandWeaponWheel = KeyCode.Q;
@@ -169,6 +171,14 @@ public class InputManager : MonoBehaviour
 	public bool GetKeyShowWeapons()
 	{
 		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons) && !MenuManager.IsWeaponWheelMenuOpened)
+		{
+			return true;
+		}
+		else return false;
+	}
+	public bool GetKeyReload()
+	{
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyReload))
 		{
 			return true;
 		}
