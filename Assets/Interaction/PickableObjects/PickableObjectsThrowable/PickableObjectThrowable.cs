@@ -25,10 +25,12 @@ public class PickableObjectThrowable : PickableObjectAbstract, IThrowable, IDama
 
 	// Внутреннее скрытое поле для состояния разрушения
 
+	
 
 	// Соответствует интерфейсу IDamageable
 	public bool WasObjectDestroyed => _wasObjectDestroyed;
 
+	
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (_canObjectBeDestroyedOnImpact)
@@ -40,7 +42,7 @@ public class PickableObjectThrowable : PickableObjectAbstract, IThrowable, IDama
 			Debug.Log($"{InteractionObjectNameSystem} was destroyed on impact!");
 		}
 	}
-
+	
 	public void ThrowObject()
 	{
 		Debug.Log($"Throwed {InteractionObjectNameSystem}");
@@ -55,7 +57,22 @@ public class PickableObjectThrowable : PickableObjectAbstract, IThrowable, IDama
 		// Отцепляем объект от игрока
 		transform.parent = null;
 
-		RigidBody.AddForce(CachedPlayer.transform.forward * ObjectThrowPower, ForceMode.Impulse);
+		//
+		//RigidBody.AddForce(CachedPlayer.transform.forward * ObjectThrowPower, ForceMode.Impulse);
+		//
+
+
+		////////////////
+		// FIX!!!!!!!!!!!!!!!!!!!!!!!
+		Vector3 throwDirection = CachedPlayer.transform.forward - Camera.main.transform.up * Mathf.Tan(Camera.main.transform.eulerAngles.x * Mathf.Deg2Rad);
+		throwDirection.Normalize();
+
+		RigidBody.AddForce(throwDirection * ObjectThrowPower, ForceMode.Impulse);
+		//FIX!!!!!!!!!!!
+		/////////////
+		
+
+
 	}
 
 	public void TakeDamage(float amount)

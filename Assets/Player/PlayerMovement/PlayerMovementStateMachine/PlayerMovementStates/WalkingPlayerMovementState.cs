@@ -18,6 +18,7 @@ public class WalkingPlayerMovementState: PlayerMovementState
 		
 		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
 		}
 		
@@ -28,6 +29,7 @@ public class WalkingPlayerMovementState: PlayerMovementState
 		
 		if (InputManager.Instance.GetKeyJump())
 		{
+			WhatSpeedWas = "walking";
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
 		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyCrouch())

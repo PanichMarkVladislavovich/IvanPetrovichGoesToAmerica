@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class JumpingPlayerMovementState : PlayerMovementState
 {
+	private float progress = 0f;
+
 	public JumpingPlayerMovementState(PlayerMovementController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
@@ -25,6 +28,23 @@ public class JumpingPlayerMovementState : PlayerMovementState
 
 	public override void ChangePlayerMovementSpeed()
 	{
-		playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);
+		
+
+		// Обновление прогресса плавно
+		progress += Time.deltaTime * 1.6f;
+
+		if (WhatSpeedWas == "crouching")
+			playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerCrouchingSpeed);
+
+
+		if (WhatSpeedWas == "walking")
+			//playerMovementController.SetPlayerMovementSpeed(Mathf.Lerp(playerMovementController.PlayerWalkingSpeed, playerMovementController.PlayerCrouchingSpeed, progress));
+			playerMovementController.SetPlayerMovementSpeed(playerMovementController.PlayerWalkingSpeed);
+
+
+		if (WhatSpeedWas == "running")
+			playerMovementController.SetPlayerMovementSpeed(Mathf.Lerp(playerMovementController.PlayerRunningSpeed, playerMovementController.PlayerWalkingSpeed, progress));
 	}
+
+
 }

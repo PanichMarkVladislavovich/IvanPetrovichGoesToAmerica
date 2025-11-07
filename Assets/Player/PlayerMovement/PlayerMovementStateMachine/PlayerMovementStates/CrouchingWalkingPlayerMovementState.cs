@@ -20,14 +20,18 @@ public class CrouchingWalkingPlayerMovementState : PlayerMovementState
 		}
 		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyCrouch() == true && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerWalking);
 		}
 		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
 		}
 		if (InputManager.Instance.GetKeyJump())
 		{
+			WhatSpeedWas = "crouching";
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
 

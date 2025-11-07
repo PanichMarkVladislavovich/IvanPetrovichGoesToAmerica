@@ -18,10 +18,13 @@ public class FallingPlayerMovementState : PlayerMovementState
 		
 		if (playerMovementController.IsPlayerFalling == false && playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun())
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
+
 		}
 		 if (playerMovementController.IsPlayerFalling == false && playerMovementController.IsPlayerMoving == true)
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerWalking);
 		}
 		//if (playerMovementController.playerInputsList.GetKeyJump())

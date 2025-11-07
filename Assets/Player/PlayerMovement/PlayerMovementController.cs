@@ -116,6 +116,8 @@ public class PlayerMovementController : MonoBehaviour, IDataPersistence
 
 	void Update()
 	{
+		//Debug.Log(PlayerMovementSpeed);
+
 		// Player movement State Machine methods
 		playerMovementState.ChangePlayerMovementState();
 		playerMovementState.ChangePlayerMovementSpeed();

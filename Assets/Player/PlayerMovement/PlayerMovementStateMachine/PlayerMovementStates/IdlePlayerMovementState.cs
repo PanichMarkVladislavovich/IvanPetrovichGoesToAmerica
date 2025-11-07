@@ -16,14 +16,18 @@ public class IdlePlayerMovementState : PlayerMovementState
 	{
 		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() == false)
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerWalking);
 		}
 		if (playerMovementController.IsPlayerMoving == true && InputManager.Instance.GetKeyRun() && playerMovementController.IsPlayerAbleToStandUp == true)
 		{
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerRunning);
 		}
 		if (InputManager.Instance.GetKeyJump())
 		{
+			WhatSpeedWas = "walking";
+
 			playerMovementController.SetPlayerMovementState(PlayerMovementStateType.PlayerJumping);
 		}
 		if (playerMovementController.IsPlayerFalling == true && InputManager.Instance.GetKeyCrouch() == false)
