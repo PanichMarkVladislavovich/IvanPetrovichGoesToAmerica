@@ -18,19 +18,8 @@ public class WeaponHarmonicaRevolver : WeaponClass
 
 	public override void WeaponAttack()
 	{
-		Debug.Log("RevolverAttack");
-		// Посылаем луч от положения камеры в направлении её обзора
-		RaycastHit hitInfo;
-		if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitInfo, 100f))
-		{
-			// Проверяем, попал ли луч в объект с интерфейсом IDamageable
-			IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
-			if (damageable != null)
-			{
-				damageable.TakeDamage(WeaponDamage); // Вызываем метод TakeDamage у объекта
-			}
 
-		}
+		PlayerAmmoManager.Instance.Shoot(WeaponDamage);
 	}
 
 }

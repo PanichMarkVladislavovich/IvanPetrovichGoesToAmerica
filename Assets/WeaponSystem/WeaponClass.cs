@@ -43,7 +43,14 @@ public abstract class WeaponClass : MonoBehaviour
 			FirstPersonWeaponMeshRenderer = FirstPersonWeaponModelInstance.GetComponent<MeshRenderer>();
 			ThirdPersonWeaponMeshRenderer = ThirdPersonWeaponModelInstance.GetComponent<MeshRenderer>();
 			FirstPersonWeaponModelInstance.transform.parent = transform;
-		
+			FirstPersonWeaponModelInstance.layer = LayerMask.NameToLayer("FirstPerson");
+			// Перебираем всех непосредственных детей объекта
+			foreach (Transform child in FirstPersonWeaponModelInstance.transform)
+			{
+				// Применяем слой каждому ребенку
+				child.gameObject.layer = LayerMask.NameToLayer("FirstPerson");
+			}
+
 			if (handType == "left")
 			{
 				ThirdLeftHandWeaponSlotTransform = GameObject.Find("Slot.L").transform;

@@ -12,6 +12,8 @@ public class LegKickAttack : MonoBehaviour
 	float CapsuleHeight;     // Высота капсулы (примерное расстояние вдоль оси Y)
 	float CapsuleRadius;   // Радиус капсулы
 	float ForwardOffset;    // Смещение вперёд от центра игрока
+
+	public float WeaponDamage { get; private set; } = 50;
 		
 	void Start()
 	{
@@ -78,7 +80,7 @@ public class LegKickAttack : MonoBehaviour
 
 			if (hit.collider.TryGetComponent<IDamageable>(out var damageable))
 			{
-				StartCoroutine(DelayLegKickAttackDamage(damageable, 0.5f, 20f));
+				StartCoroutine(DelayLegKickAttackDamage(damageable, 0.5f, WeaponDamage));
 			}
 		}
 
