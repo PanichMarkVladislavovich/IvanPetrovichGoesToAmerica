@@ -5,7 +5,8 @@ public class InputManager : MonoBehaviour
 	//public GameObject Player;
 
 	public static InputManager Instance { get; private set; }
-
+	private float lastPressTime = 0f;
+	private bool isKeyInteractBeingHeld = false;
 
 	private KeyCode _keyUp;
 	private KeyCode _keyDown;
@@ -15,7 +16,7 @@ public class InputManager : MonoBehaviour
 	private KeyCode _keyChangeCameraView;
 	private KeyCode _keyChangeCameraShoulder;
 
-	private KeyCode _keyShowWeapons;
+	//private KeyCode _keyShowWeapons;
 
 	private KeyCode _keyReload;
 
@@ -37,6 +38,13 @@ public class InputManager : MonoBehaviour
 	private KeyCode _keyLeftHandWeaponAttack;
 
 	private KeyCode _keyPauseMenu;
+
+	private void Update()
+	{
+		
+			//GetKeyHideWeapons();
+		
+	}
 
 	private void Awake()
 	{
@@ -65,7 +73,7 @@ public class InputManager : MonoBehaviour
 		_keyChangeCameraView = KeyCode.V;
 		_keyChangeCameraShoulder = KeyCode.C;
 
-		_keyShowWeapons = KeyCode.X;
+		//_keyShowWeapons = KeyCode.X;
 
 		_keyReload = KeyCode.R;
 
@@ -168,7 +176,14 @@ public class InputManager : MonoBehaviour
 		}
 		else return false;
 	}
-	public bool GetKeyShowWeapons()
+
+
+
+
+
+
+	/*
+	public bool GetKeyHideWeapons()
 	{
 		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyShowWeapons) && !MenuManager.IsWeaponWheelMenuOpened)
 		{
@@ -176,6 +191,42 @@ public class InputManager : MonoBehaviour
 		}
 		else return false;
 	}
+	*/
+	// Метод проверяющий длительное удержание
+	public bool GetKeyHideWeapons()
+	{
+		if (!isKeyInteractBeingHeld)
+		{
+			if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyInteract) && !MenuManager.IsWeaponWheelMenuOpened) // Нажали клавишу
+			{
+				lastPressTime = Time.time;
+				isKeyInteractBeingHeld = true;
+			}
+		}
+		else if (Input.GetKeyUp(_keyInteract)) // Отпустили клавишу
+		{
+			isKeyInteractBeingHeld = false;
+		}
+		else if (isKeyInteractBeingHeld && Time.time >= lastPressTime + 0.5f) // Удерживали больше 0.5 секунды
+		{
+			isKeyInteractBeingHeld = false;
+			//Debug.Log("TRUE");
+			return true;
+		}
+		//Debug.Log("FALSE");
+		return false;
+	}
+
+
+
+
+	/////////
+	/////////
+
+
+
+
+
 	public bool GetKeyReload()
 	{
 		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyReload))
@@ -229,6 +280,14 @@ public class InputManager : MonoBehaviour
 		else return false;
 	}
 
+
+
+
+
+
+
+
+	/*
 	public bool GetKeyInteract()
 	{
 		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyInteract))
@@ -237,6 +296,27 @@ public class InputManager : MonoBehaviour
 		}
 		else return false;
 	}
+	*/
+
+	// Метод проверки кратковременного клика
+	public bool GetKeyInteract()
+	{
+		if (isKeyInteractBeingHeld && Time.time > lastPressTime + 0.01f)
+		{
+			return false; // Игнорируем нажатие, если идет задержка для HideWeapons
+		}
+
+		if (MenuManager.IsPlayerControllable && Input.GetKeyDown(_keyInteract))
+		{
+			return true;
+		}
+		return false;
+	}
+
+
+	/////////
+	/////////
+
 
 	public string GetNameOfKeyInteract()
 	{

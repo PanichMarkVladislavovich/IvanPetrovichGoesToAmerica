@@ -20,18 +20,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Update()
 	{
-		if (InputManager.Instance.GetKeyShowWeapons())
+		if (InputManager.Instance.GetKeyHideWeapons())
 		{
-			if (!IsPlayerArmed && (weaponController.RightHandWeapon != null || weaponController.LeftHandWeapon != null))
+			if (IsPlayerArmed && (weaponController.RightHandWeapon != null || weaponController.LeftHandWeapon != null))
 			{
-				ArmPlayer();
+				DisarmPlayer();
 			}
-			else DisarmPlayer();
-		}
-
-		if (interactionController.CurrentPickableObject != null)
-		{
-		//	DisarmPlayer();
 		}
 
 		//Debug.Log("was armed: " + WasPlayerArmed);
